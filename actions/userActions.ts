@@ -4,6 +4,15 @@ import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
 
 
+//userActions.ts
+
+
+export const getUser = async (id: number) => {
+  const data = await db.select().from(user).where(eq(user.id, id));
+  return data;
+
+}
+
 export const getData = async () => {
   const data = await db.select().from(user).orderBy(asc(user.id));
   return data;

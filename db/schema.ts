@@ -14,7 +14,11 @@ export const animal = pgTable("animal", {
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
   image: varchar("image").notNull(),
+<<<<<<< HEAD
   ownerId: integer("ownerId").notNull().references(() => user.id), // Add foreign key reference
+=======
+  userId: integer("userId").notNull().references("user", "id"),
+>>>>>>> 7dda215dc73f1611102fbee053e365b32790fca3
 });
 
 export const user = pgTable("user", {
