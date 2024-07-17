@@ -5,6 +5,12 @@ import { eq } from 'drizzle-orm';
 
 
 
+export const getById = async (id: number) => { 
+  const data = await db.select().from(animal).where(eq(animal.id, id));
+  return data;
+ } 
+
+
 export const getData = async () => {
   const data = await db.select().from(animal).orderBy(asc(animal.id));
   return data;
@@ -21,7 +27,8 @@ export const addAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: string
+  image: string,
+  ownerId: number
 ) => {
   await db.insert(animal).values({
     id: id,
@@ -34,7 +41,8 @@ export const addAnimal = async (
     friendly: friendly,
     available: available,
     description: description,
-    image: image
+    image: image ,
+    ownerId: ownerId
   });
 };
 

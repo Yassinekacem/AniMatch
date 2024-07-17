@@ -17,8 +17,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
 try {
     const body = await request.json();
-    const { id, breed, species, name, age, vaccinated, trained, friendly, available, description, image } = body;
-    await addAnimal(id , breed, species, name, age, vaccinated, trained, friendly, available, description, image);
+    const { id, breed, species, name, age, vaccinated, trained, friendly, available, description, image , ownerId } = body;
+    await addAnimal(id , breed, species, name, age, vaccinated, trained, friendly, available, description, image , ownerId);
 
     return NextResponse.json({ message: 'Animal added successfully' }, { status: 200 });
 

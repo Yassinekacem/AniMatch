@@ -15,6 +15,13 @@
       "when": 1721220466072,
       "tag": "0001_warm_stephen_strange",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1721221606202,
+      "tag": "0002_right_the_spike",
+      "breakpoints": true
     }
   ]
 }

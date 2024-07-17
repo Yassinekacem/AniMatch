@@ -1,4 +1,4 @@
-import { integer, varchar, boolean, pgTable, text, pgEnum , serial} from "drizzle-orm/pg-core";
+import { integer, varchar, boolean, pgTable, text, pgEnum, serial } from "drizzle-orm/pg-core";
 
 export const SpeciesValues = pgEnum("speciesValues", ["Dog", "Cat"]);
 
@@ -14,9 +14,8 @@ export const animal = pgTable("animal", {
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
   image: varchar("image").notNull(),
+  ownerId: integer("ownerId").notNull().references(() => user.id), // Add foreign key reference
 });
-
-
 
 export const user = pgTable("user", {
   id: serial("id").primaryKey(),
