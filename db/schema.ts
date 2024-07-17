@@ -15,3 +15,14 @@ export const animal = pgTable("animal", {
   description: text("description").notNull(),
   image: varchar("image").notNull(),
 });
+
+
+
+export const user = pgTable("user", {
+  id: serial("id").primaryKey(),
+  name: varchar("name").notNull(),
+  lastname: varchar("lastname").notNull(),
+  password: varchar("password").notNull().unique(),
+  email: varchar("email").notNull().unique(),
+  image: varchar("image").notNull(),
+});
