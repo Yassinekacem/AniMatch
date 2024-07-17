@@ -32,15 +32,6 @@ try {
 
 
 
-export const PUT = async (request: NextRequest) => {   
 
-try {
-
-
-
-} catch (error : any) {
-     
-}
- }
 
 

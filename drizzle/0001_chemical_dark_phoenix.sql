@@ -1,1 +1,0 @@
-ALTER TABLE "animal" ALTER COLUMN "id" SET DATA TYPE serial;

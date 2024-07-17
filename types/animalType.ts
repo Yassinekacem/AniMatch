@@ -1,7 +1,7 @@
 export type todoType = {
     id: number;
     breed: string;
-    species: boolean;
+    species: string;
     name: string;
     age: number;
     vaccinated: boolean;

@@ -5,7 +5,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "animal" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"breed" varchar NOT NULL,
 	"species" "speciesValues" NOT NULL,
 	"name" varchar NOT NULL,
