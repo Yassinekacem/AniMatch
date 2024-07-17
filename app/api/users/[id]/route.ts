@@ -1,5 +1,17 @@
-import { deleteUser, editUser } from "@/actions/userActions";
+import { deleteUser, editUser, getUser } from "@/actions/userActions";
 import { NextRequest, NextResponse } from "next/server"
+
+
+export const GET = async (request: NextRequest , context: { params: { id: string } }) => {
+    const id = parseInt(context.params.id);  
+    try {
+        const user = await getUser(id);
+        return NextResponse.json(user, { status: 200 });
+    } catch (error : any) {
+        return NextResponse.json({ message: 'Error getting user', error }, { status: 500 });
+    }
+
+}
 
 
 

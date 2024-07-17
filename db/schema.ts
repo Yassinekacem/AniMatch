@@ -14,6 +14,7 @@ export const animal = pgTable("animal", {
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
   image: varchar("image").notNull(),
+  userId: integer("userId").notNull().references("user", "id"),
 });
 
 
