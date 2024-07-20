@@ -14,11 +14,7 @@ export const animal = pgTable("animal", {
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
   image: varchar("image").notNull(),
-<<<<<<< HEAD
-  ownerId: integer("ownerId").notNull().references(() => user.id), // Add foreign key reference
-=======
-  userId: integer("userId").notNull().references("user", "id"),
->>>>>>> 7dda215dc73f1611102fbee053e365b32790fca3
+  ownerId: integer("ownerId").notNull().references(() =>user.id,{onDelete:"cascade"}),
 });
 
 export const user = pgTable("user", {
@@ -29,3 +25,10 @@ export const user = pgTable("user", {
   email: varchar("email").notNull().unique(),
   image: varchar("image").notNull(),
 });
+
+
+export const wish = pgTable("wish",{
+  id:serial("id").primaryKey(),
+  userId: integer("userId").notNull().references(() => user.id,{onDelete:"cascade"}),
+  animalId: integer("animalId").notNull().references(() => animal.id,{onDelete:"cascade"}),
+})
