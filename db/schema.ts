@@ -1,6 +1,7 @@
-import { integer, varchar, boolean, pgTable, text, pgEnum, serial } from "drizzle-orm/pg-core";
+import { integer, varchar, boolean, pgTable, text, pgEnum, serial , date } from "drizzle-orm/pg-core";
 
 export const SpeciesValues = pgEnum("speciesValues", ["Dog", "Cat"]);
+export const invitationValues = pgEnum("invitationValues", ["pended", "accepted", "rejected"]); 
 
 export const animal = pgTable("animal", {
   id: serial("id").primaryKey(),
@@ -14,11 +15,7 @@ export const animal = pgTable("animal", {
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
   image: varchar("image").notNull(),
-<<<<<<< HEAD
-  ownerId: integer("ownerId").notNull().references(() => user.id), // Add foreign key reference
-=======
-  userId: integer("userId").notNull().references("user", "id"),
->>>>>>> 7dda215dc73f1611102fbee053e365b32790fca3
+  ownerId: integer("ownerId").notNull().references(() => user.id, { onDelete: 'cascade' }), // Add foreign key reference with cascade
 });
 
 export const user = pgTable("user", {
@@ -28,4 +25,14 @@ export const user = pgTable("user", {
   password: varchar("password").notNull().unique(),
   email: varchar("email").notNull().unique(),
   image: varchar("image").notNull(),
+});
+
+
+export const invitation = pgTable("invitation", { 
+  id: serial("id").primaryKey(),
+  status : invitationValues("status").notNull().default("pended"),
+  senderId: integer("senderId").notNull().references(() => user.id, { onDelete: 'cascade' }),
+  receiverId: integer("receiverId").notNull().references(() => animal.ownerId, { onDelete: 'cascade' }),
+  animalId: integer("animalId").notNull().references(() => animal.id, { onDelete: 'cascade' }),
+  date: date("date").notNull().default('now()'),
 });
