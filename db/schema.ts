@@ -25,7 +25,15 @@ export const user = pgTable("user", {
   password: varchar("password").notNull().unique(),
   email: varchar("email").notNull().unique(),
   image: varchar("image").notNull(),
-});
+}); 
+
+
+
+export const wish = pgTable("wish", { 
+  id : serial("id").primaryKey(),
+  userId  : integer("userId").notNull().references(() => user.id, { onDelete: 'cascade' }), 
+  animalId  :  integer("animalId").notNull().references(() => animal.id, { onDelete: 'cascade' }), 
+})
 
 
 export const invitation = pgTable("invitation", { 
