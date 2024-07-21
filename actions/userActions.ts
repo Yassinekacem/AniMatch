@@ -4,7 +4,6 @@ import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
 
 
-//userActions.ts
 
 
 export const getUser = async (id: number) => {

@@ -4,6 +4,15 @@ import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
 
 
+export const getAnimalById = async (id: number) => {
+  const result = await db.select().from(animal).where(eq(animal.id, id)).limit(1);
+  if (result.length > 0) {
+    return true
+  } else {
+    return false
+  }
+};
+
 
 export const getById = async (id: number) => { 
   const data = await db.select().from(animal).where(eq(animal.id, id));

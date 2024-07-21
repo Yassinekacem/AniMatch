@@ -1,10 +1,6 @@
 {
-<<<<<<< HEAD
-  "id": "140f64c5-47bb-4bb0-954c-7ccee0b471fa",
-=======
-  "id": "20c3e600-3c89-4841-afd4-8ad864ccab44",
->>>>>>> 998466fa81e5fa40f48659159819f29f81a04371
-  "prevId": "24cefbad-cda8-44c6-bbc3-de9d3dc39f45",
+  "id": "652f9df9-0dad-4fde-a6f1-dfc030338a30",
+  "prevId": "20c3e600-3c89-4841-afd4-8ad864ccab44",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -80,13 +76,8 @@
           "primaryKey": false,
           "notNull": true
         },
-<<<<<<< HEAD
-        "userId": {
-          "name": "userId",
-=======
         "ownerId": {
           "name": "ownerId",
->>>>>>> 998466fa81e5fa40f48659159819f29f81a04371
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -94,21 +85,101 @@
       },
       "indexes": {},
       "foreignKeys": {
-<<<<<<< HEAD
-        "animal_userId_user_id_fk": {
-          "name": "animal_userId_user_id_fk",
-          "tableFrom": "animal",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-=======
         "animal_ownerId_user_id_fk": {
           "name": "animal_ownerId_user_id_fk",
           "tableFrom": "animal",
           "tableTo": "user",
           "columnsFrom": [
             "ownerId"
->>>>>>> 998466fa81e5fa40f48659159819f29f81a04371
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.invitation": {
+      "name": "invitation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "invitationValues",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pended'"
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "receiverId": {
+          "name": "receiverId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalId": {
+          "name": "animalId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'now()'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "invitation_senderId_user_id_fk": {
+          "name": "invitation_senderId_user_id_fk",
+          "tableFrom": "invitation",
+          "tableTo": "user",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "invitation_receiverId_animal_ownerId_fk": {
+          "name": "invitation_receiverId_animal_ownerId_fk",
+          "tableFrom": "invitation",
+          "tableTo": "animal",
+          "columnsFrom": [
+            "receiverId"
+          ],
+          "columnsTo": [
+            "ownerId"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "invitation_animalId_animal_id_fk": {
+          "name": "invitation_animalId_animal_id_fk",
+          "tableFrom": "invitation",
+          "tableTo": "animal",
+          "columnsFrom": [
+            "animalId"
           ],
           "columnsTo": [
             "id"
@@ -180,64 +251,6 @@
           ]
         }
       }
-<<<<<<< HEAD
-    },
-    "public.wish": {
-      "name": "wish",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "animalId": {
-          "name": "animalId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "wish_userId_user_id_fk": {
-          "name": "wish_userId_user_id_fk",
-          "tableFrom": "wish",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "wish_animalId_animal_id_fk": {
-          "name": "wish_animalId_animal_id_fk",
-          "tableFrom": "wish",
-          "tableTo": "animal",
-          "columnsFrom": [
-            "animalId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-=======
->>>>>>> 998466fa81e5fa40f48659159819f29f81a04371
     }
   },
   "enums": {
@@ -247,6 +260,15 @@
       "values": [
         "Dog",
         "Cat"
+      ]
+    },
+    "public.invitationValues": {
+      "name": "invitationValues",
+      "schema": "public",
+      "values": [
+        "pended",
+        "accepted",
+        "rejected"
       ]
     }
   },
