@@ -31,8 +31,7 @@ try {
 return NextResponse.json({ message: 'user updated successfully' }, { status: 200 });
 }catch (error : any) {
 return NextResponse.json({ message: 'Error updating user', error }, { status: 500 });
-
-  }
+}
 }
 
 
