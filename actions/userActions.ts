@@ -3,7 +3,14 @@ import {  user } from "@/db/schema";
 import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
 
-
+export const getUserlById = async (id: number) => {
+  const result = await db.select().from(user).where(eq(user.id, id)).limit(1);
+  if (result.length > 0) {
+    return true
+  } else {
+    return false
+  }
+};
 
 
 export const getUser = async (id: number) => {
