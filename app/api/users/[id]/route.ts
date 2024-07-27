@@ -25,8 +25,8 @@ try {
      if (!user) {
         return NextResponse.json({ message: 'User not found' }, { status: 404 });}
 
-    const { name,lastname,password,email,image } = body;
-    await editUser(id , name,lastname,password,email,image);
+        const { id, name,lastName ,firstName ,photo, email , clerkId} = body;
+        await editUser(body , id);
 
 return NextResponse.json({ message: 'user updated successfully' }, { status: 200 });
 }catch (error : any) {
