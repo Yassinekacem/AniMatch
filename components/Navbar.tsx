@@ -12,7 +12,7 @@ const NavBar = () => {
         <nav className="border-b h-[8vh] flex items-center" >
             <div className="container flex items-center justify-between">
                 <Link href="/">
-                    <h1 className="font-bold text-3xl text-cyan-500"> TodoUp </h1>
+                    <h1 className="font-bold text-3xl text-cyan-500"> AniMatch </h1>
                 </Link>
             </div>
             <div className="flex items-center gap-x-5">
