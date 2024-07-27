@@ -37,6 +37,10 @@ return NextResponse.json({ message: 'Error updating user', error }, { status: 50
 
 export const DELETE = async (request: NextRequest , context: { params: { id: string } }) => {  
     const id = parseInt(context.params.id);  
+
+    const user = await getUserlById(id);
+    if (!user) {
+        return NextResponse.json({ message: 'User not found' }, { status: 404 });}
     
 try {
     await deleteUser(id);

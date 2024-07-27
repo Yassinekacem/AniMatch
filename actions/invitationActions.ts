@@ -1,7 +1,8 @@
 import db from "@/db/drizzle";
-import {  invitation } from "@/db/schema";
+import {  invitations } from "@/db/schema";
 import { asc } from 'drizzle-orm';
 import { eq , and} from 'drizzle-orm';
+import { revalidatePath } from "next/cache";
 
 
 
@@ -9,12 +10,12 @@ import { eq , and} from 'drizzle-orm';
 // Check if the invitation exists or not with this attributes (senderId, receiverId, animalId) 
 export const checkInvitationExists = async (senderId: number, receiverId: number, animalId: number) => {
   const result = await db.select()
-    .from(invitation)
+    .from(invitations)
     .where(
       and(
-        eq(invitation.senderId, senderId),
-        eq(invitation.receiverId, receiverId),
-        eq(invitation.animalId, animalId)
+        eq(invitations.senderId, senderId),
+        eq(invitations.receiverId, receiverId),
+        eq(invitations.animalId, animalId)
       )
     );
   return result.length > 0;
@@ -23,7 +24,7 @@ export const checkInvitationExists = async (senderId: number, receiverId: number
 
 // check if the invitation exists or not with this id
 export const getInvitationById = async (id: number) => {
-  const result = await db.select().from(invitation).where(eq(invitation.id, id)).limit(1);
+  const result = await db.select().from(invitations).where(eq(invitations.id, id)).limit(1);
   if (result.length > 0) {
     return true
   } else {
@@ -33,14 +34,14 @@ export const getInvitationById = async (id: number) => {
 
 // get the invitation by id
 export const getInvitation = async (id: number) => {
-  const data = await db.select().from(invitation).where(eq(invitation.id, id));
+  const data = await db.select().from(invitations).where(eq(invitations.id, id));
   return data;
 
 }
 
 // get all invitations
 export const getAllInvitations = async () => {
-  const data = await db.select().from(invitation).orderBy(asc(invitation.id));
+  const data = await db.select().from(invitations).orderBy(asc(invitations.id));
   return data;
 }; 
 
@@ -51,7 +52,7 @@ export const addInvitation = async (id: number,
     senderId: number,
     receiverId: number,
     animalId: number) => {
-  await db.insert(invitation).values({
+  await db.insert(invitations).values({
     id: id,
     status: status,
     date: date.toISOString(),
@@ -59,6 +60,8 @@ export const addInvitation = async (id: number,
     receiverId: receiverId,
     animalId: animalId,
   });
+  revalidatePath("/");
+
 };
 
 
@@ -72,7 +75,7 @@ export const editInvitaion = async (id: number,
     receiverId: number,
     animalId: number) => {
   await db
-    .update(invitation)
+    .update(invitations)
     .set({
         id: id,
     status: status,
@@ -81,7 +84,9 @@ export const editInvitaion = async (id: number,
     receiverId: receiverId,
     animalId: animalId,
     })
-    .where(eq(invitation.id, id));
+    .where(eq(invitations.id, id));
+    revalidatePath("/");
+
 };
  
 
@@ -90,6 +95,8 @@ export const editInvitaion = async (id: number,
 
 //delete the invitation by id
 export const deleteInvitation = async (id: number) => {
-  await db.delete(invitation).where(eq(invitation.id, id));
+  await db.delete(invitations).where(eq(invitations.id, id));
+  revalidatePath("/");
+
 };
 

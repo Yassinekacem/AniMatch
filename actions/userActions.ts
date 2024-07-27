@@ -1,10 +1,11 @@
 import db from "@/db/drizzle";
-import {  user } from "@/db/schema";
+import {  users } from "@/db/schema";
 import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
+import { revalidatePath } from "next/cache";
 
 export const getUserlById = async (id: number) => {
-  const result = await db.select().from(user).where(eq(user.id, id)).limit(1);
+  const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
   if (result.length > 0) {
     return true
   } else {
@@ -14,53 +15,47 @@ export const getUserlById = async (id: number) => {
 
 
 export const getUser = async (id: number) => {
-  const data = await db.select().from(user).where(eq(user.id, id));
+  const data = await db.select().from(users).where(eq(users.id, id));
   return data;
 
 }
 
 export const getData = async () => {
-  const data = await db.select().from(user).orderBy(asc(user.id));
+  const data = await db.select().from(users).orderBy(asc(users.id));
   return data;
 };
 
-export const addUser = async (id: number,
-    name: string,
-    lastname: string,
-    password: string,
-    email: string,
-    image: string) => {
-  await db.insert(user).values({
-    id: id,
-    name: name,
-    lastname: lastname,
-    password: password,
-    email: email,
-    image: image,
-  });
+export const addUser = async (user : any) => {
+  await db.insert(users).values({ 
+    clerkId : user?.clerkId,
+    email : user?.email,
+    name : user?.name!,  
+    firstName : user?.firstName,  
+    lastName : user?.lastName,
+    photo : user?.photo
+  })
+  .returning({clerkClientId : users?.clerkId})
+  // revalidatePath("/");
 };
 
 
 
 
 
-export const editUser = async (id: number,
-    name: string,
-    lastname: string,
-    password: string,
-    email: string,
-    image: string,) => {
+export const editUser = async (user : any , id : number) => {
   await db
-    .update(user)
+    .update(users)
     .set({
-        id: id,
-        name: name,
-        lastname: lastname,
-        password: password,
-        email: email,
-        image: image
+      clerkId : user?.clerkId,
+      email : user?.email,
+      name : user?.name!,  
+      firstName : user?.firstName,  
+      lastName : user?.lastName,
+      photo : user?.photo
     })
     .where(eq(user.id, id));
+    revalidatePath("/");
+
 };
  
 
@@ -69,6 +64,8 @@ export const editUser = async (id: number,
 
 
 export const deleteUser = async (id: number) => {
-  await db.delete(user).where(eq(user.id, id));
+  await db.delete(users).where(eq(users.id, id));
+  revalidatePath("/");
+
 };
 

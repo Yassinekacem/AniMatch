@@ -1,7 +1,7 @@
 // pages/api/check-invitation.ts
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/db/drizzle";
-import { invitation } from "@/db/schema";
+import { invitations } from "@/db/schema";
 import { and, eq } from 'drizzle-orm';
 
 export const GET = async (request: NextRequest) => {
@@ -19,12 +19,12 @@ export const GET = async (request: NextRequest) => {
 
     // Vérification des invitations
     const result = await db.select()
-      .from(invitation)
+      .from(invitations)
       .where(
         and(
-          eq(invitation.senderId, senderId),
-          eq(invitation.receiverId, receiverId),
-          eq(invitation.animalId, animalId)
+          eq(invitations.senderId, senderId),
+          eq(invitations.receiverId, receiverId),
+          eq(invitations.animalId, animalId)
         )
       );
 

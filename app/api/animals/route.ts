@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/db/drizzle';
-import { animal } from '@/db/schema';
+import { animals } from '@/db/schema';
 import { getData , addAnimal } from '@/actions/animalActions';
 
 export async function GET() {

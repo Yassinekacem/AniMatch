@@ -1,11 +1,12 @@
 import db from "@/db/drizzle";
-import { animal } from "@/db/schema";
+import { animals } from "@/db/schema";
 import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
+import {revalidatePath} from "next/cache";
 
 
 export const getAnimalById = async (id: number) => {
-  const result = await db.select().from(animal).where(eq(animal.id, id)).limit(1);
+  const result = await db.select().from(animals).where(eq(animals.id, id)).limit(1);
   if (result.length > 0) {
     return true
   } else {
@@ -15,13 +16,13 @@ export const getAnimalById = async (id: number) => {
 
 
 export const getById = async (id: number) => { 
-  const data = await db.select().from(animal).where(eq(animal.id, id));
+  const data = await db.select().from(animals).where(eq(animals.id, id));
   return data;
  } 
 
 
 export const getData = async () => {
-  const data = await db.select().from(animal).orderBy(asc(animal.id));
+  const data = await db.select().from(animals).orderBy(asc(animals.id));
   return data;
 };
 
@@ -39,7 +40,7 @@ export const addAnimal = async (
   image: string,
   ownerId: number
 ) => {
-  await db.insert(animal).values({
+  await db.insert(animals).values({
     id: id,
     breed: breed,
     species: species,
@@ -52,7 +53,8 @@ export const addAnimal = async (
     description: description,
     image: image ,
     ownerId: ownerId
-  });
+  }); 
+  revalidatePath("/");
 };
 
 
@@ -71,7 +73,7 @@ export const editAnimal = async (id: number,
   description: string,
   image: string ) => {
   await db
-    .update(animal)
+    .update(animals)
     .set({
       id: id,
       breed: breed,
@@ -85,7 +87,9 @@ export const editAnimal = async (id: number,
       description: description,
       image: image
     })
-    .where(eq(animal.id, id));
+    .where(eq(animals.id, id));
+    revalidatePath("/");
+
 };
  
 
@@ -94,5 +98,12 @@ export const editAnimal = async (id: number,
 
 
 export const deleteAnimal = async (id: number) => {
-  await db.delete(animal).where(eq(animal.id, id));
+  await db.delete(animals).where(eq(animals.id, id));
+  revalidatePath("/");
 };
+
+
+
+
+
+

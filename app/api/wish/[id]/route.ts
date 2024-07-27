@@ -1,4 +1,4 @@
-import { deleteWish, getWishedAnimals } from "@/actions/wishActions";
+import { deleteWish, getWishById, getWishedAnimals } from "@/actions/wishActions";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -18,10 +18,17 @@ export const GET = async (request: NextRequest, context: { params: { id: number 
 
 
 
-export const DELETE = async (request: NextRequest , context: { params: { id: number } }) => {
-    try {
-        const id = context.params.id
-        await deleteWish(id);
+export const DELETE = async (request :NextRequest , context : {params : {id : number}} ) => { 
+
+    const wish = await getWishById(context.params.id);
+    try { 
+        const wishId = context.params.id
+        
+        if (!wish) {
+            return NextResponse.json({ message: 'Wish not found' }, { status: 404 })
+        };
+        
+        await deleteWish(wishId);
         return NextResponse.json({ message: 'wish deleted successfully' }, { status: 200 });
 
     } catch (error: any) {

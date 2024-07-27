@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 
-
-
 export const DELETE = async (request: NextRequest, context: { params: { id: string } }) => {
     const id = parseInt(context.params.id);
 

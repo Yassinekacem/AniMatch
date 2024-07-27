@@ -15,8 +15,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
 try {
     const body = await request.json();
-    const { id, name,lastname,password,email,image } = body;
-    await addUser(id, name,lastname,password,email,image);
+    const { id, name,lastName ,firstName ,photo, email , clerkId} = body;
+    await addUser(body); 
 
     return NextResponse.json({ message: 'User added successfully' }, { status: 200 });
 
