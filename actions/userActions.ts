@@ -1,4 +1,5 @@
-import db from "@/db/drizzle";
+"use server";
+import {db} from "@/db/drizzle";
 import {  users } from "@/db/schema";
 import { asc } from 'drizzle-orm';
 import { eq } from 'drizzle-orm';
@@ -13,17 +14,24 @@ export const getUserlById = async (id: number) => {
   }
 };
 
-
-export const getUser = async (id: number) => {
-  const data = await db.select().from(users).where(eq(users.id, id));
-  return data;
+export const getUser = async (userId: any) => {
+const user = await db.query.users.findMany(
+  {
+    where : (users , {eq}) => eq(users.clerkId , userId) , 
+    with  : {
+      todos: true,
+    }
+  }
+)
+return user
 
 }
 
-export const getData = async () => {
-  const data = await db.select().from(users).orderBy(asc(users.id));
+export const getAllUsers = async () => {
+  const data = await db.select().from(users);
   return data;
 };
+
 
 export const addUser = async (user : any) => {
   await db.insert(users).values({ 
@@ -37,6 +45,24 @@ export const addUser = async (user : any) => {
   .returning({clerkClientId : users?.clerkId})
   // revalidatePath("/");
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const getData = async () => {
+  const data = await db.select().from(users).orderBy(asc(users.id));
+  return data;
+};
+
 
 
 

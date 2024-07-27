@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db from '@/db/drizzle';
+import {db} from "@/db/drizzle";
 import { animals } from '@/db/schema';
 import { getData , addAnimal } from '@/actions/animalActions';
 

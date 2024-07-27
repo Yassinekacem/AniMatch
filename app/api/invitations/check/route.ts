@@ -1,6 +1,6 @@
 // pages/api/check-invitation.ts
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/drizzle";
+import {db} from "@/db/drizzle";
 import { invitations } from "@/db/schema";
 import { and, eq } from 'drizzle-orm';
 
