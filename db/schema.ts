@@ -1,10 +1,10 @@
-import { integer, varchar, boolean, pgTable, text, pgEnum, serial , date, timestamp } from "drizzle-orm/pg-core";
+import { integer, bigint,varchar, boolean, pgTable, text, pgEnum, serial , date, timestamp } from "drizzle-orm/pg-core";
 
 export const SpeciesValues = pgEnum("speciesValues", ["Dog", "Cat"]);
 export const invitationValues = pgEnum("invitationValues", ["pended", "accepted", "rejected"]); 
 
 export const animals = pgTable("animals", {
-  id: serial("id").primaryKey(),
+  id: bigint("id" , {mode : "number"}).primaryKey(),
   breed: varchar("breed").notNull(),
   species: SpeciesValues("species").notNull(),
   name: varchar("name").notNull(),
