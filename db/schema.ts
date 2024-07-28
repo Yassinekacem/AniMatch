@@ -1,5 +1,6 @@
 import { integer, bigint,varchar, boolean, pgTable, text, pgEnum, serial , date, timestamp } from "drizzle-orm/pg-core";
-
+import { create } from "domain";
+import { relations } from "drizzle-orm";
 export const SpeciesValues = pgEnum("speciesValues", ["Dog", "Cat"]);
 export const invitationValues = pgEnum("invitationValues", ["pended", "accepted", "rejected"]); 
 
@@ -48,3 +49,13 @@ export const invitations = pgTable("invitations", {
   animalId: integer("animalId").notNull().references(() => animals.id, { onDelete: 'cascade' }),
   date: date("date").notNull().default('now()'),
 });
+
+
+export const todosRelations = relations ( animals , ({one}) => ({ 
+  user : one(users , {fields : [animals.ownerId] , references : [users.id]} )
+})  ) 
+
+
+export const userRelations = relations ( users , ({many}) => ({ 
+  animals : many(animals)
+})  )

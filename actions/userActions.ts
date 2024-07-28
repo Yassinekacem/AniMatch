@@ -2,7 +2,7 @@
 import {eq} from "drizzle-orm";
 import {revalidatePath} from "next/cache";
 import {db} from "@/db/drizzle";
-import {users} from "@/db/schema"; 
+import {users , animals} from "@/db/schema"; 
 import { clerkClient } from "@clerk/nextjs/server";
 
 
@@ -12,7 +12,7 @@ const user = await db.query.users.findMany(
   {
     where : (users , {eq}) => eq(users.clerkId , userId) , 
     with  : {
-      todos: true,
+      animals: true,
     }
   }
 )
