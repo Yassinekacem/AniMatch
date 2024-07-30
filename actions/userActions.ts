@@ -1,9 +1,17 @@
 "use server";
-import {eq} from "drizzle-orm";
+import {asc, eq} from "drizzle-orm";
 import {revalidatePath} from "next/cache";
 import {db} from "@/db/drizzle";
 import {users , animals} from "@/db/schema"; 
 import { clerkClient } from "@clerk/nextjs/server";
+
+
+
+
+export const getData = async () => {
+  const data = await db.select().from(users).orderBy(asc(users.id));
+  return data;
+};
 
 
 
