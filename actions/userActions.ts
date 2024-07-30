@@ -28,7 +28,6 @@ export const getAllUsers = async () => {
 
 export const addUser = async (user : any) => {
   await db.insert(users).values({ 
-    password : user?.password,
     clerkId : user?.clerkId,
     email : user?.email,
     name : user?.name!,  
