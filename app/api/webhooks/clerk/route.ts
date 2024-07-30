@@ -52,22 +52,23 @@ export async function POST(req: Request) {
   // Do something with the payload
   // For this guide, you simply log the payload to the console
   const { id } = evt.data;
-  const eventType = evt.type; 
-if (eventType === 'user.created') {
-const {id , email_addresses , image_url , first_name , last_name , username} = 
-evt.data 
-const user = {
-    clerkId : id,
-    email : email_addresses[0].email_address,
-    name : username, 
-    firstName : first_name,
-    lastName : last_name,
-    photo : image_url
-} 
+  const eventType = evt.type;
+  if (eventType === 'user.created') {
+    const { id, email_addresses, image_url, first_name, password_enabled, last_name, username } =
+      evt.data
+    const user = {
+      clerkId: id,
+      email: email_addresses[0].email_address,
+      name: username,
+      firstName: first_name,
+      lastName: last_name,
+      photo: image_url,
+      password: password_enabled
+    }
 
-await addUser(user) 
-return  NextResponse.json({message : "user created successfully" , user })
-}
+    await addUser(user)
+    return NextResponse.json({ message: "user created successfully", user })
+  }
 
 
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)

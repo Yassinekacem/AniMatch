@@ -1,11 +1,12 @@
 import { integer, bigint,varchar, boolean, pgTable, text, pgEnum, serial , date, timestamp } from "drizzle-orm/pg-core";
-import { create } from "domain";
 import { relations } from "drizzle-orm";
+
+
 export const SpeciesValues = pgEnum("speciesValues", ["Dog", "Cat"]);
 export const invitationValues = pgEnum("invitationValues", ["pended", "accepted", "rejected"]); 
 
 export const animals = pgTable("animals", {
-  id: bigint("id" , {mode : "number"}).primaryKey(),
+  id: serial("id").primaryKey(),
   breed: varchar("breed").notNull(),
   species: SpeciesValues("species").notNull(),
   name: varchar("name").notNull(),
@@ -26,9 +27,11 @@ export const users = pgTable("users", {
   firstName : text("firstName").notNull() , 
   lastName : text("lastName").notNull() ,
   photo : text("photo").notNull(),
-  email: text("email").notNull(),
+  email: text("email").notNull(), 
+  password : text("password").notNull(),  
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
+
 
 }) 
 

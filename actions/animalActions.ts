@@ -27,7 +27,7 @@ export const getData = async () => {
 };
 
 export const addAnimal = async (
-  id: number,
+  id : number,
   breed: string,
   species: "Dog" | "Cat",
   name: string,
@@ -40,7 +40,7 @@ export const addAnimal = async (
   image: string,
   ownerId: number
 ) => {
-  await db.insert(animals).values({
+  await db.insert(animals).values({ 
     id: id,
     breed: breed,
     species: species,
