@@ -24,14 +24,14 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   clerkId : text("clerkId").notNull(), 
-  firstName : text("firstName").notNull() , 
-  lastName : text("lastName").notNull() ,
+  firstName : text("firstName").default("") , 
+  lastName : text("lastName").default("") ,
   photo : text("photo").notNull(),
   email: text("email").notNull(), 
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 
-
+  
 }) 
 
 
