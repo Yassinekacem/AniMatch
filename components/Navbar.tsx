@@ -18,10 +18,10 @@ const NavBar = () => {
             </div>
             <div className="flex-grow flex justify-center">
                 <div className=" flex flex-row items-center gap-4 px-4">
-                    <h3 className="font-bold text-black text-xl">Home</h3>
-                    <h3 className="font-bold text-black text-xl">Dog's announcement</h3>
-                    <h3 className="font-bold text-black text-xl">Cat's announcement</h3>
-                    <h3 className="font-bold text-black text-xl">About us</h3>
+                    <h3 className="font-meduim text-black text-xl">Home</h3>
+                    <h3 className="font-medium text-black text-xl">Dog's announcement</h3>
+                    <h3 className="font-medium text-black text-xl">Cat's announcement</h3>
+                    <h3 className="font-medium text-black text-xl">About us</h3>
                 </div>
             </div>
             <div className="flex items-center gap-x-5">
