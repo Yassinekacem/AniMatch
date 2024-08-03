@@ -21,9 +21,14 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["var(--font-sans)", ...fontFamily.sans,],
+        sanss : ['Poppins'],
+        sansss:['Manjari']
+        
       },
       colors: {
+        customPink:'#D64AA0',
+        customBlue:'#4AA0D6',
         customGreen:'#0A453A',
         customPurple: '#2E256F',
         border: "hsl(var(--border))",

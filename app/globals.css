@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.bold-52 {
+  @apply text-[52px] font-[700] leading-[120%];
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
