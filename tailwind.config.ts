@@ -27,6 +27,7 @@ const config = {
         
       },
       colors: {
+        customGray:'#EDEDED',
         customPink:'#D64AA0',
         customBlue:'#4AA0D6',
         customGreen:'#0A453A',

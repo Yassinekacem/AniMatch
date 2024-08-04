@@ -14,7 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 const Filter = () => {
   return (
-    <div className='h-screen shadow-xl shadow-slate-400 w-[350px] mr-4'>
+    <div className=' h-screen  shadow-xl shadow-slate-400 w-[350px] mr-4 '>
          <div className='flex items-center justify-between'>
              <Button className='text-pink-400 bg-white hover:bg-white'>
                   Fillters
@@ -29,6 +29,18 @@ const Filter = () => {
             <Image src="/images/dog filter.png" alt='logo'  width={150} height={20} className='w-[90px] h-[90px]' />
          </div>
          <div className='flex flex-col gap-4 w-full mt-4'>
+            <Select >
+                <SelectTrigger className="w-[90%] mx-auto ">
+                    <SelectValue placeholder="Position" />
+                </SelectTrigger>
+                <SelectContent>
+                        <SelectItem value="nabeul">nabeul</SelectItem>
+                        <SelectItem value="tunis">tunis</SelectItem>
+                        <SelectItem value="sousse">sousse</SelectItem>
+                        <SelectItem value="gabes">gabes</SelectItem>
+                </SelectContent>
+            </Select>
+
          <Select >
             <SelectTrigger className="w-[90%] mx-auto ">
                 <SelectValue placeholder="Breed" />
@@ -80,45 +92,48 @@ const Filter = () => {
         </Select>
         <div className='w-[85%] mx-auto my-3'>
             <span className='font-light text-md text-gray-400'>Select the items you want to display in your Fillter :</span>
-            <div className="flex items-center justify-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-                Vaccinated
-            </label>
-            </div>
+            <div className='flex flex-col items-start mt-2 gap-3 '>
+                    <div className="flex items-center justify-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Vaccinated
+                    </label>
+                    </div>
 
-            <div className="flex items-center justify-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-                Trained
-            </label>
-            </div>
+                    <div className="flex items-center justify-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Trained
+                    </label>
+                    </div>
 
-            <div className="flex items-center justify-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-                Friendly
-            </label>
-            </div>
+                    <div className="flex items-center justify-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Friendly
+                    </label>
+                    </div>
 
-            <div className="flex items-center justify-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-                Joyful
-            </label>
+                    <div className="flex items-center justify-center space-x-2">
+                    <Checkbox id="terms" />
+                    <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Joyful
+                    </label>
+                    </div>
             </div>
+            
         </div>
         
         <Button className='text-pink-400 w-[50%] mx-auto bg-white border border-pink-400 hover:bg-white '>Apply Your fillter</Button>
