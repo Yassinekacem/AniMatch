@@ -1,3 +1,5 @@
+import PetCard from '@/components/PetCard';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image'
 import React from 'react'
 
@@ -21,6 +23,7 @@ const Detail = () => {
                 </div>    
             </div>
         </div>
+
         <div className='flex gap-6 mt-3'>
             <div className='flex-2 flex flex-col gap-2'>
                 <Image src="/images/doggg.jpg" alt='imagee' width={450} height={350} className='w-[808px] h-[414px] rounded-md' />
@@ -75,7 +78,69 @@ const Detail = () => {
 
             </div>
         </div>
-        
+
+
+        <div className='ml-3 flex  gap-9 '>
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                        <Image src="/icons/female.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px] ' />
+                        <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
+                        <span className='text-md text-gray-400'>Gender</span>
+                        <span className='text-customPink font-semibold'>Female</span>
+                </div>
+
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                        <Image src="/icons/breed.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px] ' />
+                        <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
+                        <span className='text-md text-gray-400'>Breed</span>
+                        <span className='text-customPink font-semibold'>Shiba Inu</span>
+                </div>
+
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                        <Image src="/icons/watch_later.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px] ' />
+                        <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
+                        <span className='text-md text-gray-400'>Age</span>
+                        <span className='text-customPink font-semibold'>14 month</span>
+                </div>
+
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                        <Image src="/icons/palette.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px] ' />
+                        <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
+                        <span className='text-md text-gray-400'>Color</span>
+                        <span className='text-customPink font-semibold'>Red</span>
+                </div>
+
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                        <Image src="/icons/scale.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px] ' />
+                        <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
+                        <span className='text-md text-gray-400'>Weight</span>
+                        <span className='text-customPink font-semibold'>12 Kg</span>
+                </div>
+
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                        <Image src="/icons/Height.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px] ' />
+                        <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
+                        <span className='text-md text-gray-400'>Height</span>
+                        <span className='text-customPink font-semibold'>91 Cm</span>
+                </div>
+        </div>
+
+        <div className=' mt-2 flex items-center justify-center'>
+           <div className='w-1/4 border border-slate-400 flex flex-col items-center p-2 rounded-lg gap-2'>
+              <span className='font-bold'>If you are interested to match</span>
+              <Button className='bg-customPink text-white hover:bg-customPink'>Get started</Button>
+           </div>
+        </div>
+
+        <div className='flex flex-col gap-5 items-center justify-center mt-4'>
+            <h1 className='text-customGreen text-xl '>Similar Pets</h1>
+            <div className='flex gap-5 flex-wrap'>
+                <PetCard />
+                <PetCard />
+                <PetCard />
+                <PetCard />
+            </div>
+        </div>
+
     </div>
   )
 }

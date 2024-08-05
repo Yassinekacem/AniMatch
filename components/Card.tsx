@@ -39,7 +39,7 @@ const Card = () => {
         </div>
       </div>
       <p className='line-clamp-2 m-4'>Balto is a friendly, playful, smart male dog. Only adopted to a house with fenced yard. He loves running around</p>
-      <Button className='text-pink-400 bg-white border border-pink-400 font-medium w-[90%] mx-4'>
+      <Button className='text-pink-400 bg-white border border-pink-400 font-medium w-[90%] mx-4 hover:bg-white'>
           More Info
       </Button>
     </div>
