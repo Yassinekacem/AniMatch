@@ -17,7 +17,7 @@ const Card = () => {
         <MapPin className='w-5 h-5 text-customGreen' />
         <span className='text-customGreen font-semibold'>michigan,USA</span>
       </div>
-      <div className='flex gap-5 mx-5 mt-2  items-center'>
+      <div className='flex gap-5 mx-5 mt-2  items-center justify-start'>
         <div className='flex gap-2'>
            <span className='font-medium text-bold'>Gender:</span>
            <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1 '>Male</span>
@@ -28,14 +28,14 @@ const Card = () => {
         </div>
       </div>
 
-      <div className='flex gap-5 mx-5 mt-2  items-center'>
+      <div className='flex gap-5 mx-5 mt-2  items-center justify-start '>
         <div className='flex gap-2'>
            <span className='font-medium text-bold'>Age:</span>
            <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1 '>3 years</span>
         </div>
         <div className='flex gap-2'>
            <span className='font-medium text-bold'>Size:</span>
-           <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>Large</span>
+           <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>large</span>
         </div>
       </div>
       <p className='line-clamp-2 m-4'>Balto is a friendly, playful, smart male dog. Only adopted to a house with fenced yard. He loves running around</p>
