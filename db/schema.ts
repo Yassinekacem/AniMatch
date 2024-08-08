@@ -8,8 +8,10 @@ export const invitationValues = pgEnum("invitationValues", ["pended", "accepted"
 export const animals = pgTable("animals", {
   id: serial("id").primaryKey(),
   breed: varchar("breed").notNull(),
+  gender: varchar("gender").notNull(),
   species: SpeciesValues("species").notNull(),
   name: varchar("name").notNull(),
+  city: varchar("city").notNull(),
   age: integer("age").notNull(),
   vaccinated: boolean("vaccinated").notNull(),
   trained: boolean("trained").notNull(),
@@ -17,7 +19,7 @@ export const animals = pgTable("animals", {
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
   image: varchar("image").notNull(),
-  ownerId: integer("ownerId").notNull().references(() => users.id, { onDelete: 'cascade' }), // Add foreign key reference with cascade
+  ownerId: integer("ownerId").notNull().references(() => users.id, { onDelete: 'cascade' }),
 });
 
 export const users = pgTable("users", {
