@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,7 +20,7 @@ import { Button } from "@/components/ui/button";
 // Define the schema using Zod
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
-  species: z.enum(["dog", "cat"], { message: "Species is required" }),
+  species: z.enum(["Dog", "Cat"], { message: "Species is required" }),
   age: z.coerce.number().min(0, "Age must be a non-negative number"),
   breed: z.string().min(1, "Breed is required"),
   description: z.string().min(25, "Description must be at least 25 characters"),
@@ -28,6 +29,10 @@ const schema = z.object({
     trained: z.boolean(),
     friendly: z.boolean(),
   }),
+  image: z.string().url("Must be a valid URL"),
+  ownerId: z.string().min(1, "Owner ID is required"),
+  gender: z.enum(["male", "female"]),
+  city: z.string().min(1, "City is required"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -41,8 +46,8 @@ const AddAnimal = () => {
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
-      species: undefined, // Ensure this matches the expected enum values
-      age: 0, // Default age to a number
+      species: undefined,
+      age: 0,
       breed: "",
       description: "",
       traits: {
@@ -50,12 +55,26 @@ const AddAnimal = () => {
         trained: false,
         friendly: false,
       },
+      image: "",
+      ownerId: "",
+      gender: undefined,
+      city: "",
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Handle form submission logic
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/animals", {
+        ...data,
+        vaccinated: data.traits.vaccinated,
+        trained: data.traits.trained,
+        friendly: data.traits.friendly,
+        available: true, // Assuming default value
+      });
+      console.log("Animal added successfully:", response.data);
+    } catch (error) {
+      console.error("Error adding animal:", error);
+    }
   };
 
   return (
@@ -151,20 +170,12 @@ const AddAnimal = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   Breed
                 </label>
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  className="w-full border border-gray-300 rounded-md"
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Breed" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="germanShepherd">German Shepherd</SelectItem>
-                    <SelectItem value="bulldog">Bulldog</SelectItem>
-                    <SelectItem value="labradorRetriever">Labrador Retriever</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="Breed"
+                  className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+                />
                 {errors.breed && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.breed.message}
@@ -190,16 +201,16 @@ const AddAnimal = () => {
                   className="w-full border border-gray-300 rounded-md"
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="gender" />
+                    <SelectValue placeholder="Gender" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="male">male</SelectItem>
-                    <SelectItem value="female">female</SelectItem>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
                   </SelectContent>
                 </Select>
-                {errors.species && (
+                {errors.gender && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.species.message}
+                    {errors.gender.message}
                   </p>
                 )}
               </div>
@@ -216,14 +227,13 @@ const AddAnimal = () => {
                 </label>
                 <Input
                   {...field}
-                  type="string"
+                  type="text"
                   placeholder="City of pet"
                   className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
-                  value={field.value}
                 />
-                {errors.species && (
+                {errors.city && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.species.message}
+                    {errors.city.message}
                   </p>
                 )}
               </div>
@@ -231,12 +241,11 @@ const AddAnimal = () => {
           />
         </div>
 
-
         <Controller
           name="description"
           control={control}
           render={({ field }) => (
-            <div className="w-[60%] mx-auto justify-center ">
+            <div className="w-[60%] mx-auto justify-center">
               <label className="block text-sm font-medium text-gray-700">
                 Description
               </label>
@@ -323,7 +332,53 @@ const AddAnimal = () => {
             </div>
           )}
         />
-          
+
+        <Controller
+          name="image"
+          control={control}
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Image URL
+              </label>
+              <Input
+                {...field}
+                type="text"
+                placeholder="Image URL"
+                className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+              />
+              {errors.image && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.image.message}
+                </p>
+              )}
+            </div>
+          )}
+        />
+
+        <Controller
+          name="ownerId"
+          control={control}
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Owner ID
+              </label>
+              <Input
+                {...field}
+                type="text"
+                placeholder="Owner ID"
+                className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+              />
+              {errors.ownerId && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.ownerId.message}
+                </p>
+              )}
+            </div>
+          )}
+        />
+
         <Button
           type="submit"
           className="w-full bg-customPink text-white rounded-lg p-3 font-semibold hover:bg-blue-600 transition"
