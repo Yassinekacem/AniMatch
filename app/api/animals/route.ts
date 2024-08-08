@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {db} from "@/db/drizzle";
-import { animals } from '@/db/schema';
-import { getData , addAnimal } from '@/actions/animalActions';
+import { getData, addAnimal } from '@/actions/animalActions';
 
 export async function GET() {
   try {
@@ -12,26 +10,27 @@ export async function GET() {
   }
 }
 
-
-
-export async function POST(request: NextRequest) {
-try {
-    const body = await request.json();
-    const { id, breed, species, name, age, vaccinated, trained, friendly, available, description, image , ownerId } = body;
-    await addAnimal(id , breed, species, name, age, vaccinated, trained, friendly, available, description, image , ownerId);
-
-    return NextResponse.json({ message: 'Animal added successfully' }, { status: 200 });
-
-} catch (error) { 
-
+export async function POST(request: Request) {
+  const body = await request.json();
+  try {
+    await addAnimal(
+      body.id,                        
+      body.breed,
+      body.species,
+      body.name,
+      parseInt(body.age),            
+      body.city,
+      body.gender,                  
+      body.vaccinated,      
+      body.trained,         
+      body.friendly,        
+      body.available,        
+      body.description,
+      body.image,
+      parseInt(body.ownerId)         
+    );
+    return NextResponse.json({ message: 'Animal added successfully' });
+  } catch (error) {
     return NextResponse.json({ message: 'Error adding animal', error }, { status: 500 });
-
-
+  }
 }
-} 
-
-
-
-
-
-
