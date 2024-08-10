@@ -4,6 +4,7 @@ export default function RootLayout({ children }:Readonly<{ children: React.React
   return (
    <main className="relative h-screen w-full">
     <div className="absolute size-full ">
+       <Image src="/images/bg 1 (1).png" alt="background" fill className="size-full"  />
     </div>
     {children}
    </main> 

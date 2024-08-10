@@ -3,6 +3,7 @@ import React from 'react';
 import { Heart, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
 import { animalType } from '@/types/animalType';
+import Link from 'next/link';
 
 const Card = ({ item }: { item: animalType }) => {
   return (
@@ -50,9 +51,11 @@ const Card = ({ item }: { item: animalType }) => {
         </div>
       </div>
       <p className='line-clamp-2 m-4'>{item.description}</p>
-      <Button className='text-pink-400 bg-white border border-pink-400 font-medium w-[90%] mx-4 hover:bg-white'>
-        More Info
-      </Button>
+      <Link href={`/detail/${item.id}`}>
+        <Button className='text-pink-400 bg-white border border-pink-400 font-medium w-[90%] mx-4 hover:bg-white'>
+          More Info
+        </Button>
+      </Link>
     </div>
   );
 };

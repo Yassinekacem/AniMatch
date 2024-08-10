@@ -6,10 +6,15 @@ import { Heart } from 'lucide-react';
 import React from 'react';
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
+    const pathname = usePathname();
     const { user, isSignedIn } = useUser();
-    const { signOut } = useClerk();
+
+    // Helper function to determine if the link is active
+    const isActive = (route) => pathname === route || pathname.startsWith(`${route}/`);
+
     return (
         <nav className="w-[95%] mx-auto border-b h-[8vh] flex items-center justify-between px-4 rounded-bl-3xl rounded-br-3xl shadow-md shadow-slate-200">
             <div className="flex items-center">
@@ -18,23 +23,47 @@ const NavBar = () => {
                 </Link>
             </div>
             <div className="flex-grow flex justify-center">
-                <div className=" flex flex-row items-center gap-6 px-4">
-                    <h3 className="font-semibold text-black  font-sanss">Home</h3>
-                    <Link href="/announcement">
-                    <h3 className="font-semibold text-black  font-sanss">Dogs announcement</h3> 
-                    </Link> 
-                    <Link href="/announcement">
-                    <h3 className="font-semibold text-black  font-sanss">Cats announcement</h3> 
+                <div className="flex flex-row items-center gap-10 px-4">
+                    <Link href="/home">
+                        <h3
+                            className={`font-semibold font-sanss ${isActive('/home') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                        >
+                            Home
+                        </h3>
                     </Link>
-                    <Link href="/about-us"> 
-
-                    <h3 className="font-semibold text-black  font-sanss ">About us</h3> 
+                    <Link href="/announcement">
+                        <h3
+                            className={`font-semibold font-sanss ${isActive('/announcement') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                        >
+                            Dogs
+                        </h3>
+                    </Link>
+                    <Link href="/announcement">
+                        <h3
+                            className={`font-semibold font-sanss ${isActive('/announcement') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                        >
+                            Cats
+                        </h3>
+                    </Link>
+                    <Link href="/about-us">
+                        <h3
+                            className={`font-semibold font-sanss ${isActive('/about-us') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                        >
+                            About Us
+                        </h3>
+                    </Link>
+                    <Link href="/contact-us">
+                        <h3
+                            className={`font-semibold font-sanss ${isActive('/about-us') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                        >
+                            Contact Us
+                        </h3>
                     </Link>
                 </div>
             </div>
             <div className="flex items-center gap-x-5">
                 {isSignedIn ? (
-                    <> 
+                    <>
                         <Heart />
                         <UserButton />
                     </>

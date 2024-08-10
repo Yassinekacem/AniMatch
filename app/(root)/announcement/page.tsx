@@ -15,6 +15,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
+import Link from 'next/link';
+
 
 
 const Announcement = () => { 
@@ -52,6 +56,15 @@ const Announcement = () => {
       </div>
 
       <div className='flex flex-col flex-2 gap-8 flex-wrap w-full'>
+        <div className='w-[80%] flex items-center justify-between'>
+          <div className='flex items-center border border-gray-200 rounded-lg'>
+            <Input placeholder='search by breed' className='border-none outline-none' />
+            <Search className='bg-customPink text-white w-9 h-12 rounded-r-lg' />
+          </div>
+          <Link href={'/addanimal'}>
+            <Button className='bg-blue-400 hover:bg-blue-400 '>Add Animal</Button>
+          </Link>
+        </div>
         <div className='flex gap-8 flex-wrap w-full'>
           {dataPerPage.map((item: animalType) => <Card item={item} key={item.id} />)}
         </div>
