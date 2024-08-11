@@ -117,7 +117,6 @@ const AddAnimal = () => {
                 <Select
                   onValueChange={field.onChange}
                   value={field.value}
-                  className="w-full border border-gray-300 rounded-md"
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Species" />
@@ -198,7 +197,6 @@ const AddAnimal = () => {
                 <Select
                   onValueChange={field.onChange}
                   value={field.value}
-                  className="w-full border border-gray-300 rounded-md"
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Gender" />
@@ -279,7 +277,7 @@ const AddAnimal = () => {
                     onChange={(e) =>
                       field.onChange({
                         ...field.value,
-                        vaccinated: e.target.checked,
+                        vaccinated: (e.target as HTMLInputElement).checked,
                       })
                     }
                   />
@@ -298,7 +296,7 @@ const AddAnimal = () => {
                     onChange={(e) =>
                       field.onChange({
                         ...field.value,
-                        trained: e.target.checked,
+                        trained: (e.target as HTMLInputElement).checked,
                       })
                     }
                   />
@@ -317,7 +315,7 @@ const AddAnimal = () => {
                     onChange={(e) =>
                       field.onChange({
                         ...field.value,
-                        friendly: e.target.checked,
+                        friendly: (e.target as HTMLInputElement).checked,
                       })
                     }
                   />

@@ -6,6 +6,7 @@ import { Heart } from 'lucide-react';
 import React from 'react';
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { ModeToggle } from "./DarkModeToggle";
 
 const NavBar = () => {
     const { user, isSignedIn } = useUser();
@@ -31,7 +32,8 @@ const NavBar = () => {
                     <h3 className="font-semibold text-black  font-sanss ">About us</h3> 
                     </Link>
                 </div>
-            </div>
+            </div> 
+           
             <div className="flex items-center gap-x-5">
                 {isSignedIn ? (
                     <> 

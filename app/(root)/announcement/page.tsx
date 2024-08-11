@@ -4,7 +4,6 @@ import Filter from '@/components/Filter';
 import Card from '@/components/Card';
 import { animalType } from '@/types/animalType';
 import axios from 'axios';  
-import { Button } from '@/components/ui/button'; 
 
 import {
   Pagination,

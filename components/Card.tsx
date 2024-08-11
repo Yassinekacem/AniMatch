@@ -6,7 +6,7 @@ import { animalType } from '@/types/animalType';
 
 const Card = ({ item }: { item: animalType }) => {
   return (
-    <div className='w-[300px] h-[450px] shadow-md shadow-slate-100 border-2 border-slate-300 rounded-xl relative'>
+    <div className='w-[300px] h-[450px]  border-2 border-slate-300 rounded-xl relative'>
       <div className='relative'>
         <Image
           src={item.image}
