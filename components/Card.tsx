@@ -12,9 +12,9 @@ const Card = ({ item }: { item: animalType }) => {
         <Image
           src={item.image}
           alt='dog'
-          width={150}
-          height={10}
-          className='w-[300px] h-[35%] rounded-t-xl bg-cover'
+          width={300}
+          height={120} // Adjust the height to maintain the aspect ratio
+          className='w-[300px] h-[35%] rounded-t-xl '
         />
         <div
           className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-white ${
@@ -33,20 +33,20 @@ const Card = ({ item }: { item: animalType }) => {
       <div className='flex gap-5 mx-5 mt-2  items-center justify-start'>
         <div className='flex gap-2'>
           <span className='font-medium text-bold'>Gender:</span>
-          <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1 '>{item.gender}</span>
+          <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>{item.gender}</span>
         </div>
         <div className='flex gap-2'>
           <span className='font-medium text-bold'>Breed:</span>
           <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>{item.breed}</span>
         </div>
       </div>
-      <div className='flex gap-5 mx-5 mt-2  items-center'>
+      <div className='flex gap-5 mx-5 mt-2 items-center'>
         <div className='flex gap-2'>
           <span className='font-medium text-bold'>Age:</span>
-          <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1 '>{item.age} Months</span>
+          <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>{item.age} Months</span>
         </div>
         <div className='flex gap-2'>
-          <span className='font-medium text-bold'>City :</span>
+          <span className='font-medium text-bold'>City:</span>
           <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>{item.city}</span>
         </div>
       </div>

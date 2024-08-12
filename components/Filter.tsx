@@ -58,17 +58,6 @@ const Filter = () => {
             </SelectContent>
         </Select>
 
-        <Select >
-            <SelectTrigger className="w-[90%] mx-auto ">
-                <SelectValue placeholder="Color" />
-            </SelectTrigger>
-            <SelectContent>
-                    <SelectItem value="golden">Golden</SelectItem>
-                    <SelectItem value="brown">Brown</SelectItem>
-                    <SelectItem value="gray">Gray</SelectItem>
-                    <SelectItem value="black">Black</SelectItem>
-            </SelectContent>
-        </Select>
 
         <Select >
             <SelectTrigger className="w-[90%] mx-auto ">
@@ -123,15 +112,6 @@ const Filter = () => {
                     </label>
                     </div>
 
-                    <div className="flex items-center justify-center space-x-2">
-                    <Checkbox id="terms" />
-                    <label
-                        htmlFor="terms"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                        Joyful
-                    </label>
-                    </div>
             </div>
             
         </div>
