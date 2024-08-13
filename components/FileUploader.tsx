@@ -26,7 +26,7 @@ export function FileUploader({
 
       // Update the state with the new combined list
       setFiles(currentFiles);
-      console.log(currentFiles);
+      
 
       // Convert new file list to URLs
       const urls = currentFiles.map(convertFileToUrl);

@@ -25,6 +25,9 @@ const config = withUt({
         sanss: ['Poppins'],
         sansss: ['Manjari'],
       },
+      backgroundImage: {
+        'custom-radial-linear': 'radial-gradient(circle at 10% 26%, rgba(90, 90, 90,0.06) 0%, rgba(90, 90, 90,0.06) 25%,rgba(137, 137, 137,0.06) 25%, rgba(137, 137, 137,0.06) 50%,rgba(185, 185, 185,0.06) 50%, rgba(185, 185, 185,0.06) 75%,rgba(232, 232, 232,0.06) 75%, rgba(232, 232, 232,0.06) 100%),radial-gradient(circle at 46% 66%, rgba(171, 171, 171,0.06) 0%, rgba(171, 171, 171,0.06) 25%,rgba(128, 128, 128,0.06) 25%, rgba(128, 128, 128,0.06) 50%,rgba(84, 84, 84,0.06) 50%, rgba(84, 84, 84,0.06) 75%,rgba(41, 41, 41,0.06) 75%, rgba(41, 41, 41,0.06) 100%),linear-gradient(90deg, rgb(107, 35, 237),rgb(61, 203, 252))',
+      },
       colors: {
         customGray: '#EDEDED',
         customPink: '#D64AA0',

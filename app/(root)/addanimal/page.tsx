@@ -90,6 +90,7 @@ const AddAnimal = () => {
   };
 
   return (
+    <div className="bg-custom-radial-linear w-full">
     <div className="m-8 bg-gray-50 rounded-lg p-6 shadow-md w-[60%] mx-auto">
       <h1 className="font-extrabold text-4xl text-center mb-6">Add Animal</h1>
 
@@ -397,6 +398,7 @@ const AddAnimal = () => {
           Submit
         </Button>
       </form>
+    </div>
     </div>
   );
 };
