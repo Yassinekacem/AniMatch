@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Filter from '@/components/Filter';
 import Card from '@/components/Card';
 import { animalType } from '@/types/animalType';
-import axios from 'axios';  
-import { Button } from '@/components/ui/button'; 
+import axios from 'axios';
 
 import {
   Pagination,
@@ -18,32 +17,37 @@ import {
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 
 
-const Announcement = () => { 
+const Dogs = () => {
+  const [filters, setFilters] = useState({});
+
+
   // fetch animals from the server
-  const [animals, setAnimals] = useState([]); 
+  const [animals, setAnimals] = useState([]);
   const getAnimals = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/animals");
-      setAnimals(response.data); 
+      const params = new URLSearchParams(filters);
+      const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
+      setAnimals(response.data);
     } catch (error) {
       console.error("Error fetching animals:", error);
     }
   };
   useEffect(() => {
     getAnimals();
-  }, []);   
+  }, [filters]);
 
   // pagination 
   const items = 6;
-  const [current, setCurrent] = useState(2); 
-  const nbPages = Math.ceil(animals.length / items);  
+  const [current, setCurrent] = useState(1);
+  const nbPages = Math.ceil(animals.length / items);
 
-  const startIndex = (current - 1) * items;  
-  const endIndex = startIndex + items; 
-  const dataPerPage = animals.slice(startIndex, endIndex);  
+  const startIndex = (current - 1) * items;
+  const endIndex = startIndex + items;
+  const dataPerPage = animals.slice(startIndex, endIndex);
 
   const handleChange = (page: number) => {
     setCurrent(page);
@@ -52,7 +56,7 @@ const Announcement = () => {
   return (
     <div className='flex flex-row mt-[20px]'>
       <div className='flex-1'>
-        <Filter />
+        <Filter onFilterChange={setFilters} />
       </div>
 
       <div className='flex flex-col flex-2 gap-8 flex-wrap w-full'>
@@ -66,8 +70,10 @@ const Announcement = () => {
           </Link>
         </div>
         <div className='flex gap-8 flex-wrap w-full'>
-          {dataPerPage.map((item: animalType) => <Card item={item} key={item.id} />)}
-        </div>
+          {dataPerPage
+            .filter((item: animalType) => item.species === "Dog")
+            .map((item: animalType) => <Card item={item} key={item.id} />)}        
+           </div>
         <div className='flex items-center justify-center gap-4'>
           <Pagination>
             <PaginationContent>
@@ -109,9 +115,9 @@ const Announcement = () => {
             </PaginationContent>
           </Pagination>
         </div>
-      </div> 
-    </div>  
+      </div>
+    </div>
   );
 }
 
-export default Announcement;
+export default Dogs;

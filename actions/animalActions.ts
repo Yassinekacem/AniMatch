@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { animals } from "@/db/schema";
-import { asc, eq } from 'drizzle-orm';
+import { asc, eq, ilike } from 'drizzle-orm';
 import { revalidatePath } from "next/cache";
 
 export const getAnimalById = async (id: number) => {
@@ -12,6 +12,8 @@ export const getById = async (id: number) => {
   const data = await db.select().from(animals).where(eq(animals.id, id));
   return data;
 };
+
+
 
 export const getData = async () => {
   const data = await db.select().from(animals).orderBy(asc(animals.id));
@@ -31,7 +33,7 @@ export const addAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: string,
+  image: [string],
   ownerId: number
 ) => {
   await db.insert(animals).values({
@@ -67,7 +69,7 @@ export const editAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: string
+  image: [string]
 ) => {
   await db
     .update(animals)

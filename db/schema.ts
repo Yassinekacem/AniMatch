@@ -18,7 +18,7 @@ export const animals = pgTable("animals", {
   friendly: boolean("friendly").notNull(),
   available: boolean("available").notNull().default(true),
   description: text("description").notNull(),
-  image: varchar("image").notNull(),
+  image: varchar("image").array().notNull(),
   ownerId: integer("ownerId").notNull().references(() => users.id, { onDelete: 'cascade' }),
 });
 

@@ -13,7 +13,7 @@ const NavBar = () => {
     const { user, isSignedIn } = useUser();
 
     // Helper function to determine if the link is active
-    const isActive = (route) => pathname === route || pathname.startsWith(`${route}/`);
+    const isActive = (route: string) => pathname === route || pathname.startsWith(`${route}/`);
 
     return (
         <nav className="w-[95%] mx-auto border-b h-[8vh] flex items-center justify-between px-4 rounded-bl-3xl rounded-br-3xl shadow-md shadow-slate-200">
@@ -31,16 +31,16 @@ const NavBar = () => {
                             Home
                         </h3>
                     </Link>
-                    <Link href="/announcement">
+                    <Link href="/dogs">
                         <h3
-                            className={`font-semibold font-sanss ${isActive('/announcement') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                            className={`font-semibold font-sanss ${isActive('/dogs') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
                         >
                             Dogs
                         </h3>
                     </Link>
-                    <Link href="/announcement">
+                    <Link href="/cats">
                         <h3
-                            className={`font-semibold font-sanss ${isActive('/announcement') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                            className={`font-semibold font-sanss ${isActive('/cats') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
                         >
                             Cats
                         </h3>
@@ -60,7 +60,8 @@ const NavBar = () => {
                         </h3>
                     </Link>
                 </div>
-            </div>
+            </div> 
+           
             <div className="flex items-center gap-x-5">
                 {isSignedIn ? (
                     <>

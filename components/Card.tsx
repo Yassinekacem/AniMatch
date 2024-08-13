@@ -5,21 +5,27 @@ import { Button } from './ui/button';
 import { animalType } from '@/types/animalType';
 import Link from 'next/link';
 
+const ageType = (age: number) => {
+  if (age < 12) return 'Puppy';
+  if (age < 24) return 'Young';
+  if (age < 60) return 'Adult'; 
+  return 'Senior';
+}
+
 const Card = ({ item }: { item: animalType }) => {
   return (
-    <div className='w-[300px] h-[450px] shadow-md shadow-slate-100 border-2 border-slate-300 rounded-xl relative'>
+    <div className='w-[300px] h-[450px]  border-2 border-slate-300 rounded-xl relative'>
       <div className='relative'>
         <Image
-          src={item.image}
+          src={item.image[0]}
           alt='dog'
-          width={300}
-          height={120} // Adjust the height to maintain the aspect ratio
-          className='w-[300px] h-[35%] rounded-t-xl '
+          width={150}
+          height={10}
+          className='w-[300px] h-[200px] rounded-t-xl bg-cover'
         />
         <div
-          className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-white ${
-            item.available ? 'bg-green-500' : 'bg-red-500'
-          }`}
+          className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-white ${item.available ? 'bg-green-500' : 'bg-red-500'
+            }`}
         ></div>
       </div>
       <div className='flex items-center justify-between mx-2 mt-2'>
@@ -43,7 +49,9 @@ const Card = ({ item }: { item: animalType }) => {
       <div className='flex gap-5 mx-5 mt-2 items-center'>
         <div className='flex gap-2'>
           <span className='font-medium text-bold'>Age:</span>
-          <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>{item.age} Months</span>
+          <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>
+            {ageType(item.age) === 'Puppy' ? `${item.age} Months` : `${Math.floor((item.age / 12))} Years`}
+          </span>
         </div>
         <div className='flex gap-2'>
           <span className='font-medium text-bold'>City:</span>
