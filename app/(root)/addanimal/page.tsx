@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +16,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+
+import { UploadButton} from "../../../lib/uploadthing";
+import { FileUploader } from "@/components/FileUploader";
+import type { FileWithPath } from '@uploadthing/react';
+
 
 // Define the schema using Zod
 const schema = z.object({
@@ -38,6 +43,13 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AddAnimal = () => {
+  const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]); // Default to empty array
+
+  const handleFieldChange = (urls: string[]) => {
+    setImageUrls(urls);
+  };
+
   const {
     control,
     handleSubmit,
@@ -335,15 +347,14 @@ const AddAnimal = () => {
           name="image"
           control={control}
           render={({ field }) => (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-center gap-2">
               <label className="block text-sm font-medium text-gray-700">
                 Image URL
               </label>
-              <Input
-                {...field}
-                type="text"
-                placeholder="Image URL"
-                className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+              <FileUploader
+                imageUrls={imageUrls}
+                onFieldChange={handleFieldChange}
+                setFiles={setFiles}
               />
               {errors.image && (
                 <p className="text-red-500 text-sm mt-1">
