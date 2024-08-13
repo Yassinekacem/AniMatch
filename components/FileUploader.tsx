@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, Dispatch, SetStateAction } from 'react';
-import type { FileWithPath } from '@uploadthing/react';
 import { useDropzone } from '@uploadthing/react/hooks';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
 
@@ -11,7 +10,7 @@ import { convertFileToUrl } from '@/lib/utils';
 type FileUploaderProps = {
   onFieldChange: (urls: string[]) => void;
   imageUrls: string[];
-  setFiles: Dispatch<SetStateAction<FileWithPath[]>>;
+  setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
 export function FileUploader({
@@ -20,7 +19,7 @@ export function FileUploader({
   setFiles
 }: FileUploaderProps) {
   const onDrop = useCallback(
-    (acceptedFiles: FileWithPath[]) => {
+    (acceptedFiles: File[]) => {
       // Combine new and existing files, limit to 4
       const currentFiles = acceptedFiles.slice(0, 4);
 

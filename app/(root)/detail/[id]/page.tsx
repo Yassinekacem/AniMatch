@@ -9,7 +9,7 @@ import { animalType } from '@/types/animalType';
 
 const Detail = () => {
     const [pet, setPet] = useState<animalType | null>(null);
-    const [currentImage, setCurrentImage] = useState<string | null>(null); // State to manage the current image
+    const [currentImage, setCurrentImage] = useState<string>(""); // State to manage the current image
     const { id } = useParams();
 
     const getAnimal = async () => {
@@ -27,11 +27,10 @@ const Detail = () => {
     }, [id]);
 
     useEffect(() => {
-        if (pet) {
-            console.log('pet dd', pet); // Log pet data when it changes
-            setCurrentImage(pet.image); // Set the initial main image
+        if (pet && pet.image && pet.image.length > 0) {
+            setCurrentImage(pet.image[0]); // Set the initial main image
         }
-    }, [pet]); 
+    }, [pet]);
 
     const [animals, setAnimals] = useState([]); 
   const getAnimals = async () => {
@@ -44,7 +43,7 @@ const Detail = () => {
   };
   useEffect(() => {
     getAnimals();
-  }, []); 
+  }, []);  
 
   
 
@@ -65,7 +64,7 @@ const Detail = () => {
             <div className='flex items-center gap-2'>
                 <div className='inline-block p-1 rounded-full border-2 border-dotted border-gray-300'>
                     <Image
-                        src="/images/doggg.jpg"
+                        src={pet.image[0]}
                         alt='dog'
                         width={70}
                         height={70}
@@ -82,13 +81,14 @@ const Detail = () => {
 
             <div className='flex gap-6 mt-3'>
                 <div className='flex-2 flex flex-col gap-2'>
-                    <Image src={currentImage || pet.image} alt='main image' width={450} height={350} className='w-[808px] h-[414px] rounded-md' />
+                    <Image src={currentImage ||  pet.image[0]} alt="" width={450} height={350} className='w-[808px] h-[414px] rounded-md' />
                     <div className='flex gap-4 p-2'>
                     {[
-                            pet.image,
-                            "/images/dog.png",
-                            "/images/doggg.jpg",
-                            "/images/dog3.png",
+                            pet.image[0],
+                            pet.image[1],
+                            pet.image[2],
+                            pet.image[3],
+                         
                         ].map((image, index) => (
                             <Image
                                 key={index}

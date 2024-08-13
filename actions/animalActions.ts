@@ -33,7 +33,7 @@ export const addAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: string,
+  image: [string],
   ownerId: number
 ) => {
   await db.insert(animals).values({
@@ -69,7 +69,7 @@ export const editAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: string
+  image: [string]
 ) => {
   await db
     .update(animals)

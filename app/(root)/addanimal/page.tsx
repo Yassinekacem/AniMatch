@@ -19,8 +19,6 @@ import { Button } from "@/components/ui/button";
 
 import { UploadButton} from "../../../lib/uploadthing";
 import { FileUploader } from "@/components/FileUploader";
-import type { FileWithPath } from '@uploadthing/react';
-
 
 // Define the schema using Zod
 const schema = z.object({
@@ -34,7 +32,6 @@ const schema = z.object({
     trained: z.boolean(),
     friendly: z.boolean(),
   }),
-  image: z.string().url("Must be a valid URL"),
   ownerId: z.string().min(1, "Owner ID is required"),
   gender: z.enum(["male", "female"]),
   city: z.string().min(1, "City is required"),
@@ -43,7 +40,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AddAnimal = () => {
-  const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [imageUrls, setImageUrls] = useState<string[]>([]); // Default to empty array
 
   const handleFieldChange = (urls: string[]) => {
@@ -67,7 +64,6 @@ const AddAnimal = () => {
         trained: false,
         friendly: false,
       },
-      image: "",
       ownerId: "",
       gender: undefined,
       city: "",

@@ -17,7 +17,7 @@ const Card = ({ item }: { item: animalType }) => {
     <div className='w-[300px] h-[450px]  border-2 border-slate-300 rounded-xl relative'>
       <div className='relative'>
         <Image
-          src={item.image}
+          src={item.image[0]}
           alt='dog'
           width={150}
           height={10}

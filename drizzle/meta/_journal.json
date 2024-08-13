@@ -15,6 +15,13 @@
       "when": 1723055676615,
       "tag": "0001_damp_firebrand",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1723548066701,
+      "tag": "0002_hot_iceman",
+      "breakpoints": true
     }
   ]
 }
