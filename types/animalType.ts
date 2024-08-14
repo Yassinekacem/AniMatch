@@ -11,6 +11,6 @@ export type animalType = {
     friendly: boolean;
     available: boolean;
     description: string;
-    image: string;
+    image: string[];
     ownerId : number;
   };

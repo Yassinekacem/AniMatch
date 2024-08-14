@@ -1,7 +1,8 @@
 import { db } from "@/db/drizzle";
 import { animals } from "@/db/schema";
 import { asc, eq, ilike } from 'drizzle-orm';
-import { revalidatePath } from "next/cache";
+import { revalidatePath  } from "next/cache";
+
 
 export const getAnimalById = async (id: number) => {
   const result = await db.select().from(animals).where(eq(animals.id, id)).limit(1);
@@ -33,7 +34,7 @@ export const addAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: [string],
+  images: string[], // Changed from `image` to `images` to match array type
   ownerId: number
 ) => {
   await db.insert(animals).values({
@@ -42,14 +43,14 @@ export const addAnimal = async (
     species,
     name,
     age,
-    gender,
     city,
+    gender,
     vaccinated,
     trained,
     friendly,
     available,
     description,
-    image,
+    image: images, // Ensure the parameter name matches
     ownerId
   });
   revalidatePath("/");

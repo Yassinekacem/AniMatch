@@ -21,7 +21,7 @@ const Card = ({ item }: { item: animalType }) => {
           alt='dog'
           width={150}
           height={10}
-          className='w-[300px] h-[200px] rounded-t-xl bg-cover'
+          className='w-[300px] h-[180px] rounded-t-xl bg-cover'
         />
         <div
           className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-white ${item.available ? 'bg-green-500' : 'bg-red-500'

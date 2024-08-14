@@ -42,7 +42,7 @@ const Filter = ({ onFilterChange }: FilterProps) => {
     };
 
     return (
-        <div className='h-[1000px] shadow-xl shadow-slate-400 w-[350px] mr-4'>
+        <div className='h-[1100px] shadow-xl shadow-slate-400 w-[350px] mr-4'>
             <div className='flex items-center justify-between'>
                 <Button className='text-pink-400 bg-white hover:bg-white'>
                     Fillters

@@ -3,6 +3,7 @@ import { db } from "@/db/drizzle";
 import { animals } from "@/db/schema";
 import { eq, and, lte, gte } from 'drizzle-orm';
 import { addAnimal } from '@/actions/animalActions';
+import { redirect } from 'next/dist/server/api-utils';
 
 function getAgeRange(ageCategory: string) {
   switch (ageCategory.toLowerCase()) {
@@ -84,23 +85,25 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
   const body = await request.json();
+
   try {
     await addAnimal(
       body.id,                        
       body.breed,
       body.species,
       body.name,
-      parseInt(body.age),            
+      parseInt(body.age, 10), // Parse age as integer
       body.city,
       body.gender,                  
       body.vaccinated,      
       body.trained,         
       body.friendly,        
-      body.available,        
+      body.available ?? true, // Use default true if not provided
       body.description,
-      body.image,
-      parseInt(body.ownerId)         
+      body.images, // Changed from `image` to `images`
+      parseInt(body.ownerId, 10) // Parse ownerId as integer
     );
+    
     return NextResponse.json({ message: 'Animal added successfully' });
   } catch (error) {
     return NextResponse.json({ message: 'Error adding animal', error }, { status: 500 });

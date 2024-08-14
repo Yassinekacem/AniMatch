@@ -9,7 +9,7 @@ const PetCard = ({ item }: { item: animalType }) => {
     <div className='w-[290px] flex flex-col items-center justify-center gap-3'>
       <div className='flex flex-col'>
         <Image
-          src={item.image}
+          src={item.image[0]}
           alt='dog'
           width={140}
           height={70}
