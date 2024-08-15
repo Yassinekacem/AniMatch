@@ -7,6 +7,15 @@ import { clerkClient } from "@clerk/nextjs/server";
 
 
 
+import { currentUser } from "@clerk/nextjs/server";
+
+export async function getCurrentUserWithDetails() {
+  const user = await currentUser();
+  if (!user) return null;
+  const userDetails = await getUser(user.id);
+  return userDetails ? userDetails[0] : null;
+}
+
 
 export const getData = async () => {
   const data = await db.select().from(users).orderBy(asc(users.id));

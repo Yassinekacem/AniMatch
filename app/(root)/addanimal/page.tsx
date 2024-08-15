@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
@@ -16,9 +16,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { CldUploadWidget } from 'next-cloudinary';
 import Image from "next/image";
-import UploadWidget from "@/components/UploadWidget";
+import UploadWidget from "@/components/UploadWidget"; 
+import { getCurrentUserWithDetails } from "@/actions/userActions";
+
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -31,7 +32,6 @@ const schema = z.object({
     trained: z.boolean(),
     friendly: z.boolean(),
   }),
-  ownerId: z.string().min(1, "Owner ID is required"),
   gender: z.enum(["male", "female"]),
   city: z.string().min(1, "City is required"),
   images: z.array(z.string()).max(4, "You can only upload up to 4 images"),
@@ -39,10 +39,19 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AddAnimal = () => {
+const AddAnimal =   () => {
   const [images, setImages] = useState<string[]>([]);
 
-  
+  const [userDetails, setUserDetails] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const userDetails = await getCurrentUserWithDetails();
+      setUserDetails(userDetails);
+    };
+    
+    fetchUserDetails();
+  }, []);
 
   const {
     control,
@@ -62,7 +71,6 @@ const AddAnimal = () => {
         trained: false,
         friendly: false,
       },
-      ownerId: "",
       gender: undefined,
       city: "",
       images: [], // Ensure default is an empty array
@@ -79,7 +87,8 @@ const AddAnimal = () => {
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,
-        available: true,
+        available: true, 
+        ownerId: userDetails?.id,
       });
       console.log("Animal added successfully:", response.data);
     } catch (error) {
@@ -87,7 +96,7 @@ const AddAnimal = () => {
     }
   };
 
-  return (
+  return ( 
     <div className="bg-custom-radial-linear pb-1 w-full ">
       <div className="m-9  bg-gray-50 rounded-lg p-6 shadow-md w-[60%] mx-auto relative top-[15px]">
         <h1 className="font-extrabold text-4xl text-center mb-6">Add Animal</h1>
@@ -116,7 +125,6 @@ const AddAnimal = () => {
                 </div>
               )}
             />
-
             <Controller
               name="species"
               control={control}
@@ -347,28 +355,7 @@ const AddAnimal = () => {
           
 
 
-          <Controller
-            name="ownerId"
-            control={control}
-            render={({ field }) => (
-              <div className="flex flex-col gap-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Owner ID
-                </label>
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="Owner ID"
-                  className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
-                />
-                {errors.ownerId && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.ownerId.message}
-                  </p>
-                )}
-              </div>
-            )}
-          />
+          
 
           <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
             Submit
