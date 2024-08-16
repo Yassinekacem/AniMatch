@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import UploadWidget from "@/components/UploadWidget"; 
+import UploadWidget from "@/components/UploadWidget";
 import { getCurrentUserWithDetails } from "@/actions/userActions";
 
 
@@ -39,7 +39,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AddAnimal =   () => {
+const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
 
   const [userDetails, setUserDetails] = useState<any>(null);
@@ -49,7 +49,7 @@ const AddAnimal =   () => {
       const userDetails = await getCurrentUserWithDetails();
       setUserDetails(userDetails);
     };
-    
+
     fetchUserDetails();
   }, []);
 
@@ -77,7 +77,7 @@ const AddAnimal =   () => {
     },
   });
 
-  
+
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -87,7 +87,7 @@ const AddAnimal =   () => {
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,
-        available: true, 
+        available: true,
         ownerId: userDetails?.id,
       });
       console.log("Animal added successfully:", response.data);
@@ -96,7 +96,7 @@ const AddAnimal =   () => {
     }
   };
 
-  return ( 
+  return (
     <div className="bg-custom-radial-linear pb-1 w-full ">
       <div className="m-9  bg-gray-50 rounded-lg p-6 shadow-md w-[60%] mx-auto relative top-[15px]">
         <h1 className="font-extrabold text-4xl text-center mb-6">Add Animal</h1>
@@ -323,39 +323,40 @@ const AddAnimal =   () => {
               )}
             />
           </div>
-            
+
           <div className="flex flex-col gap-2 items-center justify-center">
             <label >Upload Images</label>
-          <UploadWidget uwConfig={{
-            multiple: true,
-            cloudName:"dxurkrqmb",
-            uploadPreset:"animatch"
-          }}  
-          setState={setImages}/>
+            <UploadWidget uwConfig={{
+              multiple: true,
+              cloudName: "dxurkrqmb",
+              uploadPreset: "animatch"
+            }}
+              setState={setImages} />
+                  
+              <div className="flex gap-3">
+            {images.map((image, index) => (
+             
+                <Image
+                  key={index}
+                  src={image}
+                  alt="Uploaded image"
+                  width={250}
+                  height={200}
+                  className="w-[250px] h-[120px] rounded-md"
+                />
+              ))}
+              </div>
 
-          {images.map((image, index) => (
-            <div className="flex gap-3">
-              <Image
-                key={index}
-                src={image}
-                alt="Uploaded image"
-                width={250}
-                height={200}
-                className="w-[250px] h-[120px] rounded-md"
-              />
-            </div>
-          ))}
-
-          {errors.images && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.images.message}
-            </p>
-          )}
-          </div> 
-          
+            {errors.images && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.images.message}
+              </p>
+            )}
+          </div>
 
 
-          
+
+
 
           <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
             Submit
