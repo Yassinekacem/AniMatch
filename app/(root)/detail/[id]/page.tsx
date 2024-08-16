@@ -10,6 +10,7 @@ import Image from 'next/image';
 import PetCard from '@/components/PetCard';
 import { Button } from '@/components/ui/button';
 import { animalType } from '@/types/animalType';
+import Comments from '@/components/Comments';
 
 const Detail = () => {
     const [pet, setPet] = useState<animalType | null>(null);
@@ -109,36 +110,11 @@ const Detail = () => {
 
                 <div className='flex-1 flex flex-col gap-8 '>
 
-
-                {/* <div className='flex flex-col gap-1 items-center justify-center'>
-                    <Image src="/icons/female.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px]' />
-                    <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
-                    <span className='text-md text-gray-400'>Gender</span>
-                    <span className='text-customPink font-semibold'>{pet.gender}</span>
-                </div>
-
-                <div className='flex flex-col gap-1 items-center justify-center'>
-                    <Image src="/icons/breed.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px]' />
-                    <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
-                    <span className='text-md text-gray-400'>Breed</span>
-                    <span className='text-customPink font-semibold'>{pet.breed}</span>
-                </div>
-
-                <div className='flex flex-col gap-1 items-center justify-center'>
-                    <Image src="/icons/watch_later.png" alt='gender' width={50} height={50} className='w-9 h-9 relative top-[20px]' />
-                    <Image src="/icons/Semicircular.png" alt='cir' width={50} height={50} className='w-[50px] h-9' />
-                    <span className='text-md text-gray-400'>Age</span>
-                    <span className='text-customPink font-semibold'>14 month</span>
-                </div> */}
-
-               
-                    
-
                     <div className='flex flex-col gap-7'>  
                     <div className='flex gap-2 items-center '>
                         <Image src="/icons/position.svg" alt="logo" width={150} height={40} className='w-8 h-8' />
                         <span className='text-xl'>this {pet.species} is living on {pet.city}</span>
-                        </div>
+                    </div>
 
                     <div className='flex gap-2 items-center'>
                         <Image src="/icons/genderIcon.svg" alt="logo" width={150} height={40} className='w-8 h-8' />
@@ -183,12 +159,14 @@ const Detail = () => {
 
            
 
-            <div className='mt-2 flex items-center justify-center'>
-                <div className='w-1/4 border border-slate-400 flex flex-col items-center p-2 rounded-lg gap-2'>
+            <div className='my-6 flex items-center justify-center'>
+                <div className='w-[350px] h-[150px] border border-slate-400 flex flex-col items-center justify-center p-2 rounded-lg gap-2 shadow-md shadow-slate-400'>
                     <span className='font-bold'>If you are interested to match</span>
                     <Button className='bg-customPink text-white hover:bg-customPink'>Get started</Button>
                 </div>
             </div>
+
+            <Comments/>
 
             <div className='flex flex-col gap-5 items-center justify-center mt-4'>
                 <h1 className='text-customGreen text-xl'>Similar Pets</h1>

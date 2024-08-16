@@ -18,29 +18,32 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-
-
+import Loader from '@/components/Loader';
 
 const Dogs = () => {
   const [filters, setFilters] = useState({});
+  const [animals, setAnimals] = useState<animalType[]>([]);
+  const [loading, setLoading] = useState(true);
 
-
-  // fetch animals from the server
-  const [animals, setAnimals] = useState([]);
+  // Fetch animals from the server
   const getAnimals = async () => {
+    setLoading(true);
     try {
       const params = new URLSearchParams(filters);
       const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
       setAnimals(response.data);
     } catch (error) {
       console.error("Error fetching animals:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
   useEffect(() => {
     getAnimals();
   }, [filters]);
 
-  // pagination 
+  // Pagination logic
   const items = 6;
   const [current, setCurrent] = useState(1);
   const nbPages = Math.ceil(animals.length / items);
@@ -51,7 +54,7 @@ const Dogs = () => {
 
   const handleChange = (page: number) => {
     setCurrent(page);
-  }
+  };
 
   return (
     <div className='flex flex-row mt-[20px]'>
@@ -69,11 +72,17 @@ const Dogs = () => {
             <Button className='bg-blue-400 hover:bg-blue-400 '>Add Animal</Button>
           </Link>
         </div>
-        <div className='flex gap-8 flex-wrap w-full'>
-          {dataPerPage
-            .filter((item: animalType) => item.species === "Dog")
-            .map((item: animalType) => <Card item={item} key={item.id} />)}        
-           </div>
+
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className='flex gap-8 flex-wrap w-full'>
+            {dataPerPage
+              .filter((item: animalType) => item.species === "Dog")
+              .map((item: animalType) => <Card item={item} key={item.id} />)}
+          </div>
+        )}
+
         <div className='flex items-center justify-center gap-4'>
           <Pagination>
             <PaginationContent>
@@ -118,6 +127,6 @@ const Dogs = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Dogs;
