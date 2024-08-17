@@ -83,7 +83,7 @@ const AddAnimal = () => {
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
-        images: images, // Use state value here
+        images: images, 
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,

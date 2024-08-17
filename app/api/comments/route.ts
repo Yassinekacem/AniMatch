@@ -15,10 +15,11 @@ try {
 } 
 
 export const POST = async (request: NextRequest) => {  
-    const body =  await request.json(); 
+    const body =  await request.json();
+    const { id, userId, content, rate, animalId } = body; 
 
 try {   
-    await addComment(body.id , parseInt (body.animalId), body.content, parseInt (body.rate), body.userId);
+    await addComment(id, userId, content, rate, animalId);
     return NextResponse.json({ message: 'comment added successfully' });
 
      
