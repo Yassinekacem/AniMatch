@@ -100,7 +100,7 @@ export async function POST(request: Request) {
       body.friendly,        
       body.available ?? true, // Use default true if not provided
       body.description,
-      body.images, // Changed from `image` to `images`
+      body.image, // Changed from `image` to `images`
       parseInt(body.ownerId, 10) // Parse ownerId as integer
     );
     

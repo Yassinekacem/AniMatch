@@ -166,7 +166,7 @@ const Detail = () => {
                 </div>
             </div>
 
-            <Comments id={pet.id}/>
+            <Comments petId={pet.id}/>
 
             <div className='flex flex-col gap-5 items-center justify-center mt-4'>
                 <h1 className='text-customGreen text-xl'>Similar Pets</h1>

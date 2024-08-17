@@ -1,1 +1,0 @@
-ALTER TABLE "animals" ALTER COLUMN "image" SET DATA TYPE varchar[];

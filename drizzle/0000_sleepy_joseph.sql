@@ -13,6 +13,7 @@ END $$;
 CREATE TABLE IF NOT EXISTS "animals" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"breed" varchar NOT NULL,
+	"gender" varchar NOT NULL,
 	"species" "speciesValues" NOT NULL,
 	"name" varchar NOT NULL,
 	"city" varchar NOT NULL,
@@ -22,8 +23,21 @@ CREATE TABLE IF NOT EXISTS "animals" (
 	"friendly" boolean NOT NULL,
 	"available" boolean DEFAULT true NOT NULL,
 	"description" text NOT NULL,
-	"image" varchar NOT NULL,
+	"image" varchar[] NOT NULL,
 	"ownerId" integer NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "comments" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"userId" integer NOT NULL,
+	"content" text NOT NULL,
+	"rate" integer NOT NULL,
+	"userPhoto" text NOT NULL,
+	"firstName" text NOT NULL,
+	"lastName" text NOT NULL,
+	"animalId" integer NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "invitations" (
@@ -55,6 +69,18 @@ CREATE TABLE IF NOT EXISTS "wishs" (
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "animals" ADD CONSTRAINT "animals_ownerId_users_id_fk" FOREIGN KEY ("ownerId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "comments" ADD CONSTRAINT "comments_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "comments" ADD CONSTRAINT "comments_animalId_animals_id_fk" FOREIGN KEY ("animalId") REFERENCES "public"."animals"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
