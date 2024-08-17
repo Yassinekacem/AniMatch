@@ -18,7 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadWidget from "@/components/UploadWidget";
-import { getCurrentUserWithDetails } from "@/actions/currentUserDetails";
+import { getCurrentUserWithDetails } from "@/actions/userActions";
 
 
 const schema = z.object({

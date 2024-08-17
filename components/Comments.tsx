@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import StarRating from './StarRating';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-
-const Comments = () => {
+interface CommentsProps {
+  petId: number; 
+}
+const Comments: React.FC<CommentsProps> = ({ petId }) => {
   const [userRating, setUserRating] = useState<number>(0);
 
   const handleRatingChange = (newRating: number) => {
