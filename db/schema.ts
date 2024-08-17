@@ -59,13 +59,16 @@ export const comments = pgTable("comments", {
   userId : integer("userId").notNull().references(() => users.id, { onDelete: 'cascade' }), 
   content : text("content").notNull(), 
   rate : integer("rate").notNull(),
+  userPhoto : text("userPhoto").notNull(), 
+  firstName : text("firstName").notNull(), 
+  lastName : text("lastName").notNull(),
   animalId : integer("animalId").notNull().references(() => animals.id, { onDelete: 'cascade' }), 
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 })
 
 
-export const animalsActions = relations ( animals , ({one}) => ({ 
+export const todosRelations = relations ( animals , ({one}) => ({ 
   user : one(users , {fields : [animals.ownerId] , references : [users.id]} )
 })  ) 
 

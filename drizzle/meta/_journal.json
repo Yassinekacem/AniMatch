@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1723053869649,
-      "tag": "0000_strange_jack_murdock",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1723055676615,
-      "tag": "0001_damp_firebrand",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1723548066701,
-      "tag": "0002_hot_iceman",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1723907023227,
-      "tag": "0003_unusual_preak",
+      "when": 1723909270298,
+      "tag": "0000_sleepy_joseph",
       "breakpoints": true
     }
   ]

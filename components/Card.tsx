@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { animalType } from '@/types/animalType';
 import Link from 'next/link';
 import axios from 'axios';
-import { getCurrentUserWithDetails } from '@/actions/currentUserDetails';
+import { getCurrentUserWithDetails } from '@/actions/userActions';
 
 const ageType = (age: number) => {
   if (age < 12) return 'Puppy';

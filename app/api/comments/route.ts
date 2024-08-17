@@ -13,19 +13,15 @@ try {
 }
 
 } 
-
-export const POST = async (request: NextRequest) => {  
-    const body =  await request.json();
-    const { id, userId, content, rate, animalId } = body; 
-
-try {   
-    await addComment(id, userId, content, rate, animalId);
-    return NextResponse.json({ message: 'comment added successfully' });
-
-     
-
-
-} catch (error: any) { 
-    return NextResponse.json({ message: 'Error adding comment', error }, { status: 500 }); 
-}
-}
+export const POST = async (request: NextRequest) => {
+    try {
+      const { userId, content, rate, animalId, userPhoto, firstName, lastName } = await request.json();
+  
+      // Appel à la fonction pour ajouter le commentaire
+      await addComment( userId, content, rate, animalId, userPhoto, firstName, lastName);
+  
+      return NextResponse.json({ message: 'Comment added successfully' }, { status: 201 });
+    } catch (error: any) {
+      return NextResponse.json({ message: 'Error adding comment', error }, { status: 500 });
+    }
+  };

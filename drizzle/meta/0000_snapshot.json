@@ -1,6 +1,6 @@
 {
-  "id": "05a0fcf3-89b3-4806-b968-84e8ab92b2f2",
-  "prevId": "66031611-624f-4f7c-81cf-0578790a6ef5",
+  "id": "0473fc43-c79e-4746-ade5-3131c41e2ceb",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -139,6 +139,24 @@
         "rate": {
           "name": "rate",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userPhoto": {
+          "name": "userPhoto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "firstName": {
+          "name": "firstName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastName": {
+          "name": "lastName",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
