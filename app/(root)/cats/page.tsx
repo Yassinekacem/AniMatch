@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Filter from '@/components/Filter';
 import Card from '@/components/Card';
 import { animalType } from '@/types/animalType';
@@ -18,23 +18,28 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import Loader from '@/components/Loader';
 
 
 
 const Cats = () => {
     const [filters, setFilters] = useState({});
+    const [loading, setLoading] = useState(true);
 
 
     // fetch animals from the server
     const [animals, setAnimals] = useState([]);
     const getAnimals = async () => {
+        setLoading(true);
         try {
             const params = new URLSearchParams(filters);
             const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
             setAnimals(response.data);
         } catch (error) {
             console.error("Error fetching animals:", error);
-        }
+        }finally {
+            setLoading(false);
+          }
     };
     useEffect(() => {
         getAnimals();
@@ -69,11 +74,14 @@ const Cats = () => {
                         <Button className='bg-blue-400 hover:bg-blue-400 '>Add Animal</Button>
                     </Link>
                 </div>
+                {loading ?( <Loader/>) :(
                 <div className='flex gap-8 flex-wrap w-full'>
                     {dataPerPage
                         .filter((item: animalType) => item.species === "Cat")
                         .map((item: animalType) => <Card item={item} key={item.id} />)}
                 </div>
+                )}
+                
                 <div className='flex items-center justify-center gap-4'>
                     <Pagination>
                         <PaginationContent>

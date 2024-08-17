@@ -34,7 +34,7 @@ export const addAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  images: string[], // Changed from `image` to `images` to match array type
+  image: string[], // Changed from `image` to `images` to match array type
   ownerId: number
 ) => {
   await db.insert(animals).values({
@@ -50,7 +50,7 @@ export const addAnimal = async (
     friendly,
     available,
     description,
-    image: images, // Ensure the parameter name matches
+    image: image, // Ensure the parameter name matches
     ownerId
   });
   revalidatePath("/");
