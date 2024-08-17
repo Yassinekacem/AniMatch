@@ -1,11 +1,26 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StarRating from './StarRating';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
+import axios from 'axios';
 
-const Comments = () => {
+const Comments = (id :number) => {
   const [userRating, setUserRating] = useState<number>(0);
+  const [comments, setComments] = useState([]);
+
+  const GetCommentsByAnimal = async () =>{
+    try {
+      const response = await axios.get(`http://localhost:3000/api/comments/${id}`);
+      setComments(response.data);
+      
+  } catch (error) {
+      console.error("Error fetching animals:", error);
+  };
+
+  useEffect(() => {
+    GetCommentsByAnimal();
+  }, [id]);
 
   const handleRatingChange = (newRating: number) => {
     setUserRating(newRating);
@@ -55,7 +70,7 @@ const Comments = () => {
             <Button className='bg-customPink text-white hover:bg-customBlue'>Submit</Button>
         </div>
          
-      </div>
+        </div>
     </div>
   );
 };

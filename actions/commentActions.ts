@@ -1,7 +1,12 @@
 import { db } from "@/db/drizzle";
 import { comments } from "@/db/schema"; 
-import { asc } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
+export const animalComments = async (animalId: number) => {
+    const data = await db.select().from(comments).where(eq(comments.animalId,animalId));
+    return data;
+  }
+;
 
 
 export const getData = async () => {
