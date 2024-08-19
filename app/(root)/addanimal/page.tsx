@@ -4,7 +4,8 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod"; 
+import { toast } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -19,7 +20,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadWidget from "@/components/UploadWidget";
 import { getCurrentUserWithDetails } from "@/actions/userActions";
-import toast from "react-hot-toast";
 
 
 const schema = z.object({
@@ -84,19 +84,18 @@ const AddAnimal = () => {
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
-        images: images,
+        image: images, 
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,
         available: true,
         ownerId: userDetails?.id,
       });
-
-      toast.success("Animal added successfully!"); // Show success toast
-      console.log("Animal added successfully:", response.data);
+      toast.success('Animal added successfully');
+      console.log("Animal added successfully:", response.data); 
     } catch (error) {
-      toast.error("Error adding animal!"); // Show error toast
-      console.error("Error adding animal:", error);
+      console.error("Error adding animal:", error); 
+      toast.error('Failed to add animal.');
     }
   };
 

@@ -7,6 +7,7 @@ import { getCurrentUserWithDetails } from '@/actions/userActions';
 import axios from 'axios';
 import Stars from './Stars';
 import { commentType } from '@/types/commentType';
+import toast from 'react-hot-toast';
 import { dateConverter } from '@/lib/utils';
 
 interface CommentsProps {
@@ -55,13 +56,13 @@ const Comments = ({ petId }: CommentsProps) => {
         lastName: userDetails?.lastName,
         rate: userRating,
         content: content,
-      });
-      // Handle response or state updates if needed
+      }); 
+      toast.success('Your Comment added successfully');
       console.log("Comment added successfully:", response.data);
-      // Optionally, fetch the updated comments after adding the new one
       getAnimalComments();
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error("Error adding comment:", error); 
+      toast.error('Failed to add comment');
     }
   };
 

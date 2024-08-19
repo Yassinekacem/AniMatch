@@ -65,7 +65,9 @@ const NavBar = () => {
             <div className="flex items-center gap-x-5">
                 {isSignedIn ? (
                     <>
-                        <Heart />
+                        <Link href="/wishlist">
+                        <Heart /> 
+                        </Link>
                         <UserButton />
                     </>
                 ) : (

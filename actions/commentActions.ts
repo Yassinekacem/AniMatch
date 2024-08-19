@@ -1,6 +1,7 @@
 import { db } from "@/db/drizzle";
 import { comments } from "@/db/schema";
 import { asc, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export const getData = async () => {
   const data = await db.select().from(comments).orderBy(asc(comments.id));
@@ -30,4 +31,10 @@ export const addComment = async (
     firstName,
     lastName
   });
+};
+
+
+export const deleteComment = async (id: number) => {
+  await db.delete(comments).where(eq(comments.id, id));
+  revalidatePath("/");
 };

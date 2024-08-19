@@ -1,15 +1,41 @@
 import { deleteAnimal, editAnimal, getAnimalById, getById } from "@/actions/animalActions";
-import { request } from "http";
-import { NextRequest, NextResponse } from "next/server"
-
-
-
-
-export async function GET(request : NextRequest, context : { params: { id: number } }) { 
+import { db } from "@/db/drizzle";
+import { comments } from "@/db/schema";
+import { avg, count, eq } from "drizzle-orm";
+import { NextRequest, NextResponse } from "next/server";
+export async function GET(request: NextRequest, context: { params: { id: number } }) {
     const id = context.params.id;
+  
     try {
-      const data = await getById(id);
-      return NextResponse.json(data, { status: 200 });
+      // Fetch the animal by ID
+      const animal = await getById(id);
+  
+      if (!animal) {
+        return NextResponse.json({ message: 'Animal not found' }, { status: 404 });
+      }
+  
+      // Fetch the count of comments for the animal
+      const totalCommentsResult = await db
+        .select({ count: count(comments.id) })
+        .from(comments)
+        .where(eq(comments.animalId, id))
+        .then(res => res[0]?.count || 0);
+  
+      // Fetch the average rating for the animal
+      const avgRatingResult = await db
+        .select({ averageRating: avg(comments.rate) })
+        .from(comments)
+        .where(eq(comments.animalId, id))
+        .then(res => parseFloat(res[0]?.averageRating || '0'));
+  
+      // Combine animal data with total comments count and average rating
+      const result = {
+        ...animal,
+        totalComments: totalCommentsResult,
+        avgRating: avgRatingResult,
+      };
+  
+      return NextResponse.json(result, { status: 200 });
     } catch (error) {
       return NextResponse.json({ message: 'Error fetching data', error }, { status: 500 });
     }
