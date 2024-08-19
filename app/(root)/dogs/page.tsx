@@ -13,15 +13,17 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/Loader';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const Dogs = () => {
   const [filters, setFilters] = useState({});
+  const [sortOption, setSortOption] = useState('date'); // Default sort option
   const [animals, setAnimals] = useState<animalType[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +31,8 @@ const Dogs = () => {
   const getAnimals = async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams(filters);
+      // Create URLSearchParams including sortBy parameter
+      const params = new URLSearchParams({ ...filters, sortBy: sortOption });
       const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
       setAnimals(response.data);
     } catch (error) {
@@ -41,7 +44,7 @@ const Dogs = () => {
 
   useEffect(() => {
     getAnimals();
-  }, [filters]);
+  }, [filters, sortOption]);
 
   // Pagination logic
   const items = 6;
@@ -68,9 +71,24 @@ const Dogs = () => {
             <Input placeholder='search by breed' className='border-none outline-none' />
             <Search className='bg-customPink text-white w-9 h-12 rounded-r-lg' />
           </div>
-          <Link href={'/addanimal'}>
-            <Button className='bg-blue-400 hover:bg-blue-400 '>Add Animal</Button>
-          </Link>
+
+          <div className='flex items-center gap-3'>
+  <label htmlFor="sort-select" className='font-medium text-gray-700 whitespace-nowrap'>
+    Sort by:
+  </label>
+  <Select
+    value={sortOption}
+    onValueChange={(value) => setSortOption(value)}  >
+    <SelectTrigger >
+      <SelectValue placeholder="Sort by" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="rate">Rate</SelectItem>
+      <SelectItem value="date">Announcement Date</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+
         </div>
 
         {loading ? (

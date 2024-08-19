@@ -28,7 +28,6 @@ export async function GET(request: NextRequest, context: { params: { id: number 
         .where(eq(comments.animalId, id))
         .then(res => parseFloat(res[0]?.averageRating || '0'));
   
-      // Combine animal data with total comments count and average rating
       const result = {
         ...animal,
         totalComments: totalCommentsResult,
