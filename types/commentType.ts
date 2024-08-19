@@ -7,4 +7,5 @@ export type commentType = {
     content : string, 
     rate : number, 
     animalId : number, 
+    created_at : string,
 }

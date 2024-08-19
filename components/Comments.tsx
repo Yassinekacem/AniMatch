@@ -8,6 +8,7 @@ import axios from 'axios';
 import Stars from './Stars';
 import { commentType } from '@/types/commentType';
 import toast from 'react-hot-toast';
+import { dateConverter } from '@/lib/utils';
 
 interface CommentsProps {
   petId: number; // Assuming the ID is a string, change this if it's another type
@@ -85,7 +86,7 @@ const Comments = ({ petId }: CommentsProps) => {
               <div className='flex flex-col'>
                 <div className='flex items-center gap-2'>
                   <span className='font-bold text-lg'>{comment.firstName} {comment.lastName}</span>
-                  <span className='text-gray-400 text-sm'>2 weeks ago</span>
+                  <span className='text-gray-400 text-sm'>{dateConverter(comment.created_at)}</span>
                 </div>
                 <div className='flex flex-col gap-2 bg-white rounded-xl p-2'>
                   <p className='w-full'>{comment.content}</p>
@@ -102,7 +103,7 @@ const Comments = ({ petId }: CommentsProps) => {
         <Textarea placeholder='Write your comment here...' className='w-full h-[220px]' value={content} onChange={(e) => setContent(e.target.value)} />
         <div className='flex items-center justify-between w-full'>
           <StarRating initialRating={userRating} onRatingChange={handleRatingChange} />
-          <Button className='bg-customPink text-white hover:bg-customBlue' onClick={handleSubmit}>Submit</Button>
+          <Button className='bg-customPink text-white hover:bg-customBlue' onClick={handleSubmit}>Add Comment</Button>
         </div>
       </div>
     </div>
