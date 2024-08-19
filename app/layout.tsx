@@ -1,5 +1,7 @@
 import { Inter as FontSans } from "next/font/google"
-import "./globals.css"
+import "./globals.css" 
+import { Toaster } from 'react-hot-toast';
+
 
 import { cn } from "@/lib/utils"
 import { Metadata } from "next";
@@ -25,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           fontSans.variable
         )}
       > 
-       
+       <Toaster />
         <NavBar/>
         {children}
       </body>

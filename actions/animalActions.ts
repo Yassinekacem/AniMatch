@@ -4,6 +4,7 @@ import { asc, eq, ilike } from 'drizzle-orm';
 import { revalidatePath  } from "next/cache";
 
 
+
 export const getAnimalById = async (id: number) => {
   const result = await db.select().from(animals).where(eq(animals.id, id)).limit(1);
   return result.length > 0;
@@ -34,9 +35,26 @@ export const addAnimal = async (
   friendly: boolean,
   available: boolean,
   description: string,
-  image: string[], // Changed from `image` to `images` to match array type
+  image: string[],
   ownerId: number
 ) => {
+  console.log({
+    id,
+    breed,
+    species,
+    name,
+    age,
+    city,
+    gender,
+    vaccinated,
+    trained,
+    friendly,
+    available,
+    description,
+    image,
+    ownerId
+  });
+
   await db.insert(animals).values({
     id,
     breed,
@@ -50,11 +68,12 @@ export const addAnimal = async (
     friendly,
     available,
     description,
-    image: image, // Ensure the parameter name matches
+    image,
     ownerId
   });
   revalidatePath("/");
 };
+
 
 
 export const editAnimal = async (

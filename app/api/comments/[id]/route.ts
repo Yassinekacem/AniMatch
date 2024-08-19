@@ -1,15 +1,27 @@
-import { getCommentByAnimalId } from "@/actions/commentActions";
-import { NextRequest, NextResponse } from "next/server"
+import { deleteComment, getCommentsByAnimal } from "@/actions/commentActions";
+import { NextRequest, NextResponse } from "next/server";
 
-
-
-
-export async function GET(request : NextRequest, context : { params: { id: number } }) { 
+export const GET = async (request: NextRequest ,context :{params : {id: number}}) => { 
     const id = context.params.id;
     try {
-      const data = await getCommentByAnimalId(id);
-      return NextResponse.json(data, { status: 200 });
-    } catch (error) {
-      return NextResponse.json({ message: 'Error fetching data', error }, { status: 500 });
+        
+        const data = await getCommentsByAnimal(id);
+        return NextResponse.json(data, { status: 200 });
+    } catch (error: any) {  
+        return NextResponse.json({ message: 'Error fetching Aniamlcomments', error }, { status: 500 });
+    
     }
-  }
+};
+
+
+
+export const DELETE = async (request: NextRequest ,context :{params : {id: number}}) => {   
+
+    const id = context.params.id;
+    try {
+        await deleteComment(id);
+        return NextResponse.json({ message: 'Comment deleted successfully' }, { status: 200 });
+    } catch (error: any) {
+        return NextResponse.json({ message: 'Error deleting comment', error }, { status: 500 });
+    }
+}

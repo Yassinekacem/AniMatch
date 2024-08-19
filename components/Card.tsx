@@ -4,7 +4,8 @@ import { Heart, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
 import { animalType } from '@/types/animalType';
 import Link from 'next/link';
-import axios from 'axios';
+import axios from 'axios'; 
+import toast from 'react-hot-toast';
 import { getCurrentUserWithDetails } from '@/actions/userActions';
 
 const ageType = (age: number) => {
@@ -50,10 +51,12 @@ const Card = ({ item }: { item: animalType }) => {
         userId: userDetails?.id,
         animalId: item.id,
       });
-      console.log("Wish added successfully:", response.data);
+      console.log("Wish added successfully:", response.data); 
+      toast.success('Wish added successfully');
       setIsInWishlist(true);
     } catch (error) {
-      console.error("Error adding Wish:", error);
+      console.error("Error adding Wish:", error); 
+      toast.error('Failed to add wish');
     }
   };
 

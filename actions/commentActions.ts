@@ -1,17 +1,17 @@
 import { db } from "@/db/drizzle";
 import { comments } from "@/db/schema";
 import { asc, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export const getData = async () => {
   const data = await db.select().from(comments).orderBy(asc(comments.id));
   return data;
 };
 
-export const getCommentByAnimalId = async (id: number) => {  
-  const data = await db.select().from(comments).where(eq(comments.animalId, id));
-  return data;
-}
-
+export const getCommentsByAnimal = async (animalId: number) => {
+  const result = await db.select().from(comments).where(eq(comments.animalId, animalId));
+  return result;
+};
 
 export const addComment = async (
   userId: number,
@@ -31,4 +31,10 @@ export const addComment = async (
     firstName,
     lastName
   });
+};
+
+
+export const deleteComment = async (id: number) => {
+  await db.delete(comments).where(eq(comments.id, id));
+  revalidatePath("/");
 };
