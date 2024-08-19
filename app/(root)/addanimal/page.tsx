@@ -18,7 +18,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadWidget from "@/components/UploadWidget";
-import { getCurrentUserWithDetails } from "@/actions/currentUserDetails";
+import { getCurrentUserWithDetails } from "@/actions/userActions";
+import toast from "react-hot-toast";
 
 
 const schema = z.object({
@@ -83,15 +84,18 @@ const AddAnimal = () => {
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
-        images: images, 
+        images: images,
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,
         available: true,
         ownerId: userDetails?.id,
       });
+
+      toast.success("Animal added successfully!"); // Show success toast
       console.log("Animal added successfully:", response.data);
     } catch (error) {
+      toast.error("Error adding animal!"); // Show error toast
       console.error("Error adding animal:", error);
     }
   };
