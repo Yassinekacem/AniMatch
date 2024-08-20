@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from "@/db/drizzle";
-import { animals } from "@/db/schema";
-import { eq, and, lte, gte } from 'drizzle-orm';
+import { animals, comments } from "@/db/schema";
+import { eq, and, lte, gte, sql, desc } from 'drizzle-orm';
 import { addAnimal } from '@/actions/animalActions';
-import { redirect } from 'next/dist/server/api-utils';
 
 function getAgeRange(ageCategory: string) {
   switch (ageCategory.toLowerCase()) {
@@ -20,6 +19,15 @@ function getAgeRange(ageCategory: string) {
   }
 }
 
+async function getAvgRating(animalId: number) {
+  const avgRatingResult = await db
+    .select({ averageRating: sql`AVG(${comments.rate})` })
+    .from(comments)
+    .where(eq(comments.animalId, animalId));
+
+    return parseFloat(avgRatingResult[0]?.averageRating?.toString() || '0');
+  }
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const filters: any = {};
@@ -32,7 +40,7 @@ export async function GET(request: NextRequest) {
   }
   if (searchParams.has('gender')) {
     filters['gender'] = searchParams.get('gender');
-  } 
+  }
   if (searchParams.has('ageCategory')) {
     const ageCategory = searchParams.get('ageCategory');
     if (ageCategory) {
@@ -58,10 +66,13 @@ export async function GET(request: NextRequest) {
     filters['friendly'] = searchParams.get('friendly') === 'true';
   }
 
+  const sortBy = searchParams.get('sortBy');
+
   try {
-    const data = await db
+    let data = await db
       .select()
       .from(animals)
+      .orderBy(desc(animals.id))
       .where(
         and(
           ...Object.entries(filters).map(([key, value]) => {
@@ -69,12 +80,23 @@ export async function GET(request: NextRequest) {
               return gte(animals.age, value as number);
             }
             if (key === 'ageMax') {
-              return lte(animals.age, value as number );
+              return lte(animals.age, value as number);
             }
             return eq((animals as any)[key], value);
           })
         )
       );
+
+    if (sortBy === 'rate') {
+      const animalsWithRatings = await Promise.all(
+        data.map(async (animal) => ({
+          ...animal,
+          avgRate: await getAvgRating(animal.id),
+        }))
+      );
+      animalsWithRatings.sort((a, b) => b.avgRate - a.avgRate);
+      data = animalsWithRatings;
+    }
 
     return NextResponse.json(data, { status: 200 });
   } catch (error) {

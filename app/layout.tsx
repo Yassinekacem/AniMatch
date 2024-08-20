@@ -1,7 +1,5 @@
 import { Inter as FontSans } from "next/font/google"
 import "./globals.css" 
-import { Toaster } from 'react-hot-toast';
-
 
 import { cn } from "@/lib/utils"
 import { Metadata } from "next";
