@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { animalType } from '@/types/animalType';
 import Comments from '@/components/Comments';
 import Stars from '@/components/Stars';
+import Loader from '@/components/Loader';
 
 const Detail = () => {
     const [pet, setPet] = useState<animalType | null>(null);
@@ -54,7 +55,7 @@ const Detail = () => {
         getAnimals();
     }, []);
 
-    if (!pet) return <div className='flex justify-center items-center text-xl font-bold h-screen'>Loading...</div>;
+    if (!pet) return <Loader/>;
 
     const handleNext = () => {
         if (currentPage < Math.ceil(filteredAnimals.length / petsPerPage) - 1) {
