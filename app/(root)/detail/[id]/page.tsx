@@ -153,7 +153,7 @@ const Detail = () => {
                         <div className='w-[80%] bg-gray-100 rounded-lg p-2 flex flex-col gap-3'>
                             <h1 className='text-customGreen font-bold text-2xl'>Description</h1>
                             <p className='line-clamp-6'>
-                                We have had Magie since she was able to leave her mum as a puppy so 8 weeks old. Magie currently lives with two children age 7 and 13 and has many visitors to the house which are children she is great with kids. There are lots of cats, birds, etc., around the area and in the garden on most days as she's not fussed by these.
+                                {pet.description}
                             </p>
                         </div>
                     </div>
