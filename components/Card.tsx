@@ -61,7 +61,7 @@ const Card = ({ item }: { item: animalType }) => {
   };
 
   return (
-    <div className='w-[300px] h-[450px] border-2 border-slate-300 rounded-xl relative'>
+    <div className='w-[300px] h-[450px] border-2 border-slate-300 rounded-xl relative bg-white'>
       <div className='relative'>
         <Image
           src={item.image[0]}

@@ -4,8 +4,8 @@ export default function RootLayout({ children }:Readonly<{ children: React.React
   return (
    <main className="relative h-screen w-full">
  
- 
-    {children}
+
+    {children} 
    </main> 
   )
 }

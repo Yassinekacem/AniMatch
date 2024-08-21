@@ -72,7 +72,6 @@ export async function GET(request: NextRequest) {
     let data = await db
       .select()
       .from(animals)
-      .orderBy(desc(animals.id))
       .where(
         and(
           ...Object.entries(filters).map(([key, value]) => {
