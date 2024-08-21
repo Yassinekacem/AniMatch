@@ -360,10 +360,12 @@ const AddAnimal = () => {
 
 
 
-
-          <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
-            Submit
-          </Button>
+           <div>
+            <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
+              Submit
+            </Button>
+           </div>
+        
         </form>
       </div>
     </div>

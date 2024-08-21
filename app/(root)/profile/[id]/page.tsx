@@ -3,6 +3,7 @@ import { getCurrentUserWithDetails } from '@/actions/userActions';
 import Chart from '@/components/Chart';
 import ProfileCard from '@/components/ProfileCard';
 import { Button } from '@/components/ui/button';
+import { animalType } from '@/types/animalType';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,7 +12,8 @@ import React, { useEffect, useState } from 'react'
 
 const Profile = () => {
     const [userDetails, setUserDetails] = useState<any>(null);
-    const [animals, setAnimals] = useState([]);
+    const [dogs, setDogs] = useState([]);
+    const [cats, setCats] = useState([]);
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -24,7 +26,11 @@ const Profile = () => {
     const AnimalByOwner = async () =>{
         try {
             const response = await axios.get(`http://localhost:3000/api/users/${userDetails?.id}`);
-            setAnimals(response.data);
+            console.log(response.data);
+            console.log(response.data.data);
+            console.log(response.data.data1);
+            setDogs(response.data.data);
+            setCats(response.data.data1);
           } catch (error) {
             console.error("Error fetching animals:", error);
           }
@@ -52,12 +58,20 @@ const Profile = () => {
                 </div>
                 <div className='flex flex-col gap-2 h-full w-[60%] bg-white border shadow-md shadow-slate-400 rounded-xl p-4'>
                      <span className='text-3xl font-bold'>Your Dogs</span>
-                     <div className='flex flex-col gap-3 items-center w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl overflow-y-scroll p-1'>
-                       <ProfileCard />
-                       <ProfileCard />
-                       <ProfileCard />
-                       <ProfileCard />
-                     </div>
+                     {
+                            dogs.length > 0 ? (
+                                <div className='flex flex-col gap-3 items-center w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl overflow-y-scroll p-1'>
+                                {
+                                 dogs.map((dog :animalType) =>(
+                                     <ProfileCard key={dog.id} animal={dog} />
+                                 ))
+                                }
+                              </div>
+                            ) :(
+                                <span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don't have any dogs yet</span>
+                            ) 
+                     }
+                     
                      <Link href="/addanimal">
                        <Button className='text-customPink bg-white border border-customPink hover:bg-white'>Add a dog</Button>
                      </Link>
@@ -74,12 +88,19 @@ const Profile = () => {
                 </div>
                 <div className='flex flex-col gap-2 h-full w-[60%] bg-white border shadow-md shadow-slate-400 rounded-xl p-4'>
                      <span className='text-3xl font-bold'>Your Cats</span>
-                     <div className='flex flex-col gap-3 items-center w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl overflow-y-scroll p-1'>
-                       <ProfileCard />
-                       <ProfileCard />
-                       <ProfileCard />
-                       <ProfileCard />
-                     </div>
+                     {
+                            cats.length > 0 ? (
+                                <div className='flex flex-col gap-3 items-center w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl overflow-y-scroll p-1'>
+                                {
+                                 cats.map((cat :animalType) =>(
+                                     <ProfileCard key={cat.id} animal={cat} />
+                                 ))
+                                }
+                              </div>
+                            ) :(
+                                <span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don't have any cats yet</span>
+                            ) 
+                     }
                      <Link href="/addanimal">
                        <Button className='text-customPink bg-white border border-customPink hover:bg-white'>Add a cat</Button>
                      </Link>
@@ -92,3 +113,4 @@ const Profile = () => {
 }
 
 export default Profile
+
