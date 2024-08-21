@@ -42,7 +42,7 @@ type FormData = z.infer<typeof schema>;
 
 const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [userDetails, setUserDetails] = useState<any>(null);
 
   useEffect(() => {
@@ -81,6 +81,13 @@ const AddAnimal = () => {
 
 
   const onSubmit = async (data: FormData) => {
+    if (images.length === 0) {
+      toast.error("Please upload at least one image.");
+      return;
+    }
+  
+    setIsSubmitting(true);
+
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
@@ -96,6 +103,8 @@ const AddAnimal = () => {
     } catch (error) {
       console.error("Error adding animal:", error); 
       toast.error('Failed to add animal.');
+    }finally {
+      setIsSubmitting(false); // Re-enable the submit button after submission
     }
   };
 
@@ -361,8 +370,12 @@ const AddAnimal = () => {
 
 
            <div>
-            <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
-              Submit
+           <Button
+              type="submit"
+              className="w-full bg-blue-500 text-white hover:bg-customPink"
+              disabled={isSubmitting} // Disable the button during submission
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
            </div>
         

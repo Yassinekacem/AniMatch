@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { animals } from "@/db/schema";
-import { and, asc, eq, ilike } from 'drizzle-orm';
+import { and, asc, desc, eq, ilike } from 'drizzle-orm';
 import { revalidatePath  } from "next/cache";
 
 
@@ -10,7 +10,7 @@ export const getDogsByowner = async (id: number) => {
 };
 
 export const getCatsByowner = async (id: number) => {
-  const data = await db.select().from(animals).where(and(eq(animals.species, "Cat"),eq(animals.ownerId, id)));
+  const data = await db.select().from(animals).where(and(eq(animals.species, "Cat"),eq(animals.ownerId, id))).orderBy(desc(animals.id));
   return data;
 };
 
