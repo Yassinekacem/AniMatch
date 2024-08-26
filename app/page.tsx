@@ -52,33 +52,28 @@ const Home = () => {
         <Image src="/images/pas.png" alt="pas" width={50} height={20} className='w-[150px] z-1 relative top-[75px] right-[80px]' />
         <div className='w-[50%] flex flex-col gap-[40px] h-[70%] z-10'>
           <h1 className='bold-52 font-sansss'>Connect your pet with his Ideal partner</h1>
-          <p className='font-light'>Choose your pet's species and gender to start finding their perfect match.</p>
-          <div className="flex gap-2">
+          <p className='font-light'>Choose your pet's species to start finding their perfect match.</p>
+          <div>
             <Select onValueChange={(value) => setSpecies(value)}>
-              <SelectTrigger className="w-[180px] border border-black">
-                <SelectValue placeholder="Species" />
+              <SelectTrigger className="w-[440px] border border-black">
+                <SelectValue placeholder="Select your pet's species" />
               </SelectTrigger>
               <SelectContent className='mb-5'>
                 <SelectItem value="cat">Cat</SelectItem>
                 <SelectItem value="dog">Dog</SelectItem>
               </SelectContent>
             </Select>
-            <Select>
-              <SelectTrigger className="w-[180px] border border-black">
-                <SelectValue placeholder="Gender" />
-              </SelectTrigger>
-              <SelectContent className='mb-5'>
-                <SelectItem value="male">Male</SelectItem>
-                <SelectItem value="female">Female</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <Button className="w-1/3 mx-[70px] bg-customBlue rounded-full text-md" onClick={handleButtonClick}>
+           
+          </div> 
+          <div className='mx-auto '> 
+          <Button className="w-1/ mx-[70px] bg-customBlue rounded-full text-md" onClick={handleButtonClick}>
             {species === 'dog' ? 'Match Your Dog' : species === 'cat' ? 'Match Your Cat' : 'Match Your Pet'}
           </Button>
+          </div>
+         
           <div className='clickable absolute'>
-            <Image src="/images/Group.png" alt='img' width={60} height={20} className='w-[60px] relative top-[435px] left-[120px]' />
-            <span className='text-customPink relative top-[420px] left-[190px] font-bold text-md'>Click here !</span>
+            <Image src="/images/Group.png" alt='img' width={60} height={20} className='w-[60px] relative top-[435px] left-[210px]' />
+            <span className='text-customPink relative top-[425px] left-[275px] font-bold text-md'>Click here !</span>
           </div>
         </div>
       </div>

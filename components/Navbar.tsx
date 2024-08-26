@@ -26,7 +26,7 @@ const NavBar = () => {
                 <div className="flex flex-row items-center gap-10 px-4">
                     <Link href="/">
                         <h3
-                            className={`font-semibold font-sanss ${isActive('/home') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                            className={`font-semibold font-sanss ${isActive('/') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
                         >
                             Home
                         </h3>

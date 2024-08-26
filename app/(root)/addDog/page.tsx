@@ -5,7 +5,8 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast"; 
+import { useRouter } from 'next/navigation';
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -54,6 +55,8 @@ type FormData = z.infer<typeof schema>;
 
 const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+const router = useRouter();
 
   const [userDetails, setUserDetails] = useState<any>(null);
 
@@ -92,35 +95,33 @@ const AddAnimal = () => {
 
 
 
-  const onSubmit = async (data: FormData) => { 
-    console.log("Data to be sent:", {
-      ...data,
-      image: images,
-      vaccinated: data.traits.vaccinated,
-      trained: data.traits.trained,
-      friendly: data.traits.friendly,
-      available: true,
-      ownerId: userDetails?.id,
-    });
+  const onSubmit = async (data: FormData) => {
+    if (images.length === 0) {
+      toast.error("Please upload at least one image.");
+      return;
+    }
+  
+    setIsSubmitting(true);
+
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
-        image: images,
+        image: images, 
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,
         available: true,
         ownerId: userDetails?.id,
-      }); 
+      });
+      toast.success('Animal added successfully'); 
+      router.push("/dogs")
 
-
-  
-      toast.success('Animal added successfully');
-      console.log("Animal added successfully:", response.data);
+      console.log("Animal added successfully:", response.data); 
     } catch (error) {
       console.error("Error adding animal:", error); 
-      
-      toast.error('Failed to add animal.');
+      toast.error('Error adding animal');
+    }finally {
+      setIsSubmitting(false); // Re-enable the submit button after submission
     }
   };
 

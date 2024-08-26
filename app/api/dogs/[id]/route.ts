@@ -6,10 +6,9 @@ export const GET = async (request: NextRequest ,context :{params : {id: number}}
     try {
         
         const data = await getDogsByowner(id);
-        const data1= await getCatsByowner(id);
-        return NextResponse.json({data,data1}, { status: 200 });
+        return NextResponse.json(data, { status: 200 });
     } catch (error: any) {  
-        return NextResponse.json({ message: 'Error fetching AniamlsByOwner', error }, { status: 500 });
+        return NextResponse.json({ message: 'Error fetching dogsByOwner', error }, { status: 500 });
     
     }
 };

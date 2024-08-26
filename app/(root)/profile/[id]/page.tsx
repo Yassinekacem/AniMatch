@@ -23,21 +23,27 @@ const Profile = () => {
         fetchUserDetails();
       }, []);
 
-    const AnimalByOwner = async () =>{
+    const DogsByOwner = async () =>{
         try {
-            const response = await axios.get(`http://localhost:3000/api/users/${userDetails?.id}`);
-            console.log(response.data);
-            console.log(response.data.data);
-            console.log(response.data.data1);
-            setDogs(response.data.data);
-            setCats(response.data.data1);
+            const response = await axios.get(`http://localhost:3000/api/dogs/${userDetails?.id}`);
+            setDogs(response.data);
           } catch (error) {
-            console.error("Error fetching animals:", error);
+            console.error("Error fetching dogs:", error);
           }
     };
 
+    const CatsByOwner = async () =>{
+      try {
+          const response = await axios.get(`http://localhost:3000/api/cats/${userDetails?.id}`);
+          setCats(response.data);
+        } catch (error) {
+          console.error("Error fetching cats:", error);
+        }
+  };
+
     useEffect(() => {
-        AnimalByOwner();
+        CatsByOwner();
+        DogsByOwner();
       }, [userDetails]);
 
   return (
