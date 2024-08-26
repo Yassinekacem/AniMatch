@@ -40,6 +40,9 @@ export async function GET(request: NextRequest) {
   }
   if (searchParams.has('gender')) {
     filters['gender'] = searchParams.get('gender');
+  } 
+  if (searchParams.has('species')) {
+    filters['species'] = searchParams.get('species');
   }
   if (searchParams.has('ageCategory')) {
     const ageCategory = searchParams.get('ageCategory');

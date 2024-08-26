@@ -27,8 +27,13 @@ const cityOptions = [
   "Beja", "Jendouba", "Kef", "Siliana", "Kairouan", "Sousse", "Mahdia",
   "Monastir", "Sfax", "Gabes", "Mednine", "Tozeur", "Gafsa", "Kasserine",
   "Sidi Bouzid", "Tataouine", "Gbelli"
-];
+]; 
 
+
+const DogsBreedsOptions = [
+    "Labrador" , "Rottweiler" , "Berger Allemand" , "Berger noir" , 
+    "Malinois" , "Husky" , "Caniche" , "Chihuahuah" , "Dobermann" , "Pitbull" , "Bichon", "Others"
+];
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
   species: z.enum(["Dog", "Cat"], { message: "Species is required" }),
@@ -122,7 +127,7 @@ const AddAnimal = () => {
   return (
     <div className=" pb-1 w-full ">
       <div className="m-9  bg-gray-100 rounded-lg p-6 shadow-md w-[60%] mx-auto relative top-[15px]">
-        <h1 className="font-extrabold text-4xl text-center mb-6">Add Animal</h1>
+        <h1 className="font-extrabold text-4xl text-center mb-6">Find Love for Your Dog</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -200,7 +205,7 @@ const AddAnimal = () => {
               )}
             />
 
-            <Controller
+<Controller
               name="breed"
               control={control}
               render={({ field }) => (
@@ -208,12 +213,16 @@ const AddAnimal = () => {
                   <label className="block text-sm font-medium text-gray-700">
                     Breed
                   </label>
-                  <Input
-                    {...field}
-                    type="text"
-                    placeholder="Breed"
-                    className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Breed" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {DogsBreedsOptions.map(breed => (
+                        <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   {errors.breed && (
                     <p className="text-red-500 text-sm mt-1">
                       {errors.breed.message}
@@ -222,6 +231,7 @@ const AddAnimal = () => {
                 </div>
               )}
             />
+            
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

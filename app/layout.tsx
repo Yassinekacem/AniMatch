@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head />
       <body className={cn("min-h-screen font-sans antialiased", fontSans.variable)}>
           <NavBar />
-          <div className="background-container w-full">
+          <div>
             <Toaster position="bottom-right" reverseOrder={false} />
             {children}
           </div>

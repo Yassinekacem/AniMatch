@@ -11,6 +11,20 @@ import Image from 'next/image';
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from 'next/link';
 
+
+const cityOptions = [
+    "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan", "Bizerte",
+    "Beja", "Jendouba", "Kef", "Siliana", "Kairouan", "Sousse", "Mahdia",
+    "Monastir", "Sfax", "Gabes", "Mednine", "Tozeur", "Gafsa", "Kasserine",
+    "Sidi Bouzid", "Tataouine", "Gbelli"
+]; 
+
+
+const DogsBreedsOptions = [
+    "Labrador" , "Rottweiler" , "Berger Allemand" , "Berger noir" , 
+    "Malinois" , "Husky" , "Caniche" , "Chihuahuah" , "Dobermann" , "Pitbull" , "Bichon", "Others"
+];
+
 type FilterProps = {
     onFilterChange: (filters: { breed?: string; city?: string; gender?: string; ageCategory?: string; vaccinated?: boolean; trained?: boolean; friendly?: boolean }) => void;
 };
@@ -18,7 +32,7 @@ type FilterProps = {
 const Filter = ({ onFilterChange }: FilterProps) => {
     const [selectedBreed, setSelectedBreed] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
-    const [selectedGender, setSelectedGender] = useState(''); 
+    const [selectedGender, setSelectedGender] = useState('');
     const [selectedAgeCategory, setSelectedAgeCategory] = useState('');
 
 
@@ -31,7 +45,7 @@ const Filter = ({ onFilterChange }: FilterProps) => {
 
         if (selectedBreed) filters.breed = selectedBreed;
         if (selectedCity) filters.city = selectedCity;
-        if (selectedGender) filters.gender = selectedGender; 
+        if (selectedGender) filters.gender = selectedGender;
         if (selectedAgeCategory) filters.ageCategory = selectedAgeCategory;
 
         if (vaccinated) filters.vaccinated = vaccinated;
@@ -45,10 +59,10 @@ const Filter = ({ onFilterChange }: FilterProps) => {
         <div className='h-[1100px] shadow-xl shadow-slate-400 w-[350px] mr-4 bg-white'>
             <div className='flex items-center justify-between'>
                 <Button className='text-pink-400 bg-white hover:bg-white'>
-                    Fillters
+                    Filters
                 </Button>
                 <Button className='text-gray-400 bg-white hover:bg-white'>
-                    Reset Fillters
+                    Reset Filters
                 </Button>
             </div>
             <hr className='border-1 border-gray-400 w-[90%] mx-auto' />
@@ -61,15 +75,14 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                 </Link>
             </div>
             <div className='flex flex-col gap-4 w-full mt-4'>
-                <Select onValueChange={setSelectedCity} >
+                <Select onValueChange={setSelectedCity}>
                     <SelectTrigger className="w-[90%] mx-auto ">
                         <SelectValue placeholder="City" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="nabeul">nabeul</SelectItem>
-                        <SelectItem value="tunis">tunis</SelectItem>
-                        <SelectItem value="sousse">sousse</SelectItem>
-                        <SelectItem value="gabes">gabes</SelectItem>
+                        {cityOptions.map(city => (
+                            <SelectItem key={city} value={city}>{city}</SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
 
@@ -78,11 +91,11 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                         <SelectValue placeholder="Breed" />
                     </SelectTrigger>
                     <SelectContent className='mb-5'>
-                        <SelectItem value="berger">Berger</SelectItem>
-                        <SelectItem value="pitbull">Pitbull</SelectItem>
-                        <SelectItem value="labrador">Labrador</SelectItem>
-                        <SelectItem value="Caniche">Caniche</SelectItem>
-                        <SelectItem value="malinois">Malinois</SelectItem>
+                       {
+                        DogsBreedsOptions.map(breed => (
+                            <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                        ))
+                       }
                     </SelectContent>
                 </Select>
 
@@ -106,9 +119,9 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                         <SelectItem value="adult">Adult</SelectItem>
                         <SelectItem value="senior">Senior</SelectItem>
                     </SelectContent>
-                </Select> 
+                </Select>
 
-                
+
                 <div className='w-[85%] mx-auto my-3'>
                     <span className='font-light text-md text-gray-400'>Select the items you want to display in your Filter:</span>
                     <div className='flex flex-col items-start mt-2 gap-3'>

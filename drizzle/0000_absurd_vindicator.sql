@@ -1,4 +1,16 @@
 DO $$ BEGIN
+ CREATE TYPE "public"."breedValues" AS ENUM('Labrador', 'Rottweiler', 'Berger Allemand', 'Berger noir', 'Malinois', 'Husky', 'Caniche', 'Chihuahuah', 'Dobermann', 'Pitbull', 'Bichon', 'Others', 'Siamois', 'Persan', 'Bengal', 'Scottish Fold', 'Ragdoll', 'sphynx', 'snowshoe', 'himalayan');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "public"."cityValues" AS ENUM('Tunis', 'Ariana', 'Ben Arous', 'Manouba', 'Nabeul', 'Zaghouan', 'Bizerte', 'Beja', 'Jendouba', 'Kef', 'Siliana', 'Kairouan', 'Sousse', 'Mahdia', 'Monastir', 'Sfax', 'Gabes', 'Mednine', 'Tozeur', 'Gafsa', 'Kasserine', 'Sidi Bouzid', 'Tataouine', 'Gbelli');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "public"."speciesValues" AS ENUM('Dog', 'Cat');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -12,11 +24,11 @@ END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "animals" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"breed" varchar NOT NULL,
+	"breed" "breedValues" NOT NULL,
 	"gender" varchar NOT NULL,
 	"species" "speciesValues" NOT NULL,
 	"name" varchar NOT NULL,
-	"city" varchar NOT NULL,
+	"city" "cityValues" NOT NULL,
 	"age" integer NOT NULL,
 	"vaccinated" boolean NOT NULL,
 	"trained" boolean NOT NULL,
