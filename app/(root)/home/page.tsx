@@ -41,7 +41,13 @@ const Home = () => {
         <Image src="/images/pas.png" alt="pas" width={50} height={20} className='w-[150px] z-1 relative top-[75px] right-[80px]' />
         <div className='w-[50%] flex flex-col gap-[40px] h-[70%] z-10'>
           <h1 className='bold-52 font-sansss'>Connect your pet with his Ideal partner</h1>
-          <p className='font-light'>Use our quick search below to find a companion for your pet</p>
+          <div className='w-[70%]'>
+          <p className='font-light'>Give your pet the chance to find a best friend.
+                  Add them now and connect with loving companions.
+                  Help them meet their perfect match today.
+                  </p>
+          </div>
+         
           <div className="flex gap-2">
             <Select>
               <SelectTrigger className="w-[180px] border border-black">
