@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select"
 import gsap from 'gsap'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 const Home = () => {
   const [species, setSpecies] = useState('');
@@ -36,7 +37,11 @@ const Home = () => {
     );
   }, []);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = () => { 
+    if (!species) 
+    {
+      toast.error('Please select a species to continue');
+    }
     if (species === 'dog') {
       router.push('/addDog');
     } else if (species === 'cat') {

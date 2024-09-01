@@ -97,31 +97,30 @@ const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     if (images.length === 0) {
-      toast.error("Please upload at least one image.");
       return;
     }
-  
+
     setIsSubmitting(true);
 
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
-        image: images, 
+        image: images,
         vaccinated: data.traits.vaccinated,
         trained: data.traits.trained,
         friendly: data.traits.friendly,
         available: true,
         ownerId: userDetails?.id,
       });
-      toast.success('Animal added successfully'); 
-      router.push("/dogs")
+      toast.success('Animal added successfully');
+      router.push("/dogs");
 
-      console.log("Animal added successfully:", response.data); 
+      console.log("Animal added successfully:", response.data);
     } catch (error) {
-      console.error("Error adding animal:", error); 
+      console.error("Error adding animal:", error);
       toast.error('Error adding animal');
-    }finally {
-      setIsSubmitting(false); // Re-enable the submit button after submission
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -396,7 +395,7 @@ const router = useRouter();
 
 
           <div>
-            <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
+          <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink" disabled={isSubmitting}>
               Submit
             </Button>
           </div>

@@ -3,7 +3,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
+import { z } from "zod"; 
+import { useRouter } from 'next/navigation';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
@@ -48,10 +49,12 @@ const schema = z.object({
   images: z.array(z.string()).max(4, "You can only upload up to 4 images"),
 });
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>; 
+const router = useRouter();
 
 const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   const [userDetails, setUserDetails] = useState<any>(null);
 
@@ -90,16 +93,13 @@ const AddAnimal = () => {
 
 
 
-  const onSubmit = async (data: FormData) => { 
-    console.log("Data to be sent:", {
-      ...data,
-      image: images,
-      vaccinated: data.traits.vaccinated,
-      trained: false,
-      friendly: data.traits.friendly,
-      available: true, 
-      ownerId: userDetails?.id,
-    });
+  const onSubmit = async (data: FormData) => {
+    if (images.length === 0) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
       const response = await axios.post("http://localhost:3000/api/animals", {
         ...data,
@@ -109,16 +109,16 @@ const AddAnimal = () => {
         friendly: data.traits.friendly,
         available: true,
         ownerId: userDetails?.id,
-      }); 
-
-
-  
+      });
       toast.success('Animal added successfully');
+      router.push("/dogs");
+
       console.log("Animal added successfully:", response.data);
     } catch (error) {
-      console.error("Error adding animal:", error); 
-      
-      toast.error('Failed to add animal.');
+      console.error("Error adding animal:", error);
+      toast.error('Error adding animal');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
