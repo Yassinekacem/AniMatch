@@ -109,7 +109,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-
+  if (body.image.some((img: string) => img.trim() === '')) {
+    return NextResponse.json({ message: 'Error: Image array contains empty strings' }, { status: 400 });
+  }
   try {
     await addAnimal(
       body.id,                        
@@ -126,7 +128,9 @@ export async function POST(request: Request) {
       body.description,
       body.image, // Changed from `image` to `images`
       parseInt(body.ownerId, 10) // Parse ownerId as integer
-    );
+    ); 
+
+    
     
     return NextResponse.json({ message: 'Animal added successfully' });
   } catch (error) {
