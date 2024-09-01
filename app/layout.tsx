@@ -21,16 +21,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider>
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      > 
-        <NavBar/>
-        <Toaster position="bottom-right" reverseOrder={false} />
-        {children}
-      </body>
+      <body className={cn("min-h-screen font-sans antialiased", fontSans.variable)}>
+          <NavBar />
+          <div>
+            <Toaster position="bottom-right" reverseOrder={false} />
+            {children}
+          </div>
+        </body>
 
     </html>
     </ClerkProvider>

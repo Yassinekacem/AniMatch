@@ -18,15 +18,15 @@ const NavBar = () => {
     return (
         <nav className="w-[95%] mx-auto border-b h-[8vh] flex items-center justify-between px-4 rounded-bl-3xl rounded-br-3xl shadow-md shadow-slate-200">
             <div className="flex items-center">
-                <Link href="/home">
+                <Link href="/">
                     <Image src="/images/Logo2.png" alt="logo" width={250} height={20} className="w-[150px] h-[50%]" />
                 </Link>
             </div>
             <div className="flex-grow flex justify-center">
                 <div className="flex flex-row items-center gap-10 px-4">
-                    <Link href="/home">
+                    <Link href="/">
                         <h3
-                            className={`font-semibold font-sanss ${isActive('/home') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                            className={`font-semibold font-sanss ${isActive('/') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
                         >
                             Home
                         </h3>
@@ -54,7 +54,7 @@ const NavBar = () => {
                     </Link>
                     <Link href="/contact-us">
                         <h3
-                            className={`font-semibold font-sanss ${isActive('/about-us') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
+                            className={`font-semibold font-sanss ${isActive('/contact-us') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-black'}`}
                         >
                             Contact Us
                         </h3>

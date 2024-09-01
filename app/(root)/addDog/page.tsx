@@ -4,8 +4,9 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod"; 
-import { toast } from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-hot-toast"; 
+import { useRouter } from 'next/navigation';
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -22,6 +23,18 @@ import UploadWidget from "@/components/UploadWidget";
 import { getCurrentUserWithDetails } from "@/actions/userActions";
 
 
+const cityOptions = [
+  "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan", "Bizerte",
+  "Beja", "Jendouba", "Kef", "Siliana", "Kairouan", "Sousse", "Mahdia",
+  "Monastir", "Sfax", "Gabes", "Mednine", "Tozeur", "Gafsa", "Kasserine",
+  "Sidi Bouzid", "Tataouine", "Gbelli"
+]; 
+
+
+const DogsBreedsOptions = [
+    "Labrador" , "Rottweiler" , "Berger Allemand" , "Berger noir" , 
+    "Malinois" , "Husky" , "Caniche" , "Chihuahuah" , "Dobermann" , "Pitbull" , "Bichon", "Others"
+];
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
   species: z.enum(["Dog", "Cat"], { message: "Species is required" }),
@@ -42,7 +55,9 @@ type FormData = z.infer<typeof schema>;
 
 const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+const router = useRouter();
+
   const [userDetails, setUserDetails] = useState<any>(null);
 
   useEffect(() => {
@@ -98,20 +113,22 @@ const AddAnimal = () => {
         available: true,
         ownerId: userDetails?.id,
       });
-      toast.success('Animal added successfully');
+      toast.success('Animal added successfully'); 
+      router.push("/dogs")
+
       console.log("Animal added successfully:", response.data); 
     } catch (error) {
       console.error("Error adding animal:", error); 
-      toast.error('Failed to add animal.');
+      toast.error('Error adding animal');
     }finally {
       setIsSubmitting(false); // Re-enable the submit button after submission
     }
   };
 
   return (
-    <div className="bg-custom-radial-linear pb-1 w-full ">
-      <div className="m-9  bg-gray-50 rounded-lg p-6 shadow-md w-[60%] mx-auto relative top-[15px]">
-        <h1 className="font-extrabold text-4xl text-center mb-6">Add Animal</h1>
+    <div className=" pb-1 w-full ">
+      <div className="m-9  bg-gray-100 rounded-lg p-6 shadow-md w-[60%] mx-auto relative top-[15px]">
+        <h1 className="font-extrabold text-4xl text-center mb-6">Find Love for Your Dog</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -171,7 +188,7 @@ const AddAnimal = () => {
               render={({ field }) => (
                 <div className="flex flex-col gap-2">
                   <label className="block text-sm font-medium text-gray-700">
-                    Age
+                    Age (in months)
                   </label>
                   <Input
                     {...field}
@@ -189,7 +206,7 @@ const AddAnimal = () => {
               )}
             />
 
-            <Controller
+<Controller
               name="breed"
               control={control}
               render={({ field }) => (
@@ -197,12 +214,16 @@ const AddAnimal = () => {
                   <label className="block text-sm font-medium text-gray-700">
                     Breed
                   </label>
-                  <Input
-                    {...field}
-                    type="text"
-                    placeholder="Breed"
-                    className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Breed" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {DogsBreedsOptions.map(breed => (
+                        <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   {errors.breed && (
                     <p className="text-red-500 text-sm mt-1">
                       {errors.breed.message}
@@ -211,6 +232,7 @@ const AddAnimal = () => {
                 </div>
               )}
             />
+            
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -248,12 +270,16 @@ const AddAnimal = () => {
                   <label className="block text-sm font-medium text-gray-700">
                     City
                   </label>
-                  <Input
-                    {...field}
-                    type="text"
-                    placeholder="City"
-                    className="w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="City" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {cityOptions.map(city => (
+                        <SelectItem key={city} value={city}>{city}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   {errors.city && (
                     <p className="text-red-500 text-sm mt-1">
                       {errors.city.message}
@@ -344,10 +370,10 @@ const AddAnimal = () => {
               uploadPreset: "animatch"
             }}
               setState={setImages} />
-                  
-              <div className="flex gap-3">
-            {images.map((image, index) => (
-             
+
+            <div className="flex gap-3">
+              {images.map((image, index) => (
+
                 <Image
                   key={index}
                   src={image}
@@ -357,7 +383,7 @@ const AddAnimal = () => {
                   className="w-[250px] h-[120px] rounded-md"
                 />
               ))}
-              </div>
+            </div>
 
             {errors.images && (
               <p className="text-red-500 text-sm mt-1">
@@ -369,16 +395,12 @@ const AddAnimal = () => {
 
 
 
-           <div>
-           <Button
-              type="submit"
-              className="w-full bg-blue-500 text-white hover:bg-customPink"
-              disabled={isSubmitting} // Disable the button during submission
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
+          <div>
+            <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-customPink">
+              Submit
             </Button>
-           </div>
-        
+          </div>
+
         </form>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import Filter from '@/components/Filter';
+import Filter from '@/components/FilterDogs';
 import Card from '@/components/Card';
 import { animalType } from '@/types/animalType';
 import axios from 'axios';
@@ -32,7 +32,7 @@ const Dogs = () => {
     setLoading(true);
     try {
       // Create URLSearchParams including sortBy parameter
-      const params = new URLSearchParams({ ...filters, sortBy: sortOption });
+      const params = new URLSearchParams({ ...filters, sortBy: sortOption , species : "Dog" });
       const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
       setAnimals(response.data);
     } catch (error) {
@@ -96,7 +96,6 @@ const Dogs = () => {
         ) : (
           <div className='flex gap-8 flex-wrap w-full'>
             {dataPerPage
-              .filter((item: animalType) => item.species === "Dog")
               .map((item: animalType) => <Card item={item} key={item.id} />)}
           </div>
         )}

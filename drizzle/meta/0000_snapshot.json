@@ -1,5 +1,5 @@
 {
-  "id": "0473fc43-c79e-4746-ade5-3131c41e2ceb",
+  "id": "2bea8865-aca1-443c-ae7d-070863886bb5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -16,7 +16,8 @@
         },
         "breed": {
           "name": "breed",
-          "type": "varchar",
+          "type": "breedValues",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -41,7 +42,8 @@
         },
         "city": {
           "name": "city",
-          "type": "varchar",
+          "type": "cityValues",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -425,6 +427,62 @@
     }
   },
   "enums": {
+    "public.breedValues": {
+      "name": "breedValues",
+      "schema": "public",
+      "values": [
+        "Labrador",
+        "Rottweiler",
+        "Berger Allemand",
+        "Berger noir",
+        "Malinois",
+        "Husky",
+        "Caniche",
+        "Chihuahuah",
+        "Dobermann",
+        "Pitbull",
+        "Bichon",
+        "Others",
+        "Siamois",
+        "Persan",
+        "Bengal",
+        "Scottish Fold",
+        "Ragdoll",
+        "sphynx",
+        "snowshoe",
+        "himalayan"
+      ]
+    },
+    "public.cityValues": {
+      "name": "cityValues",
+      "schema": "public",
+      "values": [
+        "Tunis",
+        "Ariana",
+        "Ben Arous",
+        "Manouba",
+        "Nabeul",
+        "Zaghouan",
+        "Bizerte",
+        "Beja",
+        "Jendouba",
+        "Kef",
+        "Siliana",
+        "Kairouan",
+        "Sousse",
+        "Mahdia",
+        "Monastir",
+        "Sfax",
+        "Gabes",
+        "Mednine",
+        "Tozeur",
+        "Gafsa",
+        "Kasserine",
+        "Sidi Bouzid",
+        "Tataouine",
+        "Gbelli"
+      ]
+    },
     "public.speciesValues": {
       "name": "speciesValues",
       "schema": "public",

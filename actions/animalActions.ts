@@ -33,13 +33,25 @@ export const getData = async () => {
   return data;
 };
 
+
+// Enum Types 
+type Species = "Dog" | "Cat";
+type Breed = "Labrador" | "Rottweiler" | "Berger Allemand" | "Berger noir" | 
+  "Malinois" | "Husky" | "Caniche" | "Chihuahuah" | "Dobermann" | "Pitbull" | 
+  "Bichon" | "Others" | "Siamois" | "Persan" | "Bengal" | "Scottish Fold" | 
+  "Ragdoll" | "sphynx" | "snowshoe" | "himalayan";
+type City = "Tunis" | "Ariana" | "Ben Arous" | "Manouba" | "Nabeul" | "Zaghouan" |
+  "Bizerte" | "Beja" | "Jendouba" | "Kef" | "Siliana" | "Kairouan" | "Sousse" |
+  "Mahdia" | "Monastir" | "Sfax" | "Gabes" | "Mednine" | "Tozeur" | "Gafsa" | 
+  "Kasserine" | "Sidi Bouzid" | "Tataouine" | "Gbelli";
+
 export const addAnimal = async (
   id: number,
-  breed: string,
-  species: "Dog" | "Cat",
+  breed: Breed,
+  species: Species,
   name: string,
   age: number,
-  city: string,
+  city: City,
   gender: string,
   vaccinated: boolean,
   trained: boolean,
@@ -85,15 +97,13 @@ export const addAnimal = async (
   revalidatePath("/");
 };
 
-
-
 export const editAnimal = async (
   id: number,
-  breed: string,
-  species: "Dog" | "Cat",
+  breed: Breed,
+  species: Species,
   name: string,
   age: number,
-  city: string,
+  city: City,
   vaccinated: boolean, 
   gender : string,   
   trained: boolean,
