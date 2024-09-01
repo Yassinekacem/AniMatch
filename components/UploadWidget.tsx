@@ -62,7 +62,7 @@ function UploadWidget({ uwConfig, setState }: UploadWidgetProps) {
     <CloudinaryScriptContext.Provider value={{ loaded }}>
       <button
         id="upload_widget"
-        className="cloudinary-button"
+        className="cloudinary-button hover:bg-customPink"
         onClick={initializeCloudinaryWidget}
       >
         Upload 4 Images

@@ -146,10 +146,10 @@ const Detail = () => {
                             <span className='text-xl'>{pet.vaccinated ? 'Vaccinated' : 'Not vaccinated'}</span>
                         </div>
 
-                        <div className='flex gap-2 items-center'>
+                       { pet.species=="Dog" ?  <div className='flex gap-2 items-center'>
                             <Image src="/icons/trained.svg" alt="logo" width={150} height={80} className='w-[30px] h-[30px]' />
                             <span className='text-xl'>{pet.trained ? 'House-Trained' : 'Not House-Trained'}</span>
-                        </div>
+                        </div> : <div></div>}
 
                         <div className='w-[80%] bg-gray-100 rounded-lg p-2 flex flex-col gap-3'>
                             <h1 className='text-customGreen font-bold text-2xl'>Description</h1>

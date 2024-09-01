@@ -12,8 +12,7 @@ import React, { useEffect, useState } from 'react'
 
 const Profile = () => {
     const [userDetails, setUserDetails] = useState<any>(null);
-    const [dogs, setDogs] = useState([]);
-    const [cats, setCats] = useState([]);
+    const [animals, setAnimals] = useState([]);
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -23,27 +22,19 @@ const Profile = () => {
         fetchUserDetails();
       }, []);
 
-    const DogsByOwner = async () =>{
+    const AnimalsByOwner = async () =>{
         try {
-            const response = await axios.get(`http://localhost:3000/api/dogs/${userDetails?.id}`);
-            setDogs(response.data);
+            const response = await axios.get(`http://localhost:3000/api/users/${userDetails?.id}`);
+            setAnimals(response.data);
           } catch (error) {
-            console.error("Error fetching dogs:", error);
+            console.error("Error fetching animals:", error);
           }
     };
 
-    const CatsByOwner = async () =>{
-      try {
-          const response = await axios.get(`http://localhost:3000/api/cats/${userDetails?.id}`);
-          setCats(response.data);
-        } catch (error) {
-          console.error("Error fetching cats:", error);
-        }
-  };
+
 
     useEffect(() => {
-        CatsByOwner();
-        DogsByOwner();
+     AnimalsByOwner();
       }, [userDetails]);
 
   return (
@@ -57,18 +48,17 @@ const Profile = () => {
         </div>
 
         <div className='flex flex-col gap-3 w-[90%] mx-auto '>
-            <h1 className='text-3xl font-bold'>Your Dogs</h1>
             <div className='flex gap-4'>
                 <div className='w-[40%]'>
                 <Chart />
                 </div>
                 <div className='flex flex-col gap-2 h-full w-[60%] bg-white border shadow-md shadow-slate-400 rounded-xl p-4'>
-                     <span className='text-3xl font-bold'>Your Dogs</span>
+                     <span className='text-3xl font-bold'>Your Animals</span>
                      {
-                            dogs.length > 0 ? (
+                            animals.length > 0 ? (
                                 <div className='flex flex-col gap-3 items-center w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl overflow-y-scroll p-1'>
                                 {
-                                 dogs.map((dog :animalType) =>(
+                                 animals.map((dog :animalType) =>(
                                      <ProfileCard key={dog.id} animal={dog} />
                                  ))
                                 }
@@ -86,7 +76,7 @@ const Profile = () => {
 
         </div>
 
-        <div className='flex flex-col gap-3 w-[90%] mx-auto '>
+        {/* <div className='flex flex-col gap-3 w-[90%] mx-auto '>
             <h1 className='text-3xl font-bold'>Your Cats</h1>
             <div className='flex gap-4'>
                 <div className='w-[40%]'>
@@ -113,7 +103,7 @@ const Profile = () => {
                 </div>
             </div>
 
-        </div>
+        </div> */}
     </div>
   )
 }

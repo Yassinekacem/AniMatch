@@ -11,7 +11,7 @@ const ProfileCard = ({animal}:{animal:animalType}) => {
             <Image src={animal.image[0]} alt="Image" width={150} height={150} className='rounded-full w-20 h-20 object-cover' />
             <div className='flex flex-col'>
                 <span className='font-semibold text-lg text-gray-800'>{animal.name}</span>
-                <span className='text-gray-500 text-sm'>Age: {animal.age} , Gender: {animal.gender}</span>
+                <span className='text-gray-500 text-sm'>Age: {animal.age} months , Gender: {animal.gender}</span>
             </div>
         </div>
         <div className='flex gap-3'>
