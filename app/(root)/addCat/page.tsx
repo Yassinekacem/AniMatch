@@ -50,11 +50,11 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>; 
-const router = useRouter();
 
 const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false); 
+  const router = useRouter();
 
   const [userDetails, setUserDetails] = useState<any>(null);
 
@@ -111,7 +111,7 @@ const AddAnimal = () => {
         ownerId: userDetails?.id,
       });
       toast.success('Animal added successfully');
-      router.push("/dogs");
+      router.push("/cats");
 
       console.log("Animal added successfully:", response.data);
     } catch (error) {

@@ -1,16 +1,40 @@
 "use client";
 import { SignOutButton, UserButton, useClerk, useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { Heart } from 'lucide-react';
+import { Heart , MessageCircleMore } from 'lucide-react';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
+import { LayoutGrid , ChartBar } from 'lucide-react';
+import { getCurrentUserWithDetails } from "@/actions/userActions";
+
+  
+
 const NavBar = () => {
     const pathname = usePathname();
     const { user, isSignedIn } = useUser();
+
+    const [userDetails, setUserDetails] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const userDetails = await getCurrentUserWithDetails();
+      setUserDetails(userDetails);
+    };
+
+    fetchUserDetails();
+  }, []);
 
     // Helper function to determine if the link is active
     const isActive = (route: string) => pathname === route || pathname.startsWith(`${route}/`);
@@ -65,9 +89,38 @@ const NavBar = () => {
             <div className="flex items-center gap-x-5">
                 {isSignedIn ? (
                     <>
-                        <Link href="/wishlist">
-                        <Heart /> 
-                        </Link>
+                        <DropdownMenu>
+                        <DropdownMenuTrigger className="flex gap-2 ">
+                             <Image src="/icons/menu1.png" alt="menu" width={20} height={20} />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>Options</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem >
+                                <Link href={`/profile/${userDetails?.id}`} className="flex gap-2 items-center">
+                                <ChartBar />
+                                <span>Dashboard</span>
+                                </Link>
+                                </DropdownMenuItem>
+
+                                <DropdownMenuItem >
+                                <Link href="/wishlist" className="flex gap-2 items-center">
+                                <Heart />
+                                <span>Wishlist</span>
+                                </Link>
+                                </DropdownMenuItem>
+
+                                <DropdownMenuItem >
+                                <Link href="/wishlist" className="flex gap-2 items-center">
+                                <MessageCircleMore />
+                                <span>Chat</span>
+                                </Link>
+                                </DropdownMenuItem>
+
+                                
+                        </DropdownMenuContent>
+                        </DropdownMenu>
+
                         <UserButton />
                     </>
                 ) : (

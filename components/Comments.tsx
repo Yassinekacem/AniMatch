@@ -80,7 +80,7 @@ const Comments = ({ petId }: CommentsProps) => {
       <div className='w-[60%] flex flex-col gap-2 bg-gray-200 rounded-lg p-2'>
         <h1 className='text-customGreen font-bold text-3xl'>Comments</h1>
         <div className='flex flex-col gap-2'>
-          {comments.map((comment: commentType) => (
+          {comments.length > 0 ? (comments.map((comment: commentType) => (
             <div key={comment.id} className='flex gap-2 p-5'>
               <Image src={comment.userPhoto} alt='imgg' width={50} height={50} className='w-10 h-10 rounded-full' />
               <div className='flex flex-col'>
@@ -94,7 +94,7 @@ const Comments = ({ petId }: CommentsProps) => {
                 </div>
               </div>
             </div>
-          ))}
+          ))):( <h1 className='text-lg text-gray-500 flex items-center  justify-center'>No comments yet</h1>)}
         </div>
       </div>
 
