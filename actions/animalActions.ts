@@ -101,13 +101,14 @@ export const editAnimal = async (
   name: string,
   age: number,
   city: City,
-  vaccinated: boolean, 
-  gender : string,   
+  gender: string,
+  vaccinated: boolean,
   trained: boolean,
   friendly: boolean,
   available: boolean,
   description: string,
-  image: [string]
+  image: string[],
+  ownerId : number
 ) => {
   await db
     .update(animals)
@@ -124,7 +125,8 @@ export const editAnimal = async (
       friendly,
       available,
       description,
-      image
+      image, 
+      ownerId
     })
     .where(eq(animals.id, id));
   revalidatePath("/");

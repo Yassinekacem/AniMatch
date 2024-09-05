@@ -1,7 +1,7 @@
 "use client";
 import { SignOutButton, UserButton, useClerk, useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { Heart , MessageCircleMore } from 'lucide-react';
+import { Heart, MessageCircleMore } from 'lucide-react';
 
 import React, { useEffect, useState } from 'react';
 import { Button } from "./ui/button";
@@ -15,11 +15,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
-import { LayoutGrid , ChartBar } from 'lucide-react';
+} from "@/components/ui/dropdown-menu"
+import { LayoutGrid , Settings2 } from 'lucide-react';
 import { getCurrentUserWithDetails } from "@/actions/userActions";
 
-  
+
 
 const NavBar = () => {
     const pathname = usePathname();
@@ -27,14 +27,14 @@ const NavBar = () => {
 
     const [userDetails, setUserDetails] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      const userDetails = await getCurrentUserWithDetails();
-      setUserDetails(userDetails);
-    };
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const userDetails = await getCurrentUserWithDetails();
+            setUserDetails(userDetails);
+        };
 
-    fetchUserDetails();
-  }, []);
+        fetchUserDetails();
+    }, []);
 
     // Helper function to determine if the link is active
     const isActive = (route: string) => pathname === route || pathname.startsWith(`${route}/`);
@@ -84,44 +84,45 @@ const NavBar = () => {
                         </h3>
                     </Link>
                 </div>
-            </div> 
-           
+            </div>
+
             <div className="flex items-center gap-x-5">
                 {isSignedIn ? (
                     <>
+                        <UserButton />
+
                         <DropdownMenu>
-                        <DropdownMenuTrigger className="flex gap-2 ">
-                             <Image src="/icons/menu1.png" alt="menu" width={20} height={20} />
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuLabel>Options</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem >
-                                <Link href={`/profile/${userDetails?.id}`} className="flex gap-2 items-center">
-                                <ChartBar />
-                                <span>Dashboard</span>
-                                </Link>
+                            <DropdownMenuTrigger className="flex gap-2 ">
+                                <Image src="/icons/menu1.png" alt="menu" width={20} height={20} />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>Options</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem >
+                                    <Link href={`/profile/${userDetails?.id}`} className="flex gap-2 items-center">
+                                        <Settings2 />
+                                        <span>Dashboard</span>
+                                    </Link>
                                 </DropdownMenuItem>
 
                                 <DropdownMenuItem >
-                                <Link href="/wishlist" className="flex gap-2 items-center">
-                                <Heart />
-                                <span>Wishlist</span>
-                                </Link>
+                                    <Link href="/wishlist" className="flex gap-2 items-center">
+                                        <Heart />
+                                        <span>Wishlist</span>
+                                    </Link>
                                 </DropdownMenuItem>
 
                                 <DropdownMenuItem >
-                                <Link href="/wishlist" className="flex gap-2 items-center">
-                                <MessageCircleMore />
-                                <span>Chat</span>
-                                </Link>
+                                    <Link href="/wishlist" className="flex gap-2 items-center">
+                                        <MessageCircleMore />
+                                        <span>Chat</span>
+                                    </Link>
                                 </DropdownMenuItem>
 
-                                
-                        </DropdownMenuContent>
+
+                            </DropdownMenuContent>
                         </DropdownMenu>
 
-                        <UserButton />
                     </>
                 ) : (
                     <div className="flex items-center gap-x-5">
