@@ -55,7 +55,6 @@ const AddAnimal = () => {
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  const router = useRouter();
 
   const [userDetails, setUserDetails] = useState<any>(null);
 

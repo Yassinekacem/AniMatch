@@ -57,7 +57,7 @@ const WishList = () => {
                 <WishCard key={item.animals.id} item={item} removeWish={removeWishFromList} />
               ))
             ) : (
-              <div className='w-full h-[250px] bg-gray-200 border border-slate-100 shadow-xl shadow-slate-400 rounded-2xl  flex flex-col gap-3 items-center justify-center'>
+              <div className='w-full h-[350px] bg-gray-50 border border-slate-100 shadow-xl shadow-slate-400 rounded-2xl  flex flex-col gap-3 items-center justify-center'>
                <span className='text-2xl font-bold'>No wished dogs yet</span>
                <Link href='/dogs' className='text-blue-500 border-b border-blue-500'>Dogs URL</Link>
               </div>
@@ -75,7 +75,7 @@ const WishList = () => {
                 <WishCard key={item.animals.id} item={item} removeWish={removeWishFromList} />
               ))
             ) : (
-               <div className='w-full h-[250px] bg-gray-200 border border-slate-100 shadow-xl shadow-slate-400 rounded-2xl  flex flex-col gap-3 items-center justify-center'>
+               <div className='w-full h-[350px] bg-gray-50 border border-slate-100 shadow-xl shadow-slate-400 rounded-2xl  flex flex-col gap-3 items-center justify-center'>
                <span className='text-2xl font-bold'>No wished cats yet</span>
                <Link href='/cats' className='text-blue-500 border-b border-blue-500'>Cats URL</Link>
               </div>

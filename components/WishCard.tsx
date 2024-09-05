@@ -21,7 +21,7 @@ const WishCard = ({ item, removeWish }: { item: FetchedAnimalData, removeWish: (
 
    }
    return (
-      <div className='w-[350px] h-[450px] flex flex-col gap-2 border border-gray-100 shadow-xl shadow-slate-300 rounded-lg'>
+      <div className='w-[350px] h-[450px] bg-white flex flex-col gap-2 border border-gray-100 shadow-xl shadow-slate-300 rounded-lg'>
          <Image src={item.animals.image[0]} alt='imgg' width={350} height={200} className='h-[230px] rounded-t-lg' />
          <div className=' p-2 flex flex-col gap-3'>
             <h1 className='font-sanss text-xl text-customGreen'>{item.animals.name}</h1>
