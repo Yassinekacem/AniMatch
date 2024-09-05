@@ -52,7 +52,6 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>; 
 
 const AddAnimal = () => {
-  const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false); 
 

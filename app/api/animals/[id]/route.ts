@@ -3,12 +3,8 @@ import { db } from "@/db/drizzle";
 import { comments } from "@/db/schema";
 import { avg, count, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-export async function GET(request: NextRequest, context: { params: { id: number } }) { 
-    const id = context.params.id;  
-    const { searchParams } = new URL(request.url);
-    const species = searchParams.get('species');
-
-  
+export async function GET(request: NextRequest, context: { params: { id: number } }) {
+    const id = context.params.id;
   
     try {
       // Fetch the animal by ID
@@ -16,10 +12,8 @@ export async function GET(request: NextRequest, context: { params: { id: number 
   
       if (!animal) {
         return NextResponse.json({ message: 'Animal not found' }, { status: 404 });
-    }
-
-    // Check if the species filter is applied
-   
+      }
+  
       // Fetch the count of comments for the animal
       const totalCommentsResult = await db
         .select({ count: count(comments.id) })

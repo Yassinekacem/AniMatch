@@ -12,10 +12,12 @@ import {
 import gsap from 'gsap'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { useUser } from "@clerk/nextjs";
 
 const Home = () => {
   const [species, setSpecies] = useState('');
   const router = useRouter();
+  const { user, isSignedIn } = useUser();
 
   useEffect(() => {
     gsap.fromTo(
@@ -37,7 +39,10 @@ const Home = () => {
     );
   }, []);
 
-  const handleButtonClick = () => { 
+  const handleButtonClick = () => {  
+    if (!isSignedIn) {
+      toast.error('You need to sign in to continue');
+    }
     if (!species) 
     {
       toast.error('Please select a species to continue');
