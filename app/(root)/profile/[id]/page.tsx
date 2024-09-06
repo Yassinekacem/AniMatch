@@ -15,6 +15,7 @@ import Loader from '@/components/Loader';
 
 
 const Profile = () => {
+  
   const [userDetails, setUserDetails] = useState<any>(null);
   const [animals, setAnimals] = useState<animalType[]>([]);
   const [loading, setLoading] = useState(true);
@@ -84,7 +85,7 @@ const Profile = () => {
                   ) : (
                     animals.length > 0 ?
                       animals.map((animal: animalType) => (
-<ProfileCard
+                <ProfileCard
                   key={animal.id}
                   animal={animal}
                   onDelete={handleDeleteAnimal}

@@ -9,12 +9,13 @@ interface CloudinaryScriptContextProps {
 interface UploadWidgetProps {
   uwConfig: object;
   setState: Dispatch<SetStateAction<string[]>>;
+  setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext<CloudinaryScriptContextProps | null>(null);
 
-function UploadWidget({ uwConfig, setState }: UploadWidgetProps) {
+function UploadWidget({ uwConfig, setState ,setIsDialogOpen}: UploadWidgetProps) {
   const [loaded, setLoaded] = useState<boolean>(false);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function UploadWidget({ uwConfig, setState }: UploadWidgetProps) {
       document.getElementById("upload_widget")?.addEventListener(
         "click",
         function () {
+          setIsDialogOpen(false);
           myWidget.open();
         },
         false
@@ -59,14 +61,14 @@ function UploadWidget({ uwConfig, setState }: UploadWidgetProps) {
   };
 
   return (
-    <CloudinaryScriptContext.Provider value={{ loaded }}>
-      <button
-        id="upload_widget"
-        className="cloudinary-button hover:bg-customPink"
-        onClick={initializeCloudinaryWidget}
-      >
-        Upload 4 Images
-      </button>
+    <CloudinaryScriptContext.Provider value={{ loaded }} >
+   <button
+  id="upload_widget"
+  className="cloudinary-button hover:bg-customPink"
+  onClick={initializeCloudinaryWidget}
+>
+  Reupload 4 new Images
+</button>
     </CloudinaryScriptContext.Provider>
   );
 }

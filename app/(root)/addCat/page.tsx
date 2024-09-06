@@ -124,7 +124,7 @@ const AddAnimal = () => {
   return (
     <div className=" pb-1 w-full ">
       <div className="m-9  bg-white  rounded-lg p-6 shadow-2xl shadow-slate-600 w-[60%] mx-auto relative top-[15px]">
-        <h1 className="font-extrabold font-medium text-4xl text-center mb-6 text-pink-500">Find Love for Your Cat</h1>
+        <h1 className="font-extrabold  text-4xl text-center mb-6 text-pink-500">Find Love for Your Cat</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
