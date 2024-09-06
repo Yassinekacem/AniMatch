@@ -51,14 +51,26 @@ export const addInvitation = async (id: number,
     date: Date,
     senderId: number,
     receiverId: number,
-    animalId: number) => {
+    animalId: number , 
+    senderName : string , 
+    senderPhoto : string , 
+    animalName : string , 
+    description : string ,  
+    images : string[]
+  ) => {
   await db.insert(invitations).values({
     id: id,
     status: status,
     date: date.toISOString(),
     senderId: senderId,
     receiverId: receiverId,
-    animalId: animalId,
+    animalId: animalId, 
+    senderName : senderName , 
+    senderPhoto : senderPhoto , 
+    animalName : animalName , 
+    description : description , 
+    images : images , 
+
   });
   revalidatePath("/");
 
@@ -73,7 +85,13 @@ export const editInvitaion = async (id: number,
     date: Date,
     senderId: number,
     receiverId: number,
-    animalId: number) => {
+    animalId: number ,  
+    senderName : string , 
+    senderPhoto : string , 
+    animalName : string , 
+    description : string , 
+    images : string[]
+  ) => {
   await db
     .update(invitations)
     .set({
@@ -82,7 +100,12 @@ export const editInvitaion = async (id: number,
     date: date.toISOString(),
     senderId: senderId,
     receiverId: receiverId,
-    animalId: animalId,
+    animalId: animalId, 
+    senderName : senderName , 
+    senderPhoto : senderPhoto , 
+    animalName : animalName , 
+    description : description , 
+    images : images , 
     })
     .where(eq(invitations.id, id));
     revalidatePath("/");

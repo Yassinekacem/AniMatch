@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/pagination";
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import Loader from '@/components/Loader';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 

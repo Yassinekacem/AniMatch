@@ -54,10 +54,13 @@ const Card = ({ item }: { item: animalType }) => {
       console.log("Wish added successfully:", response.data); 
       toast.success('Wish added successfully');
       setIsInWishlist(true);
-    } catch (error) {
+    } catch (error : any) {
       console.error("Error adding Wish:", error); 
-      toast.error('Failed to add wish');
-    }
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message); // Affiche le message d'erreur du backend
+    } else {
+        toast.error('Error adding wish');
+    }    }
   };
 
   return (

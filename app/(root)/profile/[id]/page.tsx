@@ -7,7 +7,7 @@ import { animalType } from '@/types/animalType';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react' 
+import React, { useEffect, useState } from 'react'
 
 
 import Loader from '@/components/Loader';
@@ -32,7 +32,7 @@ const Profile = () => {
   const AnimalsByOwner = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/api/users/${userDetails?.id}` , {
+      const response = await axios.get(`http://localhost:3000/api/users/${userDetails?.id}`, {
         headers: {
           'Cache-Control': 'no-cache',  // Forcer l'absence de cache
           'Pragma': 'no-cache'          // Compatibilité avec HTTP/1.0
@@ -85,12 +85,12 @@ const Profile = () => {
                   ) : (
                     animals.length > 0 ?
                       animals.map((animal: animalType) => (
-                <ProfileCard
-                  key={animal.id}
-                  animal={animal}
-                  onDelete={handleDeleteAnimal}
-                  onUpdate={handleUpdateAnimal} // Pass the update handler
-                />                      )) : (
+                        <ProfileCard
+                          key={animal.id}
+                          animal={animal}
+                          onDelete={handleDeleteAnimal}
+                          onUpdate={handleUpdateAnimal} // Pass the update handler
+                        />)) : (
                         <span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don't have any animals yet</span>
                       )
                   )
