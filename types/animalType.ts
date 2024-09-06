@@ -28,3 +28,14 @@ export type FetchedAnimalData = {
     animalId: number;
   };
 };
+ 
+
+
+export type dataAnimal = {
+  senderName: string; 
+  senderPhoto: string; 
+  animalName: string; 
+  animalId: number;  
+  receiverId: number;
+  senderId: number;
+};

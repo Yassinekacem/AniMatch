@@ -58,7 +58,14 @@ CREATE TABLE IF NOT EXISTS "invitations" (
 	"senderId" integer NOT NULL,
 	"receiverId" integer NOT NULL,
 	"animalId" integer NOT NULL,
-	"date" date DEFAULT 'now()' NOT NULL
+	"date" date DEFAULT 'now()' NOT NULL,
+	"senderPhoto" text NOT NULL,
+	"senderName" text NOT NULL,
+	"animalName" text NOT NULL,
+	"description" text NOT NULL,
+	"images" text[] NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (

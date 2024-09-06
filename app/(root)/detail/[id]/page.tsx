@@ -1,4 +1,5 @@
-"use client";
+"use client"; 
+import { getCurrentUserWithDetails } from '@/actions/userActions';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
@@ -9,11 +10,12 @@ import { animalType } from '@/types/animalType';
 import Comments from '@/components/Comments';
 import Stars from '@/components/Stars';
 import Loader from '@/components/Loader';
-
+import GetStarted from '@/components/getStarted';
 const Detail = () => {
     const [pet, setPet] = useState<animalType | null>(null);
     const [currentImage, setCurrentImage] = useState<string>("");
-    const { id } = useParams();
+    const { id } = useParams(); 
+    const [userDetails, setUserDetails] = useState<any>(null);
     const [totalComments, setTotalComments] = useState<number>(0);
     const [avgRating, setAvgRating] = useState<number>(0);
     const [animals, setAnimals] = useState<animalType[]>([]);
@@ -30,7 +32,14 @@ const Detail = () => {
         } catch (error) {
             console.error("Error fetching animals:", error);
         }
-    };
+    }; 
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+          const userDetails = await getCurrentUserWithDetails();
+          setUserDetails(userDetails);
+        };
+        fetchUserDetails();
+      }, []);
 
     useEffect(() => {
         getAnimal();
@@ -55,7 +64,7 @@ const Detail = () => {
         getAnimals();
     }, []);
 
-    if (!pet) return <Loader/>;
+    if (!pet) return <Loader />;
 
     const handleNext = () => {
         if (currentPage < Math.ceil(filteredAnimals.length / petsPerPage) - 1) {
@@ -78,7 +87,17 @@ const Detail = () => {
 
     const isImageGray = (image: string) => {
         return image !== currentImage;
-    };
+    }; 
+
+
+    const data = { 
+        animalId : pet.id,  
+        senderName : userDetails?.lastName + ' ' + userDetails?.firstName, 
+        senderPhoto : userDetails?.photo , 
+        animalName : pet.name ,  
+        receiverId : pet.ownerId , 
+        senderId : userDetails?.id , 
+    }
 
     return (
         <div className='m-10'>
@@ -146,7 +165,7 @@ const Detail = () => {
                             <span className='text-xl'>{pet.vaccinated ? 'Vaccinated' : 'Not vaccinated'}</span>
                         </div>
 
-                       { pet.species=="Dog" ?  <div className='flex gap-2 items-center'>
+                        {pet.species == "Dog" ? <div className='flex gap-2 items-center'>
                             <Image src="/icons/trained.svg" alt="logo" width={150} height={80} className='w-[30px] h-[30px]' />
                             <span className='text-xl'>{pet.trained ? 'House-Trained' : 'Not House-Trained'}</span>
                         </div> : <div></div>}
@@ -160,12 +179,8 @@ const Detail = () => {
                     </div>
                 </div>
             </div>
-
-            <div className='my-6 flex items-center justify-center'>
-                <div className='w-[350px] h-[150px] border border-slate-400 flex flex-col items-center justify-center p-2 rounded-lg gap-2 shadow-md shadow-slate-400'>
-                    <span className='font-bold'>If you are interested to match</span>
-                    <Button className='bg-customPink text-white hover:bg-customPink'>Get started</Button>
-                </div>
+            <div className='flex items-center justify-center'>
+                <GetStarted  data = {data} />
             </div>
 
             <Comments petId={pet.id} />

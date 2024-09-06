@@ -114,10 +114,13 @@ const AddAnimal = () => {
       router.push("/cats");
 
       console.log("Animal added successfully:", response.data);
-    } catch (error) {
+    } catch (error : any) {
       console.error("Error adding animal:", error);
-      toast.error('Error adding animal');
-    } finally {
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message); // Affiche le message d'erreur du backend
+    } else {
+        toast.error('Error adding animal');
+    }    } finally {
       setIsSubmitting(false);
     }
   };
