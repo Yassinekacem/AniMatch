@@ -56,7 +56,8 @@ type FormData = z.infer<typeof schema>;
 const AddAnimal = () => {
   const [images, setImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false); 
-const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const router = useRouter();
 
   const [userDetails, setUserDetails] = useState<any>(null);
 
@@ -371,7 +372,8 @@ const router = useRouter();
               cloudName: "dxurkrqmb",
               uploadPreset: "animatch"
             }}
-              setState={setImages} />
+              setState={setImages}
+              setIsDialogOpen={setIsDialogOpen} />
 
             <div className="flex gap-3">
               {images.map((image, index) => (

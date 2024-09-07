@@ -12,6 +12,17 @@ import React, { useEffect, useState } from 'react'
 
 import Loader from '@/components/Loader';
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+
 
 
 const Profile = () => {
@@ -113,34 +124,86 @@ const Profile = () => {
 
       </div>
 
-      {/* <div className='flex flex-col gap-3 w-[90%] mx-auto '>
-            <h1 className='text-3xl font-bold'>Your Cats</h1>
-            <div className='flex gap-4'>
-                <div className='w-[40%]'>
-                <Chart />
-                </div>
-                <div className='flex flex-col gap-2 h-full w-[60%] bg-white border shadow-md shadow-slate-400 rounded-xl p-4'>
-                     <span className='text-3xl font-bold'>Your Cats</span>
-                     {
-                            cats.length > 0 ? (
-                                <div className='flex flex-col gap-3 items-center w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl overflow-y-scroll p-1'>
-                                {
-                                 cats.map((cat :animalType) =>(
-                                     <ProfileCard key={cat.id} animal={cat} />
-                                 ))
-                                }
-                              </div>
-                            ) :(
-                                <span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don't have any cats yet</span>
-                            ) 
-                     }
-                     <Link href="/addanimal">
-                       <Button className='text-customPink bg-white border border-customPink hover:bg-white'>Add a cat</Button>
-                     </Link>
-                </div>
-            </div>
+      <div className='flex flex-col gap-3 items-center justify-center p-3'>
+        <h1 className='text-3xl font-bold text-customGreen'>Invitations</h1>
 
-        </div> */}
+        <Table className=' rounded-xl'>
+          <TableHeader className=''>
+            <TableRow>
+              <TableHead className='text-lg text-black font-medium' >Sender</TableHead>
+              <TableHead className='text-lg text-black font-medium'>Animal To match</TableHead>
+              <TableHead className='text-lg text-black font-medium'>Status</TableHead>
+              <TableHead className='text-lg text-black font-medium' >Details</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow className='border-b-2 border-b-gray-200'>
+              <TableCell className="font-medium">
+                <div className='flex gap-2 items-center'>
+                  <Image src='/images/dog.png' alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
+                  <span className='text-lg font-bold'>Raef Kacem</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className='flex gap-2 items-center'>
+                    <Image src='/images/dog.png' alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
+                    <span className='text-lg font-bold'>Boboo</span>
+                  </div>
+              </TableCell>
+              <TableCell>
+                <h2 className='border border-orange-400 bg-orange-400 p-1 w-1/2 text-center text-slate-100 rounded-lg'>Pending ...</h2>
+                </TableCell>
+              <TableCell >
+                <Button className='bg-customBlue '>View Details</Button>
+              </TableCell>
+            </TableRow>
+
+            <TableRow className='border-b-2 border-b-gray-200'>
+              <TableCell className="font-medium">
+                <div className='flex gap-2 items-center'>
+                  <Image src='/images/dog.png' alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
+                  <span className='text-lg font-bold'>Raef Kacem</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className='flex gap-2 items-center'>
+                    <Image src='/images/dog.png' alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
+                    <span className='text-lg font-bold'>Boboo</span>
+                  </div>
+              </TableCell>
+              <TableCell>
+                <h2 className='border border-green-600 bg-green-600 p-1 w-1/2 text-center text-slate-100 rounded-lg'>Accepted</h2>
+                </TableCell>
+              <TableCell >
+                <Button className='bg-customBlue '>View Details</Button>
+              </TableCell>
+            </TableRow>
+
+            <TableRow className='border-b-2 border-b-gray-200'>
+              <TableCell className="font-medium">
+                <div className='flex gap-2 items-center'>
+                  <Image src='/images/dog.png' alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
+                  <span className='text-lg font-bold'>Raef Kacem</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className='flex gap-2 items-center'>
+                    <Image src='/images/dog.png' alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
+                    <span className='text-lg font-bold'>Boboo</span>
+                  </div>
+              </TableCell>
+              <TableCell>
+                <h2 className='border border-red-500 bg-red-500 p-1 w-1/2 text-center text-slate-100 rounded-lg'>Rejected</h2>
+                </TableCell>
+              <TableCell >
+                <Button className='bg-customBlue '>View Details</Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+      </Table>
+      </div>
+
+      
     </div>
   )
 }
