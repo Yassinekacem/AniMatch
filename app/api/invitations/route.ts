@@ -16,7 +16,7 @@ export const GET = async (request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
-    const { id , status, senderId, receiverId, animalId  , senderName , senderPhoto , animalName , description , images} = body;
+    const {  status, senderId, receiverId, animalId  , senderName , senderPhoto , animalName , description , images , animalAge , animalSpecies , animalGender , animalBreed , animalCity , animalVaccinated , animalTrained , animalFriendly , NumTel} = body;
 
     // Validation des champs obligatoitres
     if (!senderId || !receiverId || !animalId) {
@@ -47,10 +47,28 @@ export const POST = async (request: NextRequest) => {
     }
 
     // Utiliser la date actuelle
-    const invitationDate = new Date(); 
 
-    await addInvitation(id, status, invitationDate, senderId, receiverId, animalId , senderName , senderPhoto , animalName , description , images); ;
-    return NextResponse.json({ message: 'Invitation added successfully' }, { status: 200 });
+    await addInvitation( 
+      
+      status,
+      senderId,
+      receiverId,
+      animalId,
+      senderName,
+      senderPhoto,
+      animalName,
+      description,
+      images,
+      animalAge,
+      animalGender,
+      animalCity,
+      animalBreed,
+      animalVaccinated,
+      animalTrained,
+      animalFriendly, 
+      animalSpecies, 
+      NumTel,
+  );    return NextResponse.json({ message: 'Invitation added successfully' }, { status: 200 });
   } catch (error: any) {
     console.error("Error adding invitation:", error);
     return NextResponse.json({ message: 'Error adding invitation', error }, { status: 500 });

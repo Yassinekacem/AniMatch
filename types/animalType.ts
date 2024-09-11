@@ -31,11 +31,10 @@ export type FetchedAnimalData = {
  
 
 
-export type dataAnimal = {
-  senderName: string; 
-  senderPhoto: string; 
+export type dataAnimal = { 
   animalName: string; 
   animalId: number;  
-  receiverId: number;
-  senderId: number;
+  receiverId: number; 
+  animalGender: string;
+  animalSpecies: string;
 };

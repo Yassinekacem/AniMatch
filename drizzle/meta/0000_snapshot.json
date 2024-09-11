@@ -1,5 +1,5 @@
 {
-  "id": "a80a6c57-cf49-4268-b4d5-acc49364c708",
+  "id": "3776c1d1-fb63-43b7-9502-4d98075eead8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -251,13 +251,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "date": {
-          "name": "date",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'now()'"
-        },
         "senderPhoto": {
           "name": "senderPhoto",
           "type": "text",
@@ -276,6 +269,54 @@
           "primaryKey": false,
           "notNull": true
         },
+        "animalGender": {
+          "name": "animalGender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalSpecies": {
+          "name": "animalSpecies",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalAge": {
+          "name": "animalAge",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalCity": {
+          "name": "animalCity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalBreed": {
+          "name": "animalBreed",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalVaccinated": {
+          "name": "animalVaccinated",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalTrained": {
+          "name": "animalTrained",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "animalFriendly": {
+          "name": "animalFriendly",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
         "description": {
           "name": "description",
           "type": "text",
@@ -285,6 +326,12 @@
         "images": {
           "name": "images",
           "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NumTel": {
+          "name": "NumTel",
+          "type": "varchar(8)",
           "primaryKey": false,
           "notNull": true
         },

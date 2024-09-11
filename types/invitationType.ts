@@ -4,5 +4,19 @@ export type invitationType = {
     receiverId: number;
     animalId: number;
     status: "pended" | "accepted" | "rejected";
-    date: Date;
+   senderPhoto: string;
+    senderName: string;
+    animalName : string;
+    animalGender : string;
+    animalSpecies : string;
+    animalAge : number;
+    animalCity : string;
+    animalBreed : string;
+    animalVaccinated : boolean;
+    animalTrained : boolean;
+    animalFriendly : boolean;
+    description : string;
+    images : string[];
+    NumTel: string;
+
   };

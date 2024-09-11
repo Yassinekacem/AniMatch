@@ -37,7 +37,16 @@ export const getInvitation = async (id: number) => {
   const data = await db.select().from(invitations).where(eq(invitations.id, id));
   return data;
 
-}
+}  
+// get the invitation by receiver id
+export const getInvitationByReceiver = async (receiverId: number) => {
+  const data = await db.select().from(invitations).where(eq(invitations.receiverId, receiverId));
+  return data;
+
+} 
+
+
+
 
 // get all invitations
 export const getAllInvitations = async () => {
@@ -46,43 +55,54 @@ export const getAllInvitations = async () => {
 }; 
 
 //add new invitation
-export const addInvitation = async (id: number,
-    status: "pended" | "accepted" | "rejected",
-    date: Date,
-    senderId: number,
-    receiverId: number,
-    animalId: number , 
-    senderName : string , 
-    senderPhoto : string , 
-    animalName : string , 
-    description : string ,  
-    images : string[]
-  ) => {
+export const addInvitation = async (
+  status: "pended" | "accepted" | "rejected",
+  senderId: number,
+  receiverId: number,
+  animalId: number,
+  senderName: string,
+  senderPhoto: string,
+  animalName: string,
+  description: string,
+  images: string[],
+  animalAge: number,
+  animalGender: string,
+  animalCity: string,
+  animalBreed: string,
+  animalVaccinated: boolean,
+  animalTrained: boolean,
+  animalFriendly: boolean,
+  animalSpecies: string,
+  NumTel: string,
+) => {
   await db.insert(invitations).values({
-    id: id,
-    status: status,
-    date: date.toISOString(),
-    senderId: senderId,
-    receiverId: receiverId,
-    animalId: animalId, 
-    senderName : senderName , 
-    senderPhoto : senderPhoto , 
-    animalName : animalName , 
-    description : description , 
-    images : images , 
-
+    status,
+    senderId,
+    receiverId,
+    animalId,
+    senderName,
+    senderPhoto,
+    animalName,
+    description,
+    images,
+    animalAge,
+    animalGender,
+    animalCity,
+    animalBreed,
+    animalVaccinated,
+    animalTrained,
+    animalFriendly,
+    animalSpecies, 
+    NumTel,
   });
   revalidatePath("/");
-
 };
-
 
 
 
 //update the invitation by id
 export const editInvitaion = async (id: number,
     status: "pended" | "accepted" | "rejected",
-    date: Date,
     senderId: number,
     receiverId: number,
     animalId: number ,  
@@ -90,14 +110,22 @@ export const editInvitaion = async (id: number,
     senderPhoto : string , 
     animalName : string , 
     description : string , 
-    images : string[]
+    images : string[] , 
+    animalAge: number , 
+    animalGender: string , 
+    animalCity: string , 
+    animalBreed: string , 
+    animalVaccinated : boolean , 
+    animalTrained : boolean , 
+    animalFriendly : boolean , 
+    animalSpecies : string , 
+
   ) => {
   await db
     .update(invitations)
     .set({
         id: id,
     status: status,
-    date: date.toISOString(),
     senderId: senderId,
     receiverId: receiverId,
     animalId: animalId, 
@@ -105,7 +133,15 @@ export const editInvitaion = async (id: number,
     senderPhoto : senderPhoto , 
     animalName : animalName , 
     description : description , 
-    images : images , 
+    images : images ,  
+    animalAge: animalAge , 
+    animalGender: animalGender , 
+    animalCity: animalCity , 
+    animalBreed: animalBreed ,
+    animalVaccinated : animalVaccinated , 
+    animalTrained : animalTrained , 
+    animalFriendly : animalFriendly , 
+    animalSpecies : animalSpecies , 
     })
     .where(eq(invitations.id, id));
     revalidatePath("/");

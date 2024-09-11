@@ -1,6 +1,5 @@
-import { integer, bigint, varchar, boolean, pgTable, text, pgEnum, serial, date, timestamp } from "drizzle-orm/pg-core";
+import { integer, varchar, boolean, pgTable, text, pgEnum, serial, date, timestamp } from "drizzle-orm/pg-core";
 import { desc, relations } from "drizzle-orm";
-import { createDecipheriv } from "crypto";
 
 // Enum for species
 export const SpeciesValues = pgEnum("speciesValues", ["Dog", "Cat"]);
@@ -52,11 +51,6 @@ export const users = pgTable("users", {
 
 
 
-export const wishs = pgTable("wishs", {
-  id: serial("id").primaryKey(),
-  userId: integer("userId").notNull().references(() => users.id, { onDelete: 'cascade' }),
-  animalId: integer("animalId").notNull().references(() => animals.id, { onDelete: 'cascade' }),
-})
 
 
 export const invitations = pgTable("invitations", {
@@ -65,15 +59,30 @@ export const invitations = pgTable("invitations", {
   senderId: integer("senderId").notNull().references(() => users.id, { onDelete: 'cascade' }),
   receiverId: integer("receiverId").notNull().references(() => animals.ownerId, { onDelete: 'cascade' }),
   animalId: integer("animalId").notNull().references(() => animals.id, { onDelete: 'cascade' }),
-  date: date("date").notNull().default('now()'),
   senderPhoto: text("senderPhoto").notNull(),
   senderName: text("senderName").notNull(), 
   animalName : text("animalName").notNull(), 
+  animalGender : text("animalGender").notNull(),  
+  animalSpecies : text("animalSpecies").notNull(),
+  animalAge : integer("animalAge").notNull(), 
+  animalCity : text("animalCity").notNull(), 
+  animalBreed : text("animalBreed").notNull(), 
+  animalVaccinated : boolean("animalVaccinated").notNull(), 
+  animalTrained : boolean("animalTrained").notNull(), 
+  animalFriendly : boolean("animalFriendly").notNull(), 
   description : text("description").notNull(), 
-  images : text("images").array().notNull(), 
+  images : text("images").array().notNull(),  
+  NumTel: varchar("NumTel", { length: 8 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),  
 });
+
+export const wishs = pgTable("wishs", {
+  id: serial("id").primaryKey(),
+  userId: integer("userId").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  animalId: integer("animalId").notNull().references(() => animals.id, { onDelete: 'cascade' }),
+})
+
 
 export const comments = pgTable("comments", {
   id: serial("id").primaryKey(),

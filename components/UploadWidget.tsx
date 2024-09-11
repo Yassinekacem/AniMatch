@@ -67,7 +67,7 @@ function UploadWidget({ uwConfig, setState ,setIsDialogOpen}: UploadWidgetProps)
   className="cloudinary-button hover:bg-customPink"
   onClick={initializeCloudinaryWidget}
 >
-  Reupload 4 new Images
+  Upload 4 Images
 </button>
     </CloudinaryScriptContext.Provider>
   );

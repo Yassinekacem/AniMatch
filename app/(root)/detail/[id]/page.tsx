@@ -92,11 +92,11 @@ const Detail = () => {
 
     const data = { 
         animalId : pet.id,  
-        senderName : userDetails?.lastName + ' ' + userDetails?.firstName, 
-        senderPhoto : userDetails?.photo , 
         animalName : pet.name ,  
         receiverId : pet.ownerId , 
-        senderId : userDetails?.id , 
+        animalGender : pet.gender , 
+        animalSpecies : pet.species ,
+
     }
 
     return (
