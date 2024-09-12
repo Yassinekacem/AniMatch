@@ -49,7 +49,7 @@ function GetStarted({ data }: { data: dataAnimal }) {
         description: '',
         receiverId: data.receiverId,
         animalId: data.animalId,
-        animalName: data.animalName,
+        animalName: '',
         animalSpecies: data.animalSpecies,
         senderName: '',
         senderPhoto: '',
@@ -58,8 +58,8 @@ function GetStarted({ data }: { data: dataAnimal }) {
         animalBreed: '',
         animalGender: data.animalGender === 'male' ? 'female' : 'male',
         animalAge: 10,
-        animalCity: '',  
-        NumTel : "",
+        animalCity: '',
+        NumTel: "",
         animalVaccinated: false,
         animalTrained: false,
         animalFriendly: false,
@@ -80,7 +80,7 @@ function GetStarted({ data }: { data: dataAnimal }) {
                 senderName: `${userDetails.lastName} ${userDetails.firstName}`,
                 senderPhoto: userDetails.photo,
                 senderId: userDetails.id,
-                
+
             }));
         }
     }, [userDetails]);
@@ -96,8 +96,8 @@ function GetStarted({ data }: { data: dataAnimal }) {
         const { id, value, type } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [id]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : 
-                   type === 'number' ? Number(value) : value,
+            [id]: type === 'checkbox' ? (e.target as HTMLInputElement).checked :
+                type === 'number' ? Number(value) : value,
         }));
     };
 
@@ -187,7 +187,19 @@ function GetStarted({ data }: { data: dataAnimal }) {
                                 onChange={handleChange}
                                 placeholder="Your animal Age"
                             />
-                        </div> 
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                            <Label htmlFor="animalName" className="text-left">
+                                Animal name
+                            </Label>
+                            <Input
+                                id="animalName"
+                                name="animalName"
+                                className="w-full"
+                                onChange={handleChange}
+                                placeholder="Your animal name"
+                            />
+                        </div>
                         <div className="grid grid-cols-1 gap-4">
                             <Label htmlFor="age" className="text-left">
                                 Num Tel
