@@ -47,13 +47,13 @@ function InvitationSection({ item }: { item: invitationType }) {
           <TableBody>
             <TableRow className='border-b-2 border-b-gray-200'>
               <TableCell className="font-medium text-center">
-                <div className='flex gap-0 items-center'>
+                <div className='flex gap-1 items-center justify-center'>
                   <Image src={item.senderPhoto} alt='profile image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
                   <span className='text-lg font-bold'>{item.senderName}</span>
                 </div>
               </TableCell>
               <TableCell>
-                <div className='flex gap-1 items-center'>
+                <div className='flex gap-1 items-center justify-center'>
                   {animal?.image[0] && (
                     <Image src={animal.image[0]} alt='animal image' width={50} height={50} className='rounded-full w-[40px] h-[40px]' />
                   )}
@@ -63,8 +63,8 @@ function InvitationSection({ item }: { item: invitationType }) {
               <TableCell>
                 <h2 className='border border-orange-400 bg-orange-400 p-1 text-center text-slate-100 rounded-lg'>Pending ...</h2>
               </TableCell>
-              <TableCell>
-                <Button className='bg-customBlue'>View Details</Button>
+              <TableCell className=' absolute'>
+                <Button className='bg-customBlue relative right-[-15px]'>View Details</Button>
               </TableCell>
               <TableCell>
                 <div className='flex gap-6'>

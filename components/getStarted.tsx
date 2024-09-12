@@ -47,7 +47,6 @@ function GetStarted({ data }: { data: dataAnimal }) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [formData, setFormData] = useState({
         description: '',
-        images: [],
         receiverId: data.receiverId,
         animalId: data.animalId,
         animalName: data.animalName,
@@ -56,7 +55,6 @@ function GetStarted({ data }: { data: dataAnimal }) {
         senderPhoto: '',
         senderId: '',
         status: 'pended',
-        date: new Date(),
         animalBreed: '',
         animalGender: data.animalGender === 'male' ? 'female' : 'male',
         animalAge: 10,
@@ -82,9 +80,17 @@ function GetStarted({ data }: { data: dataAnimal }) {
                 senderName: `${userDetails.lastName} ${userDetails.firstName}`,
                 senderPhoto: userDetails.photo,
                 senderId: userDetails.id,
+                
             }));
         }
     }, [userDetails]);
+
+    useEffect(() => {
+        setFormData(prevState => ({
+            ...prevState,
+            images: images,
+        }));
+    }, [images]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { id, value, type } = e.target;
