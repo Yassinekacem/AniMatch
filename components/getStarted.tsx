@@ -49,7 +49,7 @@ function GetStarted({ data }: { data: dataAnimal }) {
         description: '',
         receiverId: data.receiverId,
         animalId: data.animalId,
-        animalName: data.animalName,
+        animalName: '',
         animalSpecies: data.animalSpecies,
         senderName: '',
         senderPhoto: '',
@@ -188,6 +188,18 @@ function GetStarted({ data }: { data: dataAnimal }) {
                                 placeholder="Your animal Age"
                             />
                         </div> 
+                        <div className="grid grid-cols-1 gap-4">
+                            <Label htmlFor="name" className="text-left">
+                            Animal Name
+                            </Label>
+                            <Input
+                                id="animalName"
+                                name="animalName"
+                                className="w-full"
+                                onChange={handleChange}
+                                placeholder="Your animal name"
+                            />
+                        </div>
                         <div className="grid grid-cols-1 gap-4">
                             <Label htmlFor="age" className="text-left">
                                 Num Tel
