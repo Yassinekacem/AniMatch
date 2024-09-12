@@ -15,7 +15,9 @@ import axios from 'axios';
 import { animalType } from '@/types/animalType';
 
 function InvitationSection({ item }: { item: invitationType }) {
-  const [animal, setAnimal] = useState<animalType | null>(null);
+  const [animal, setAnimal] = useState<animalType | null>(null); 
+  const [status, setStatus] = useState(item.status);
+
 
   const animalInvited = async () => {
     try {
@@ -23,6 +25,17 @@ function InvitationSection({ item }: { item: invitationType }) {
       setAnimal(response.data[0] || null);
     } catch (error) {
       console.error("Error fetching animals:", error);
+    }
+  }; 
+
+  const handleAccept = async () => {
+    try {
+      await axios.patch(`http://localhost:3000/api/invitations/${item.id}`, {
+        status: "accepted",
+      });
+      setStatus("accepted");
+    } catch (error) {
+      console.error("Error updating invitation status:", error);
     }
   };
 
@@ -61,14 +74,16 @@ function InvitationSection({ item }: { item: invitationType }) {
                 </div>
               </TableCell>
               <TableCell>
-                <h2 className='border border-orange-400 bg-orange-400 p-1 text-center text-slate-100 rounded-lg'>Pending ...</h2>
-              </TableCell>
+              <h2 className={`border p-1 text-center text-slate-100 rounded-lg ${status === 'accepted' ? 'bg-green-500' : 'bg-orange-400'}`}>
+                  {status === 'accepted' ? 'Accepted' : 'Pending ...'}
+                </h2>
+                              </TableCell>
               <TableCell className=' absolute'>
                 <Button className='bg-customBlue relative right-[-15px]'>View Details</Button>
               </TableCell>
               <TableCell>
                 <div className='flex gap-6'>
-                  <Button className='bg-green-500'>Accept</Button>
+                  <Button  onClick={handleAccept} className='bg-green-500'>Accept</Button>
                   <Button className='bg-red-500'>Refuse</Button>
                 </div>
               </TableCell>
