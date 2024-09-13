@@ -24,9 +24,13 @@ import { Button } from "./ui/button";
 import { invitationType } from "@/types/invitationType";
 import axios from "axios";
 import { animalType } from "@/types/animalType";
+import toast from "react-hot-toast";
 
-function InvitationSection({ item }: { item: invitationType }) {
-  const [animal, setAnimal] = useState<animalType | null>(null);
+function InvitationSection({ item , removeInvitation }: { item: invitationType , removeInvitation: (wishId: number) => void }) {
+  const [animal, setAnimal] = useState<animalType | null>(null); 
+  const [status, setStatus] = useState(item.status);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 
   const animalInvited = async () => {
     try {
@@ -37,7 +41,34 @@ function InvitationSection({ item }: { item: invitationType }) {
     } catch (error) {
       console.error("Error fetching animals:", error);
     }
-  };
+  }; 
+
+  const handleAccept = async () => {
+    try {
+      await axios.patch(`http://localhost:3000/api/invitations/${item.id}`, {
+        status: "accepted",
+      }); 
+      setStatus("accepted"); 
+      toast.success("Invitation accepted successfully");
+    } catch (error) {
+      toast.error("Error updating invitation status");
+      console.error("Error updating invitation status:", error);
+    }
+  };  
+
+
+  const deleteInvitation = async () => { 
+    try {
+      await axios.delete(`http://localhost:3000/api/invitations/${item.id}`);  
+      removeInvitation(item.id) 
+      setIsDialogOpen(false);
+      toast.success("Invitation deleted successfully");
+    } catch (error) {
+      console.error("Error deleting invitation:", error);
+      toast.error("Error deleting invitation");
+    }
+  } 
+
 
   useEffect(() => {
     animalInvited();
@@ -111,12 +142,12 @@ function InvitationSection({ item }: { item: invitationType }) {
                 </div>
               </TableCell>
               <TableCell className="flex items-center justify-center">
-                <h2 className="border border-orange-400 bg-orange-400 p-1 text-center text-slate-100 rounded-lg w-1/3 ">
-                  {item.status}
+              <h2 className={`border p-1 text-center text-slate-100 rounded-lg ${status === 'accepted' ? 'bg-green-500' : 'bg-orange-400'}`}>
+                  {status === 'accepted' ? 'Accepted' : 'Pending ...'}
                 </h2>
               </TableCell>
               <TableCell className="w-1/6 ">
-                <Dialog >
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} >
                   <DialogTrigger>
                   <Button className="bg-customBlue relative left-[45px]">View Details</Button>
                   </DialogTrigger>
@@ -187,8 +218,8 @@ function InvitationSection({ item }: { item: invitationType }) {
                       </div>
                     </div>
                     <DialogFooter className="">
-                      <Button className="bg-red-500 rounded-xl">Refuse</Button>
-                      <Button className="bg-green-500 rounded-xl">Accept</Button>
+                      <Button onClick={deleteInvitation} className="bg-red-500 rounded-xl">Refuse</Button>
+                      <Button onClick={handleAccept} className="bg-green-500 rounded-xl">Accept</Button>
                     </DialogFooter>
                   </DialogContent>
                   </Dialog>

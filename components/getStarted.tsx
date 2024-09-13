@@ -189,18 +189,6 @@ function GetStarted({ data }: { data: dataAnimal }) {
                             />
                         </div>
                         <div className="grid grid-cols-1 gap-4">
-                            <Label htmlFor="animalName" className="text-left">
-                                Animal name
-                            </Label>
-                            <Input
-                                id="animalName"
-                                name="animalName"
-                                className="w-full"
-                                onChange={handleChange}
-                                placeholder="Your animal name"
-                            />
-                        </div>
-                        <div className="grid grid-cols-1 gap-4">
                             <Label htmlFor="name" className="text-left">
                             Animal Name
                             </Label>

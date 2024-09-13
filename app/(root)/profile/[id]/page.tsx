@@ -54,6 +54,9 @@ const Profile = () => {
   }, [userDetails]);
   const handleDeleteAnimal = (animalId: number) => {
     setAnimals((prevAnimals) => prevAnimals.filter(animal => animal.id !== animalId));
+  }; 
+  const removeInviFromList = (invitationId: number) => {
+    setInvitations(prevList => prevList.filter(invitation => invitation.id !== invitationId));
   };
   const handleUpdateAnimal = () => {
     AnimalsByOwner(); // Refresh the list of animals after an update
@@ -77,7 +80,9 @@ const Profile = () => {
   } 
   useEffect(() => {
     invitationsByUser();
-  }, [userDetails]);
+  }, [userDetails]);  
+
+ 
 
   return (
     <div className='flex flex-col gap-7 w-[95%] h-[1400px] mx-auto my-6 bg-gray-50 border border-slate-100 rounded-xl shadow-xl shadow-slate-500'>
@@ -109,7 +114,7 @@ const Profile = () => {
                           key={animal.id}
                           animal={animal}
                           onDelete={handleDeleteAnimal}
-                          onUpdate={handleUpdateAnimal} // Pass the update handler
+                          onUpdate={handleUpdateAnimal}  // Pass the update handler
                         />)) : (
                         <span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don't have any animals yet</span>
                       )
@@ -134,7 +139,7 @@ const Profile = () => {
       </div>
 
     <div> 
-    {Invitations.map((item: invitationType) => <InvitationSection item={item} key={item.id} />)}
+    {Invitations.map((item: invitationType) => <InvitationSection item={item} key={item.id} removeInvitation={removeInviFromList} />)}
     </div>
       
     </div>

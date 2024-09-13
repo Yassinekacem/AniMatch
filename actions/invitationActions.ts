@@ -44,6 +44,10 @@ export const getInvitationByReceiver = async (receiverId: number) => {
   return data;
 
 } 
+export const getTheInvitationById = async (id: number) => {
+  const result = await db.select().from(invitations).where(eq(invitations.id, id)).limit(1);
+  return result[0] || null;
+};
 
 
 
