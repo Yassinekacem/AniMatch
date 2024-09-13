@@ -189,8 +189,8 @@ function GetStarted({ data }: { data: dataAnimal }) {
                             />
                         </div>
                         <div className="grid grid-cols-1 gap-4">
-                            <Label htmlFor="animalName" className="text-left">
-                                Animal name
+                            <Label htmlFor="name" className="text-left">
+                            Animal Name
                             </Label>
                             <Input
                                 id="animalName"

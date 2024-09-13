@@ -113,7 +113,9 @@ const Card = ({ item }: { item: animalType }) => {
           <span className='border border-purple-200 bg-purple-200 rounded-md text-customPurple line-clamp-1'>{item.city}</span>
         </div>
       </div>
+      <div className='h-[60px]'>
       <p className='line-clamp-2 m-4'>{item.description}</p>
+      </div>
       <Link href={`/detail/${item.id}`}>
         <Button className='text-pink-400 bg-white border border-pink-400 font-medium w-[90%] mx-4 hover:bg-white'>
           More Info

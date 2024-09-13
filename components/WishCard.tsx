@@ -27,9 +27,11 @@ const WishCard = ({ item, removeWish }: { item: FetchedAnimalData, removeWish: (
             <h1 className='font-sanss text-xl text-customGreen'>{item.animals.name}</h1>
             <div className='flex items-center gap-2'>
             <Image src="/icons/position.svg" alt='imgg' width={20} height={20} className='w-5 h-5 ' />
-               <span className='text-lg font-semibold'>{item.animals.name}</span>
+               <span className='text-lg font-semibold'>{item.animals.city}</span>
             </div>
+            <div className='h-[45px]'>
             <p className='line-clamp-2 '>{item.animals.description}</p>
+            </div>
             <div className='flex items-center justify-between'>
                <Button className='flex gap-2 bg-red-500 text-white hover:bg-red-500 items-center' onClick={deleteWish}>
                   <CircleX className='w-5 h-5 text-white' />
