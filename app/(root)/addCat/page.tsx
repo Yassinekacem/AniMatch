@@ -104,7 +104,7 @@ const AddAnimal = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/animals", {
+      const response = await axios.post("https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals", {
         ...data,
         image: images,
         vaccinated: data.traits.vaccinated,

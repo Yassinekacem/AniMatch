@@ -104,7 +104,7 @@ function GetStarted({ data }: { data: dataAnimal }) {
     const SendInvitation = async () => {
         console.log(formData);
         try {
-            await axios.post(`http://localhost:3000/api/invitations`, formData);
+            await axios.post(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/invitations`, formData);
             toast.success('Invitation sent successfully');
         } catch (error: any) {
             console.error("Error sending invitation:", error);
