@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useCallback } from "react";
 import {
   Table,
   TableBody,
@@ -32,7 +32,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 
-  const animalInvited = async () => {
+  const animalInvited = useCallback(async () => {
     try {
       const response = await axios.get(
         `http://localhost:3000/api/animals/${item.animalId}`
@@ -41,7 +41,9 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
     } catch (error) {
       console.error("Error fetching animals:", error);
     }
-  }; 
+  }, [item.animalId]);
+  
+
 
   const handleAccept = async () => {
     try {
@@ -72,7 +74,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
 
   useEffect(() => {
     animalInvited();
-  }, [item.animalId]);
+  }, [animalInvited]);
 
   return (
     <div>

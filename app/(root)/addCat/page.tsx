@@ -58,6 +58,9 @@ const AddAnimal = () => {
 
   const [userDetails, setUserDetails] = useState<any>(null);
 
+  const router = useRouter();
+
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       const userDetails = await getCurrentUserWithDetails();

@@ -97,7 +97,7 @@ const ProfileCard = ({ animal, onDelete, onUpdate }: { animal: animalType; onDel
             <DialogHeader>
               <DialogTitle>Update Animal</DialogTitle>
               <DialogDescription>
-                Make changes to your animal details. Click save when you're done.
+                Make changes to your animal details. Click save when you&apos;re done.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-8">

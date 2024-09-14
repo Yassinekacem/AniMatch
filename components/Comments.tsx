@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import StarRating from './StarRating';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
@@ -33,18 +33,19 @@ const Comments = ({ petId }: CommentsProps) => {
     fetchUserDetails();
   }, []);
 
-  const getAnimalComments = async () => {
+  const getAnimalComments = useCallback(async () => {
     try {
       const response = await axios.get(`http://localhost:3000/api/comments/${petId}`);
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
-  };
+  }, [petId]);
 
   useEffect(() => {
     getAnimalComments();
-  }, [petId]);
+  }, [petId, getAnimalComments]); 
+  
 
   const AddComment = async () => {
     try {

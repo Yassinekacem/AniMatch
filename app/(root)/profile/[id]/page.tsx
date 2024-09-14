@@ -7,7 +7,7 @@ import { animalType } from '@/types/animalType';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react';
 import Loader from '@/components/Loader';
 import InvitationSection from '@/components/InvitationSection';
 import { invitationType } from '@/types/invitationType';
@@ -19,7 +19,7 @@ import { invitationType } from '@/types/invitationType';
 
 const Profile = () => {
 
-  const [Invitations , setInvitations] = useState<invitationType[]>([]); 
+  const [Invitations, setInvitations] = useState<invitationType[]>([]);
   const [userDetails, setUserDetails] = useState<any>(null);
   const [animals, setAnimals] = useState<animalType[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,13 +33,13 @@ const Profile = () => {
     fetchUserDetails();
   }, []);
 
-  const AnimalsByOwner = async () => {
+  const AnimalsByOwner = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(`http://localhost:3000/api/users/${userDetails?.id}`, {
         headers: {
-          'Cache-Control': 'no-cache',  // Forcer l'absence de cache
-          'Pragma': 'no-cache'          // Compatibilité avec HTTP/1.0
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
         }
       });
       setAnimals(response.data);
@@ -48,41 +48,44 @@ const Profile = () => {
     } finally {
       setLoading(false);
     }
-  }; 
+  }, [userDetails]); 
+
   useEffect(() => {
-    AnimalsByOwner();
-  }, [userDetails]);
+    if (userDetails) AnimalsByOwner();
+  }, [userDetails, AnimalsByOwner]);
+
+
   const handleDeleteAnimal = (animalId: number) => {
     setAnimals((prevAnimals) => prevAnimals.filter(animal => animal.id !== animalId));
-  }; 
+  };
   const removeInviFromList = (invitationId: number) => {
     setInvitations(prevList => prevList.filter(invitation => invitation.id !== invitationId));
   };
   const handleUpdateAnimal = () => {
     AnimalsByOwner(); // Refresh the list of animals after an update
-  }; 
+  };
 
 
 
-  const invitationsByUser = async () => {  
-    try { 
-      const response = await axios.get(`http://localhost:3000/api/invitations/${userDetails?.id}`, {
-        headers: {
-          'Cache-Control': 'no-cache',  // Forcer l'absence de cache
-          'Pragma': 'no-cache'          
-        }
-      });
-      setInvitations(response.data) 
-      console.log(response.data);
-    } catch (error) { 
-      console.error("Error fetching invitations:", error);
-    }
-  } 
-  useEffect(() => {
-    invitationsByUser();
-  }, [userDetails]);  
+const invitationsByUser = useCallback(async () => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/invitations/${userDetails?.id}`, {
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    });
+    setInvitations(response.data);
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching invitations:", error);
+  }
+}, [userDetails]);
+useEffect(() => {
+  if (userDetails) invitationsByUser();
+}, [userDetails, invitationsByUser]);
 
- 
+
 
   return (
     <div className='flex flex-col gap-7 w-[95%] h-[1400px] mx-auto my-6 bg-gray-50 border border-slate-100 rounded-xl shadow-xl shadow-slate-500'>
@@ -116,8 +119,8 @@ const Profile = () => {
                           onDelete={handleDeleteAnimal}
                           onUpdate={handleUpdateAnimal}  // Pass the update handler
                         />)) : (
-                        <span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don't have any animals yet</span>
-                      )
+<span className='flex items-center justify-center text-xl text-gray-500 w-full h-[310px] bg-white border border-slate-200 shadow-md shadow-slate-300 rounded-2xl'>You don&apos;t have any animals yet</span>
+                        )
                   )
                 }
 
@@ -138,10 +141,10 @@ const Profile = () => {
 
       </div>
 
-    <div> 
-    {Invitations.map((item: invitationType) => <InvitationSection item={item} key={item.id} removeInvitation={removeInviFromList} />)}
-    </div>
-      
+      <div>
+        {Invitations.map((item: invitationType) => <InvitationSection item={item} key={item.id} removeInvitation={removeInviFromList} />)}
+      </div>
+
     </div>
   )
 }

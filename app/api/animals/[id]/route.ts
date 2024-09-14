@@ -46,7 +46,7 @@ export async function GET(request: NextRequest, context: { params: { id: number 
 
     try {
         const body = await request.json();
-        const { breed, species, name, age, vaccinated, trained, gender ,  city ,friendly, available, description, image } = body;
+        const { breed, species, name, age, vaccinated, trained, gender ,  city ,friendly, available, description, image , ownerId } = body;
 
         // Vérifiez l'existence de l'animal
         const existingAnimal = await getAnimalById(id);
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest, context: { params: { id: number 
         }
 
         // Mettez à jour l'animal s'il existe
-        await editAnimal(id, breed, species, name, age, city , gender ,  vaccinated, trained, friendly, available, description, image);
+        await editAnimal(id, breed, species, name, age, city , gender ,  vaccinated, trained, friendly, available, description, image , ownerId);
         
         return NextResponse.json({ message: 'Animal updated successfully' }, { status: 200 });
     } catch (error: any) {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Filter from '@/components/FilterDogs';
 import Card from '@/components/Card';
 import { animalType } from '@/types/animalType';
@@ -28,11 +28,10 @@ const Dogs = () => {
   const [loading, setLoading] = useState(true);
 
   // Fetch animals from the server
-  const getAnimals = async () => {
+  const getAnimals = useCallback(async () => {
     setLoading(true);
     try {
-      // Create URLSearchParams including sortBy parameter
-      const params = new URLSearchParams({ ...filters, sortBy: sortOption , species : "Dog" });
+      const params = new URLSearchParams({ ...filters, sortBy: sortOption, species: "Dog" });
       const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
       setAnimals(response.data);
     } catch (error) {
@@ -40,11 +39,11 @@ const Dogs = () => {
     } finally {
       setLoading(false);
     }
-  };
-
+  }, [filters, sortOption]); 
+  
   useEffect(() => {
     getAnimals();
-  }, [filters, sortOption]);
+  }, [getAnimals]);
 
   // Pagination logic
   const items = 6;
