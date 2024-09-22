@@ -31,7 +31,7 @@ const Card = ({ item }: { item: animalType }) => {
   useEffect(() => {
     const checkIfWished = async () => {
       try {
-        const response = await axios.get(`https://api-withdrizzle-orm-9e8n-git-master-yassinekacems-projects.vercel.app/api/wish/${userDetails?.id}`);
+        const response = await axios.get(`api/wish/${userDetails?.id}`);
         const wishedAnimals = response.data;
         const isWished = wishedAnimals.find((animal: any) => animal.animals.id === item.id);
         setIsInWishlist(isWished);
@@ -47,7 +47,7 @@ const Card = ({ item }: { item: animalType }) => {
 
   const onSubmit: React.MouseEventHandler<HTMLButtonElement> = async (event) => {
     try {
-      const response = await axios.post("https://api-withdrizzle-orm-9e8n-git-master-yassinekacems-projects.vercel.app/api/wish", {
+      const response = await axios.post("api/wish", {
         userId: userDetails?.id,
         animalId: item.id,
       });

@@ -12,7 +12,7 @@ const WishList = () => {
 
   const getWishList = useCallback(async () => { 
     try { 
-        const response = await axios.get(`http://localhost:3000/api/wish/${userDetails?.id}`); 
+        const response = await axios.get(`api/wish/${userDetails?.id}`); 
         setWishList(response.data); 
         console.log(response.data);
     } catch (error) {  

@@ -30,7 +30,7 @@ const Cats = () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({ ...filters, sortBy: sortOption, species: "Cat" });
-      const response = await axios.get(`https://api-withdrizzle-orm-bmua-git-master-yassinekacems-projects.vercel.app/api/animals?${params.toString()}`);
+      const response = await axios.get(`api/animals?${params.toString()}`);
       setAnimals(response.data); 
       console.log (response.data);
     } catch (error) {

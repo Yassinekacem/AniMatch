@@ -35,7 +35,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
   const animalInvited = useCallback(async () => {
     try {
       const response = await axios.get(
-        `https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals/${item.animalId}`,
+        `api/animals/${item.animalId}`,
       );
       setAnimal(response.data[0] || null);
     } catch (error) {
@@ -48,7 +48,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
 
   const handleAccept = async () => {
     try {
-      await axios.patch(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/invitations/${item.id}`, {
+      await axios.patch(`api/invitations/${item.id}`, {
         status: "accepted",
       }); 
       setStatus("accepted"); 
@@ -62,7 +62,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
 
   const deleteInvitation = async () => { 
     try {
-      await axios.delete(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/invitations/${item.id}`);  
+      await axios.delete(`api/invitations/${item.id}`);  
       removeInvitation(item.id) 
       setIsDialogOpen(false);
       toast.success("Invitation deleted successfully");

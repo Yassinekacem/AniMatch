@@ -104,7 +104,7 @@ const AddAnimal = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/animals", {
+      const response = await axios.post("api/animals", {
         ...data,
         image: images,
         vaccinated: data.traits.vaccinated,

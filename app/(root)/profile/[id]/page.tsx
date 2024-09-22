@@ -36,7 +36,7 @@ const Profile = () => {
   const AnimalsByOwner = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://api-withdrizzle-orm-9e8n-git-master-yassinekacems-projects.vercel.app/api/users/${userDetails?.id}`, {
+      const response = await axios.get(`api/users/${userDetails?.id}`, {
         headers: {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache'
@@ -69,7 +69,7 @@ const Profile = () => {
 
 const invitationsByUser = useCallback(async () => {
   try {
-    const response = await axios.get(`https://api-withdrizzle-orm-9e8n-git-master-yassinekacems-projects.vercel.app/api/invitations/${userDetails?.id}`, {
+    const response = await axios.get(`api/invitations/${userDetails?.id}`, {
       headers: {
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache'
