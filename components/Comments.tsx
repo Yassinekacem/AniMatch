@@ -35,7 +35,7 @@ const Comments = ({ petId }: CommentsProps) => {
 
   const getAnimalComments = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/comments/${petId}`);
+      const response = await axios.get(`https://api-withdrizzle-orm-9e8n-git-master-yassinekacems-projects.vercel.app/api/comments/${petId}`);
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -49,7 +49,7 @@ const Comments = ({ petId }: CommentsProps) => {
 
   const AddComment = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/comments", {
+      const response = await axios.post("https://api-withdrizzle-orm-9e8n-git-master-yassinekacems-projects.vercel.app/api/comments", {
         userId: userDetails?.id,
         animalId: petId,
         userPhoto: userDetails?.photo,
