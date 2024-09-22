@@ -32,14 +32,14 @@ const Dogs = () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({ ...filters, sortBy: sortOption, species: "Dog" });
-      const response = await axios.get(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals?${params.toString()}`);
+      const response = await axios.get(`api/animals?${params.toString()}`);
       setAnimals(response.data);
-    } catch (error) {
-      console.error("Error fetching animals:", error);
+    } catch (error : any) {
+      console.error("Error fetching animals:", error.response ? error.response.data : error.message);
     } finally {
       setLoading(false);
     }
-  }, [filters, sortOption]); 
+  }, [filters, sortOption]);
   
   useEffect(() => {
     getAnimals();

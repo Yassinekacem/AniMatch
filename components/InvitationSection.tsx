@@ -35,13 +35,14 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
   const animalInvited = useCallback(async () => {
     try {
       const response = await axios.get(
-        `https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals/${item.animalId}`
+        `https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals/${item.animalId}`,
       );
       setAnimal(response.data[0] || null);
     } catch (error) {
       console.error("Error fetching animals:", error);
     }
   }, [item.animalId]);
+  
   
 
 

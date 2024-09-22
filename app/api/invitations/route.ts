@@ -3,13 +3,19 @@ import { addInvitation , checkInvitationExists, getAllInvitations } from "@/acti
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
-    try {
-        const data = await getAllInvitations();
-        return NextResponse.json(data, { status: 200 });
-    } catch (error: any) {
-        console.error("Error fetching data:", error);
-        return NextResponse.json({ message: 'Error fetching data', error }, { status: 500 });
-    }
+  try {
+    const data = await getAllInvitations();
+
+    const response = NextResponse.json(data, { status: 200 });
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    return response;
+  } catch (error: any) {
+    console.error("Error fetching data:", error);
+    return NextResponse.json({ message: 'Error fetching data', error }, { status: 500 });
+  }
 };
 
 

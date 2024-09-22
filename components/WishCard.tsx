@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 const WishCard = ({ item, removeWish }: { item: FetchedAnimalData, removeWish: (wishId: number) => void }) => {  
    const deleteWish = async () => { 
       try { 
-         const response = await axios.delete(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/wish/${item.wishs.id}`); 
+         const response = await axios.delete(`http://localhost:3000/api/wish/${item.wishs.id}`); 
          removeWish(item.wishs.id)
          toast.success('Wish deleted successfully'); // Show success toast
       } catch (error) {  

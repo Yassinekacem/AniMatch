@@ -25,7 +25,7 @@ const Detail = () => {
     const getAnimal = useCallback(async () => {
         if (!id) return;
         try {
-          const response = await axios.get(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals/${id}`);
+          const response = await axios.get(`http://localhost:3000/api/animals/${id}`);
           setPet(response.data[0] || null);
           setTotalComments(response.data.totalComments);
           setAvgRating(response.data.avgRating);
@@ -56,7 +56,7 @@ const Detail = () => {
 
     const getAnimals = async () => {
         try {
-            const response = await axios.get("https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals");
+            const response = await axios.get("http://localhost:3000/api/animals");
             setAnimals(response.data);
         } catch (error) {
             console.error("Error fetching animals:", error);

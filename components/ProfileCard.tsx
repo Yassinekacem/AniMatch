@@ -56,7 +56,7 @@ const ProfileCard = ({ animal, onDelete, onUpdate }: { animal: animalType; onDel
         image: images.length === 0 ? [...formData.image,] : images, // Ajoute les nouvelles images seulement si elles existent
       };
       
-      await axios.put(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals/${animal.id}`, updatedData);
+      await axios.put(`http://localhost:3000/api/animals/${animal.id}`, updatedData);
       toast.success('Animal updated successfully');
       onUpdate(); // Call the onUpdate function to refresh data
       setIsDialogOpen(false); // Close dialog
@@ -68,7 +68,7 @@ const ProfileCard = ({ animal, onDelete, onUpdate }: { animal: animalType; onDel
 
   const DeleteAnimal = async () => {
     try {
-      await axios.delete(`https://api-withdrizzle-orm-9e8n-jq5l35l9g-yassinekacems-projects.vercel.app/api/animals/${animal.id}`);
+      await axios.delete(`http://localhost:3000/api/animals/${animal.id}`);
       toast.success('Animal deleted successfully');
       onDelete(animal.id);
     } catch (error) {
