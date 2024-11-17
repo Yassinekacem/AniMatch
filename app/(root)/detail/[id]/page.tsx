@@ -25,7 +25,7 @@ const Detail = () => {
     const getAnimal = useCallback(async () => {
         if (!id) return;
         try {
-          const response = await axios.get(`api/animals/${id}`);
+          const response = await axios.get(`https://ani-match.vercel.app/api/animals/${id}`); 
           setPet(response.data[0] || null);
           setTotalComments(response.data.totalComments);
           setAvgRating(response.data.avgRating);

@@ -28,7 +28,7 @@ const WishList = () => {
     if (userDetails) {
         getWishList();
     }
-}, [userDetails, getWishList]);
+}, [userDetails, getWishList ]);
 
   useEffect(() => {
     const fetchUserDetails = async () => {

@@ -20,28 +20,15 @@ import { invitationType } from '@/types/invitationType';
 const Profile = () => {
 
   const [Invitations, setInvitations] = useState<invitationType[]>([]);
+  const [loading, setLoading] = useState(true);
   const [userDetails, setUserDetails] = useState<any>(null);
   const [animals, setAnimals] = useState<animalType[]>([]);
-  const [loading, setLoading] = useState(true);
 
-
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      const userDetails = await getCurrentUserWithDetails();
-      setUserDetails(userDetails);
-    };
-    fetchUserDetails();
-  }, []);
-
+  
   const AnimalsByOwner = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`api/users/${userDetails?.id}`, {
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        }
-      });
+      const response = await axios.get(`https://ani-match.vercel.app/api/users/${userDetails?.id}`)
       setAnimals(response.data);
     } catch (error) {
       console.error("Error fetching animals:", error);
@@ -51,8 +38,20 @@ const Profile = () => {
   }, [userDetails]); 
 
   useEffect(() => {
-    if (userDetails) AnimalsByOwner();
+    if (userDetails) 
+      {
+        AnimalsByOwner()
+      }
+    ;
   }, [userDetails, AnimalsByOwner]);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const userDetails = await getCurrentUserWithDetails();
+      setUserDetails(userDetails);
+    };
+    fetchUserDetails();
+  }, []);
 
 
   const handleDeleteAnimal = (animalId: number) => {
@@ -86,7 +85,13 @@ useEffect(() => {
 }, [userDetails, invitationsByUser]);
 
 
-
+useEffect(() => {
+  const fetchUserDetails = async () => {
+    const userDetails = await getCurrentUserWithDetails();
+    setUserDetails(userDetails);
+  };
+  fetchUserDetails();
+}, []);
   return (
     <div className='flex flex-col gap-7 w-[95%] h-[1400px] mx-auto my-6 bg-gray-50 border border-slate-100 rounded-xl shadow-xl shadow-slate-500'>
       <div className='flex gap-3 w-full h-[10%] bg-customBlue rounded-t-xl pl-[65px] items-center'>
