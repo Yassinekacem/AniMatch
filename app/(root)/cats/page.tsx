@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import Loader from '@/components/Loader';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Cats = () => {
   const [filters, setFilters] = useState({});
@@ -90,7 +91,17 @@ const Cats = () => {
         </div>
 
         {loading ? (
-          <Loader />
+          <div className="flex gap-8 flex-wrap w-full">
+          {[...Array(items)].map((_, index) => (
+            <div key={index} className="w-[300px] h-[450px] bg-slate-50 rounded-xl shadow-xl shadow-slate-200">
+              <Skeleton className="h-[180px] w-full rounded-xl bg-slate-300" />
+              <div className="space-y-2 mt-2">
+                <Skeleton className="h-4 w-3/4 bg-slate-300" />
+                <Skeleton className="h-4 w-1/2 bg-slate-300" />
+              </div>
+            </div>
+          ))}
+        </div>
         ) : (
           <div className='flex gap-8 flex-wrap w-full'>
             {dataPerPage

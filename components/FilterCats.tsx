@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client'; // Ensure this component runs on the client side
+
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import {
     Select,
@@ -10,36 +12,59 @@ import {
 import Image from 'next/image';
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from 'next/link';
-
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const cityOptions = [
     "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan", "Bizerte",
     "Beja", "Jendouba", "Kef", "Siliana", "Kairouan", "Sousse", "Mahdia",
     "Monastir", "Sfax", "Gabes", "Mednine", "Tozeur", "Gafsa", "Kasserine",
     "Sidi Bouzid", "Tataouine", "Gbelli"
-]; 
+];
 
-
-const CatsBreedsOptions = [ "Siamois" , "Persan" , "Bengal" , "Scottish Fold" , "Ragdoll" , "sphynx" , "snowshoe" , "himalayan" , "Others" ];
-
+const CatsBreedsOptions = ["Siamois", "Persan", "Bengal", "Scottish Fold", "Ragdoll", "sphynx", "snowshoe", "himalayan", "Others"];
 
 type FilterProps = {
-    onFilterChange: (filters: { breed?: string; city?: string; gender?: string; ageCategory?: string; vaccinated?: boolean; trained?: boolean; friendly?: boolean }) => void;
+    onFilterChange: (filters: { breed?: string; city?: string; gender?: string; ageCategory?: string; vaccinated?: boolean; friendly?: boolean }) => void;
 };
 
 const Filter = ({ onFilterChange }: FilterProps) => {
-    const [selectedBreed, setSelectedBreed] = useState('');
-    const [selectedCity, setSelectedCity] = useState('');
-    const [selectedGender, setSelectedGender] = useState('');
-    const [selectedAgeCategory, setSelectedAgeCategory] = useState('');
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
+    // State variables initialized from searchParams
+    const [selectedBreed, setSelectedBreed] = useState(searchParams.get('breed') || '');
+    const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || '');
+    const [selectedGender, setSelectedGender] = useState(searchParams.get('gender') || '');
+    const [selectedAgeCategory, setSelectedAgeCategory] = useState(searchParams.get('ageCategory') || '');
+    const [vaccinated, setVaccinated] = useState(searchParams.get('vaccinated') === 'true');
+    const [friendly, setFriendly] = useState(searchParams.get('friendly') === 'true');
 
-    const [vaccinated, setVaccinated] = useState(false);
-    const [trained, setTrained] = useState(false);
-    const [friendly, setFriendly] = useState(false);
+    // Sync state with URL on initial load and URL changes
+    useEffect(() => {
+        setSelectedBreed(searchParams.get('breed') || '');
+        setSelectedCity(searchParams.get('city') || '');
+        setSelectedGender(searchParams.get('gender') || '');
+        setSelectedAgeCategory(searchParams.get('ageCategory') || '');
+        setVaccinated(searchParams.get('vaccinated') === 'true');
+        setFriendly(searchParams.get('friendly') === 'true');
+    }, [searchParams]);
+
+    const updateSearchParams = () => {
+        const params = new URLSearchParams();
+
+        if (selectedBreed) params.set('breed', selectedBreed);
+        if (selectedCity) params.set('city', selectedCity);
+        if (selectedGender) params.set('gender', selectedGender);
+        if (selectedAgeCategory) params.set('ageCategory', selectedAgeCategory);
+
+        if (vaccinated) params.set('vaccinated', 'true');
+        if (friendly) params.set('friendly', 'true');
+
+        router.push(`?${params.toString()}`);
+    };
 
     const applyFilters = () => {
-        const filters: { breed?: string; city?: string; gender?: string; ageCategory?: string; vaccinated?: boolean; trained?: boolean; friendly?: boolean } = {};
+        const filters: { breed?: string; city?: string; gender?: string; ageCategory?: string; vaccinated?: boolean; friendly?: boolean } = {};
 
         if (selectedBreed) filters.breed = selectedBreed;
         if (selectedCity) filters.city = selectedCity;
@@ -47,10 +72,10 @@ const Filter = ({ onFilterChange }: FilterProps) => {
         if (selectedAgeCategory) filters.ageCategory = selectedAgeCategory;
 
         if (vaccinated) filters.vaccinated = vaccinated;
-        if (trained) filters.trained = trained;
         if (friendly) filters.friendly = friendly;
 
         onFilterChange(filters);
+        updateSearchParams();
     };
 
     return (
@@ -59,7 +84,18 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                 <Button className='text-pink-400 bg-white hover:bg-white'>
                     Filters
                 </Button>
-                <Button className='text-gray-400 bg-white hover:bg-white'>
+                <Button
+                    className='text-gray-400 bg-white hover:bg-white'
+                    onClick={() => {
+                        router.push('/');
+                        setSelectedBreed('');
+                        setSelectedCity('');
+                        setSelectedGender('');
+                        setSelectedAgeCategory('');
+                        setVaccinated(false);
+                        setFriendly(false);
+                    }}
+                >
                     Reset Filters
                 </Button>
             </div>
@@ -73,7 +109,7 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                 </Link>
             </div>
             <div className='flex flex-col gap-4 w-full mt-4'>
-                <Select onValueChange={setSelectedCity}>
+                <Select onValueChange={setSelectedCity} value={selectedCity}>
                     <SelectTrigger className="w-[90%] mx-auto ">
                         <SelectValue placeholder="City" />
                     </SelectTrigger>
@@ -84,20 +120,18 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                     </SelectContent>
                 </Select>
 
-                <Select onValueChange={setSelectedBreed} >
+                <Select onValueChange={setSelectedBreed} value={selectedBreed}>
                     <SelectTrigger className="w-[90%] mx-auto ">
                         <SelectValue placeholder="Breed" />
                     </SelectTrigger>
                     <SelectContent className='mb-5'>
-                       {
-                        CatsBreedsOptions.map(breed => (
+                        {CatsBreedsOptions.map(breed => (
                             <SelectItem key={breed} value={breed}>{breed}</SelectItem>
-                        ))
-                       }
+                        ))}
                     </SelectContent>
                 </Select>
 
-                <Select onValueChange={setSelectedGender} >
+                <Select onValueChange={setSelectedGender} value={selectedGender}>
                     <SelectTrigger className="w-[90%] mx-auto ">
                         <SelectValue placeholder="Gender" />
                     </SelectTrigger>
@@ -107,7 +141,7 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                     </SelectContent>
                 </Select>
 
-                <Select onValueChange={setSelectedAgeCategory}>
+                <Select onValueChange={setSelectedAgeCategory} value={selectedAgeCategory}>
                     <SelectTrigger className="w-[90%] mx-auto ">
                         <SelectValue placeholder="Age Category" />
                     </SelectTrigger>
@@ -119,10 +153,8 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                     </SelectContent>
                 </Select>
 
-
                 <div className='w-[85%] mx-auto my-3'>
-                    <span className='font-light text-md text-gray-400'>Select the items you want to display in your Filter:</span> 
-                    <br/>
+                    <span className='font-light text-md text-gray-400'>Select the items you want to display in your Filter:</span>
                     <div className='flex flex-col items-start mt-2 gap-3'>
                         <div className="flex items-center justify-center space-x-2">
                             <Checkbox
@@ -137,9 +169,6 @@ const Filter = ({ onFilterChange }: FilterProps) => {
                                 Vaccinated
                             </label>
                         </div>
-
-                   
-
                         <div className="flex items-center justify-center space-x-2">
                             <Checkbox
                                 id="friendly"

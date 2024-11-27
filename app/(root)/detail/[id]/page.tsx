@@ -11,6 +11,9 @@ import Comments from '@/components/Comments';
 import Stars from '@/components/Stars';
 import Loader from '@/components/Loader';
 import GetStarted from '@/components/getStarted';
+import { Skeleton } from "@/components/ui/skeleton"
+
+
 const Detail = () => {
     const [pet, setPet] = useState<animalType | null>(null);
     const [currentImage, setCurrentImage] = useState<string>("");
@@ -67,7 +70,62 @@ const Detail = () => {
         getAnimals();
     }, []);
 
-    if (!pet) return <Loader />;
+    if (!pet) {return (
+        <div className="m-10 ">
+            <div className="flex items-center gap-2">
+                <Skeleton className="w-16 h-16 rounded-full bg-slate-300" />
+                <div className="flex flex-col gap-2">
+                    <Skeleton className="w-32 h-6 rounded bg-slate-300" />
+                    <Skeleton className="w-48 h-4 rounded bg-slate-300" />
+                </div>
+            </div>
+
+            <div className="flex gap-6 mt-3">
+                <div className="flex-2 flex flex-col gap-2">
+                    <Skeleton className="w-[808px] h-[414px] rounded-md bg-slate-300" />
+                    <div className="flex gap-4 p-2">
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <Skeleton key={index} className="w-[184px] h-[122px] rounded-md bg-slate-300" />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex-1 flex flex-col gap-8">
+                    <div className="flex flex-col gap-4">
+                        {Array.from({ length: 6 }).map((_, index) => (
+                            <div key={index} className="flex gap-2 items-center">
+                                <Skeleton className="w-8 h-8 rounded-full bg-slate-300" />
+                                <Skeleton className="w-64 h-6 rounded bg-slate-300" />
+                            </div>
+                        ))}
+
+                        <div className="w-[80%] bg-gray-100 rounded-lg p-2">
+                            <Skeleton className="w-32 h-6 rounded mb-2 bg-slate-300" />
+                            <Skeleton className="w-full h-20 rounded bg-slate-300" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center justify-center mt-6">
+                <Skeleton className="w-32 h-10 rounded bg-slate-300" />
+            </div>
+
+            <div className="flex flex-col gap-5 items-center justify-center mt-4">
+                <Skeleton className="w-48 h-6 rounded bg-slate-300" />
+                <div className="flex gap-5">
+                    {Array.from({ length: petsPerPage }).map((_, index) => (
+                        <Skeleton key={index} className="w-[184px] h-[214px] rounded-md bg-slate-300" />
+                    ))}
+                </div>
+                <div className="flex justify-between w-full max-w-md mt-4">
+                    <Skeleton className="w-32 h-10 rounded bg-slate-300" />
+                    <Skeleton className="w-32 h-10 rounded bg-slate-300" />
+                </div>
+            </div>
+        </div>
+    );
+}
 
     const handleNext = () => {
         if (currentPage < Math.ceil(filteredAnimals.length / petsPerPage) - 1) {

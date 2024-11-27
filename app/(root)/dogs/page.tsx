@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/Loader';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Dogs = () => {
   const [filters, setFilters] = useState({});
@@ -91,11 +92,22 @@ const Dogs = () => {
         </div>
 
         {loading ? (
-          <Loader />
+          <div className="flex gap-8 flex-wrap w-full">
+            {[...Array(items)].map((_, index) => (
+              <div key={index} className="w-[300px] h-[450px] bg-slate-50 rounded-xl shadow-xl shadow-slate-200">
+                <Skeleton className="h-[180px] w-full rounded-xl bg-slate-300" />
+                <div className="space-y-2 mt-2">
+                  <Skeleton className="h-4 w-3/4 bg-slate-300" />
+                  <Skeleton className="h-4 w-1/2 bg-slate-300" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
-          <div className='flex gap-8 flex-wrap w-full'>
-            {dataPerPage
-              .map((item: animalType) => <Card item={item} key={item.id} />)}
+          <div className="flex gap-8 flex-wrap w-full">
+            {dataPerPage.map((item: animalType) => (
+              <Card item={item} key={item.id} />
+            ))}
           </div>
         )}
 
