@@ -59,6 +59,9 @@ const AddAnimal = () => {
 
   const [userDetails, setUserDetails] = useState<any>(null);
 
+  const router = useRouter();
+
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       const userDetails = await getCurrentUserWithDetails();
@@ -102,7 +105,7 @@ const AddAnimal = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/animals", {
+      const response = await axios.post("api/animals", {
         ...data,
         image: images,
         vaccinated: data.traits.vaccinated,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Filter from '@/components/FilterCats';
 import Card from '@/components/Card';
 import { animalType } from '@/types/animalType';
@@ -19,30 +19,30 @@ import { Search } from 'lucide-react';
 import Loader from '@/components/Loader';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const Dogs = () => {
+const Cats = () => {
   const [filters, setFilters] = useState({});
   const [sortOption, setSortOption] = useState('date'); // Default sort option
   const [animals, setAnimals] = useState<animalType[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch animals from the server
-  const getAnimals = async () => {
+  const getAnimals = useCallback(async () => {
     setLoading(true);
     try {
-      // Create URLSearchParams including sortBy parameter
-      const params = new URLSearchParams({ ...filters, sortBy: sortOption , species : "Cat" });
-      const response = await axios.get(`http://localhost:3000/api/animals?${params.toString()}`);
-      setAnimals(response.data);
+      const params = new URLSearchParams({ ...filters, sortBy: sortOption, species: "Cat" });
+      const response = await axios.get(`api/animals?${params.toString()}`);
+      setAnimals(response.data); 
+      console.log (response.data);
     } catch (error) {
       console.error("Error fetching animals:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters, sortOption]);
 
   useEffect(() => {
     getAnimals();
-  }, [filters, sortOption]);
+  }, [getAnimals]);
 
   // Pagination logic
   const items = 6;
@@ -144,4 +144,4 @@ const Dogs = () => {
   );
 };
 
-export default Dogs;
+export default Cats;

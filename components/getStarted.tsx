@@ -104,7 +104,7 @@ function GetStarted({ data }: { data: dataAnimal }) {
     const SendInvitation = async () => {
         console.log(formData);
         try {
-            await axios.post(`http://localhost:3000/api/invitations`, formData);
+            await axios.post(`api/invitations`, formData);
             toast.success('Invitation sent successfully');
         } catch (error: any) {
             console.error("Error sending invitation:", error);

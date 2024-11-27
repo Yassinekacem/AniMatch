@@ -1,6 +1,6 @@
 "use client"; 
 import { getCurrentUserWithDetails } from '@/actions/userActions';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import Image from 'next/image';
@@ -22,17 +22,22 @@ const Detail = () => {
     const [currentPage, setCurrentPage] = useState<number>(0);
     const petsPerPage = 4;
 
-    const getAnimal = async () => {
+    const getAnimal = useCallback(async () => {
         if (!id) return;
         try {
-            const response = await axios.get(`http://localhost:3000/api/animals/${id}`);
-            setPet(response.data[0] || null);
-            setTotalComments(response.data.totalComments);
-            setAvgRating(response.data.avgRating);
+          const response = await axios.get(`https://ani-match.vercel.app/api/animals/${id}`); 
+          setPet(response.data[0] || null);
+          setTotalComments(response.data.totalComments);
+          setAvgRating(response.data.avgRating);
         } catch (error) {
-            console.error("Error fetching animals:", error);
+          console.error("Error fetching animals:", error);
         }
-    }; 
+      }, [id]); 
+      useEffect(() => {
+        getAnimal();
+      }, [getAnimal]);
+
+      
     useEffect(() => {
         const fetchUserDetails = async () => {
           const userDetails = await getCurrentUserWithDetails();
@@ -41,9 +46,7 @@ const Detail = () => {
         fetchUserDetails();
       }, []);
 
-    useEffect(() => {
-        getAnimal();
-    }, [id]);
+  
 
     useEffect(() => {
         if (pet && pet.image && pet.image.length > 0) {
@@ -53,7 +56,7 @@ const Detail = () => {
 
     const getAnimals = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/animals");
+            const response = await axios.get("api/animals");
             setAnimals(response.data);
         } catch (error) {
             console.error("Error fetching animals:", error);

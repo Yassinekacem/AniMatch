@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useCallback } from "react";
 import {
   Table,
   TableBody,
@@ -32,20 +32,23 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 
-  const animalInvited = async () => {
+  const animalInvited = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/animals/${item.animalId}`
+        `api/animals/${item.animalId}`,
       );
       setAnimal(response.data[0] || null);
     } catch (error) {
       console.error("Error fetching animals:", error);
     }
-  }; 
+  }, [item.animalId]);
+  
+  
+
 
   const handleAccept = async () => {
     try {
-      await axios.patch(`http://localhost:3000/api/invitations/${item.id}`, {
+      await axios.patch(`api/invitations/${item.id}`, {
         status: "accepted",
       }); 
       setStatus("accepted"); 
@@ -59,7 +62,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
 
   const deleteInvitation = async () => { 
     try {
-      await axios.delete(`http://localhost:3000/api/invitations/${item.id}`);  
+      await axios.delete(`api/invitations/${item.id}`);  
       removeInvitation(item.id) 
       setIsDialogOpen(false);
       toast.success("Invitation deleted successfully");
@@ -72,7 +75,7 @@ function InvitationSection({ item , removeInvitation }: { item: invitationType ,
 
   useEffect(() => {
     animalInvited();
-  }, [item.animalId]);
+  }, [animalInvited]);
 
   return (
     <div>

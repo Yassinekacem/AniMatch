@@ -62,12 +62,12 @@ const Home = () => {
         <Image src="/images/pas.png" alt="pas" width={50} height={20} className='w-[150px] z-1 relative top-[75px] right-[80px]' />
         <div className='w-[50%] flex flex-col gap-[40px] h-[70%] z-10'>
           <h1 className='bold-52 font-sansss'>Connect your pet with his Ideal partner</h1>
-          <p className='font-light'>Choose your pet's species to start finding their perfect match.</p>
+          <p className='font-light'>Choose your pet&apos;s species to start finding their perfect match.</p>
           <div>
             <Select onValueChange={(value) => setSpecies(value)}>
               <SelectTrigger className="w-[440px] border border-black">
-                <SelectValue placeholder="Select your pet's species" />
-              </SelectTrigger>
+              <SelectValue placeholder="Select your pet&apos;s species" />
+                            </SelectTrigger>
               <SelectContent className='mb-5'>
                 <SelectItem value="cat">Cat</SelectItem>
                 <SelectItem value="dog">Dog</SelectItem>

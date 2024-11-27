@@ -1,7 +1,7 @@
 "use client";
 import WishCard from '@/components/WishCard';
 import { animalType, FetchedAnimalData } from '@/types/animalType';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getCurrentUserWithDetails } from "@/actions/userActions";
 import axios from 'axios';
 import Link from 'next/link';
@@ -10,15 +10,15 @@ const WishList = () => {
   const [wishList, setWishList] = useState<FetchedAnimalData[]>([]);
   const [userDetails, setUserDetails] = useState<any>(null);
 
-  const getWishList = async () => { 
+  const getWishList = useCallback(async () => { 
     try { 
-      const response = await axios.get(`http://localhost:3000/api/wish/${userDetails?.id}`); 
-      setWishList(response.data); 
-      console.log(response.data);
+        const response = await axios.get(`api/wish/${userDetails?.id}`); 
+        setWishList(response.data); 
+        console.log(response.data);
     } catch (error) {  
-      console.error("Error fetching wishList:", error); 
+        console.error("Error fetching wishList:", error); 
     }
-  }
+}, [userDetails]);
 
   const removeWishFromList = (wishId: number) => {
     setWishList(prevList => prevList.filter(item => item.wishs.id !== wishId));
@@ -26,9 +26,9 @@ const WishList = () => {
 
   useEffect(() => {
     if (userDetails) {
-      getWishList();
+        getWishList();
     }
-  }, [userDetails]);
+}, [userDetails, getWishList ]);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
